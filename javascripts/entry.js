@@ -2,7 +2,7 @@ let x, y, draggable;
 const wholeDoc = Array.from(document.getElementsByTagName('html'))[0];
 import { addDiv } from './draggableDiv';
 
-
+window.snap = false;
 
 
 
