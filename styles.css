@@ -33,19 +33,27 @@
 
 *[class*="bottom"], *[class*="top"]{
   height:6px;
+}
+
+
+*[class*="bottom"]:hover, *[class*="top"]:hover{
   cursor: ns-resize;
 }
 
 *[class*="left"], *[class*="right"]{
   width:6px;
+  /* cursor: ew-resize; */
+}
+
+*[class*="left"]:hover, *[class*="right"]:hover{
   cursor: ew-resize;
 }
 
-*[class*='bottom-left'], *[class*='top-right']{
+*[class*='bottom-left']:hover, *[class*='top-right']:hover{
   cursor: nesw-resize;
 }
 
-*[class*='top-left'], *[class*='bottom-right']{
+*[class*='top-left']:hover, *[class*='bottom-right']:hover{
   cursor: nwse-resize;
 }
 
