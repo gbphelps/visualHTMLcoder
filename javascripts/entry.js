@@ -103,11 +103,7 @@ const callbacks = [
   bottomLeftCb
 ];
 
-
-
-document.addEventListener('DOMContentLoaded',()=>{
-  document.addEventListener('mouseup',mouseup);
-
+const addDiv = () => {
   const draggable = document.createElement('DIV');
   draggable.classList.add('draggable');
 
@@ -126,12 +122,10 @@ document.addEventListener('DOMContentLoaded',()=>{
   })
 
   document.body.append(draggable);
-  // draggable.getElementsByClassName('boundary-bottom')[0].addEventListener('mousedown',drag(bottomCb));
-  // draggable.getElementsByClassName('boundary-top')[0].addEventListener('mousedown',drag(topCb));
-  // draggable.getElementsByClassName('boundary-right')[0].addEventListener('mousedown',drag(rightCb));
-  // draggable.getElementsByClassName('boundary-left')[0].addEventListener('mousedown',drag(leftCb));
-  // draggable.getElementsByClassName('boundary-bottom-right')[0].addEventListener('mousedown',drag(bottomRightCb));
-  // draggable.getElementsByClassName('boundary-top-left')[0].addEventListener('mousedown',drag(topLeftCb));
-  // draggable.getElementsByClassName('boundary-top-right')[0].addEventListener('mousedown',drag(topRightCb));
-  // draggable.getElementsByClassName('boundary-bottom-left')[0].addEventListener('mousedown',drag(bottomLeftCb));
+}
+
+window.addDiv = addDiv;
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.addEventListener('mouseup',mouseup);
 });
