@@ -121,7 +121,7 @@ const addDiv = () => {
     draggable.append(box);
   })
 
-  document.body.append(draggable);
+  document.getElementById('content').append(draggable);
 }
 
 window.addDiv = addDiv;
