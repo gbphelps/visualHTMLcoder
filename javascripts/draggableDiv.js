@@ -110,12 +110,29 @@ export const addDiv = () => {
 
   draggable.addEventListener('mousedown',drag(moveElement(draggable)));
 
-  boundaries.forEach((boundary,i) => {
-    const box = document.createElement('DIV');
-    box.classList.add(boundary);
-    box.addEventListener('mousedown',drag(callbacks[i](draggable)));
-    draggable.append(box);
-  })
+
+
+
+  draggable.addEventListener('focus',()=>{
+    const container = document.createElement('DIV');
+    container.id = 'boundary-box';
+
+    boundaries.forEach((boundary,i) => {
+      const box = document.createElement('DIV');
+      box.classList.add(boundary);
+      box.addEventListener('mousedown', drag(callbacks[i](draggable)));
+      container.append(box);
+    });
+
+    draggable.append(container);
+  });
+
+  draggable.addEventListener('blur', ()=>{
+    document.getElementById('boundary-box').remove();
+  });
+
+
+
 
   document.getElementById('content').append(draggable);
   draggable.tabIndex = -1;
