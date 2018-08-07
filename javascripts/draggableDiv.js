@@ -1,5 +1,4 @@
 let x, y;
-let snap = true;
 
 const wholeDoc = Array.from(document.getElementsByTagName('html'))[0];
 
@@ -17,7 +16,7 @@ const drag = callback => e => {
     document.removeEventListener('mouseup', mouseup);
     document.removeEventListener('mousemove', callback);
     wholeDoc.style.cursor = 'auto';
-    if (snap) {
+    if (window.snap) {
       const el = document.activeElement;
       el.style.top = Math.round(v(el.style.top)/20)*20 + 'px';
       el.style.left = Math.round(v(el.style.left)/20)*20 + 'px';

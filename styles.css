@@ -72,9 +72,6 @@
   position:absolute;
 }
 
-#toolbar{
-  background: gray;
-}
 
 .selected{
   /* animation: selected 1s linear infinite; */
@@ -96,4 +93,18 @@
 #boundary-box{
   height:100%;
   width:100%;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+#toolbar{
+  display:flex;
+}
+
+.button{
+  margin: 2px;
+  background: gray;
+  padding: 2px;
 }

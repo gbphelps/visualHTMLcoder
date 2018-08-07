@@ -13,6 +13,13 @@ import { addDiv } from './draggableDiv';
 document.addEventListener('DOMContentLoaded',()=>{
 
   document.getElementById('add').addEventListener('mousedown', e => {
-    e.preventDefault(); addDiv();
+    e.preventDefault();
+    addDiv();
+  })
+
+  document.getElementById('snap').addEventListener('mousedown', e => {
+    e.preventDefault();
+    window.snap = !window.snap;
+    e.target.style.color = window.snap ? 'red' : 'black';
   })
 });
