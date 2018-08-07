@@ -7,8 +7,14 @@ const drag = callback => e => {
   e.preventDefault();
   x = e.clientX;
   y = e.clientY;
-  window.dragListener = callback;
-  document.addEventListener('mousemove', window.dragListener)
+
+  document.addEventListener('mousemove', callback);
+
+  document.addEventListener('mouseup', ()=>{
+    document.removeEventListener('mousemove', callback);
+    wholeDoc.style.cursor = 'auto';
+  });
+  
 };
 
 const v = string => {
