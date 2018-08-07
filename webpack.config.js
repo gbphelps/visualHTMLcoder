@@ -10,5 +10,10 @@ module.exports = {
   resolve: {
     extensions: ['.js', '*']
   },
+  module: {
+    rules: [
+      exclude: /(node_modules)/,
+    ]
+  }
   devtool: 'source-map'
 };
