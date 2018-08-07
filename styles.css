@@ -75,3 +75,19 @@
 #toolbar{
   background: gray;
 }
+
+.selected{
+  /* animation: selected 1s linear infinite; */
+  outline: 2px solid blue;
+  outline-offset: -2px;
+}
+
+@keyframes selected {
+  0%{outline-color: transparent}
+  50%{outline-color: blue}
+  100%{outline-color: transparent}
+}
+
+div:focus{
+  background:blue;
+}
