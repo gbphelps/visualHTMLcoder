@@ -20,87 +20,118 @@ const v = string => {
   return +string.slice(0, string.length-2);
 };
 
-const moveElement = e=>{
-  draggable.style.top = v(draggable.style.top) + e.clientY - y + 'px';
-  draggable.style.left = v(draggable.style.left) + e.clientX - x + 'px';
+const moveElement = element => e => {
+  element.style.top = v(element.style.top) + e.clientY - y + 'px';
+  element.style.left = v(element.style.left) + e.clientX - x + 'px';
   x = e.clientX;
   y = e.clientY;
 };
 
-const bottomCb = e => {
-  const height = v(draggable.style.height) + e.clientY - y;
-  draggable.style.height =  height + 'px';
-  y = e.clientY;
-  wholeDoc.style.cursor = 'ns-resize';
-};
-
-const topCb = e => {
-  const height = v(draggable.style.height) - e.clientY + y;
-  draggable.style.height = height + 'px';
-  if (height > 0) draggable.style.top = v(draggable.style.top) + e.clientY - y + 'px';
+const bottomCb = element => e => {
+  const height = v(element.style.height) + e.clientY - y;
+  element.style.height =  height + 'px';
   y = e.clientY;
   wholeDoc.style.cursor = 'ns-resize';
 };
 
-const rightCb = e => {
-  const width = v(draggable.style.width) + e.clientX - x;
-  draggable.style.width = width + 'px';
+const topCb = element => e => {
+  const height = v(element.style.height) - e.clientY + y;
+  element.style.height = height + 'px';
+  if (height > 0) element.style.top = v(element.style.top) + e.clientY - y + 'px';
+  y = e.clientY;
+  wholeDoc.style.cursor = 'ns-resize';
+};
+
+const rightCb = element => e => {
+  const width = v(element.style.width) + e.clientX - x;
+  element.style.width = width + 'px';
   x = e.clientX;
   wholeDoc.style.cursor = 'ew-resize';
 };
 
-const leftCb = e => {
-  const width = v(draggable.style.width) - e.clientX + x;
-  draggable.style.width = width + 'px';
-  if (width > 0) draggable.style.left = v(draggable.style.left) + e.clientX - x + 'px';
+const leftCb = element => e => {
+  const width = v(element.style.width) - e.clientX + x;
+  element.style.width = width + 'px';
+  if (width > 0) element.style.left = v(element.style.left) + e.clientX - x + 'px';
   x = e.clientX;
   wholeDoc.style.cursor = 'ew-resize';
 };
 
-const bottomRightCb = e => {
-  bottomCb(e);
-  rightCb(e);
+const bottomRightCb = element => e => {
+  bottomCb(element)(e);
+  rightCb(element)(e);
   wholeDoc.style.cursor = 'nwse-resize';
 };
 
-const topLeftCb = e => {
-  topCb(e);
-  leftCb(e);
+const topLeftCb = element => e => {
+  topCb(element)(e);
+  leftCb(element)(e);
   wholeDoc.style.cursor = 'nwse-resize';
 };
 
-const topRightCb = e => {
-  topCb(e);
-  rightCb(e);
+const topRightCb = element => e => {
+  topCb(element)(e);
+  rightCb(element)(e);
   wholeDoc.style.cursor = 'nesw-resize';
 };
 
-const bottomLeftCb = e => {
-  bottomCb(e);
-  leftCb(e);
+const bottomLeftCb = element => e => {
+  bottomCb(element)(e);
+  leftCb(element)(e);
   wholeDoc.style.cursor = 'nesw-resize';
 };
+
+const boundaries = [
+  'boundary-bottom',
+  'boundary-top',
+  'boundary-right',
+  'boundary-left',
+  'boundary-bottom-right',
+  'boundary-top-left',
+  'boundary-top-right',
+  'boundary-bottom-left'
+];
+
+const callbacks = [
+  bottomCb,
+  topCb,
+  rightCb,
+  leftCb,
+  bottomRightCb,
+  topLeftCb,
+  topRightCb,
+  bottomLeftCb
+];
 
 
 
 document.addEventListener('DOMContentLoaded',()=>{
+  document.addEventListener('mouseup',mouseup);
 
-  draggable = document.getElementsByClassName('draggable')[0];
+  const draggable = document.createElement('DIV');
+  draggable.classList.add('draggable');
 
   draggable.style.top = '0px';
   draggable.style.left= '0px';
   draggable.style.height = '50px';
   draggable.style.width = '50px';
 
-  draggable.addEventListener('mousedown',drag(moveElement)); //or 'mousedown'?
-  document.addEventListener('mouseup',mouseup);
+  draggable.addEventListener('mousedown',drag(moveElement(draggable))); //or 'mousedown'?
 
-  draggable.getElementsByClassName('boundary-bottom')[0].addEventListener('mousedown',drag(bottomCb));
-  draggable.getElementsByClassName('boundary-top')[0].addEventListener('mousedown',drag(topCb));
-  draggable.getElementsByClassName('boundary-right')[0].addEventListener('mousedown',drag(rightCb));
-  draggable.getElementsByClassName('boundary-left')[0].addEventListener('mousedown',drag(leftCb));
-  draggable.getElementsByClassName('boundary-bottom-right')[0].addEventListener('mousedown',drag(bottomRightCb));
-  draggable.getElementsByClassName('boundary-top-left')[0].addEventListener('mousedown',drag(topLeftCb));
-  draggable.getElementsByClassName('boundary-top-right')[0].addEventListener('mousedown',drag(topRightCb));
-  draggable.getElementsByClassName('boundary-bottom-left')[0].addEventListener('mousedown',drag(bottomLeftCb));
+  boundaries.forEach((boundary,i) => {
+    const box = document.createElement('DIV');
+    box.classList.add(boundary);
+    box.addEventListener('mousedown',drag(callbacks[i](draggable)));
+    draggable.append(box);
+  })
+
+  document.body.append(draggable);
+  // draggable.getElementsByClassName('boundary-bottom')[0].addEventListener('mousedown',drag(bottomCb));
+  // draggable.getElementsByClassName('boundary-top')[0].addEventListener('mousedown',drag(topCb));
+  // draggable.getElementsByClassName('boundary-right')[0].addEventListener('mousedown',drag(rightCb));
+  // draggable.getElementsByClassName('boundary-left')[0].addEventListener('mousedown',drag(leftCb));
+  // draggable.getElementsByClassName('boundary-bottom-right')[0].addEventListener('mousedown',drag(bottomRightCb));
+  // draggable.getElementsByClassName('boundary-top-left')[0].addEventListener('mousedown',drag(topLeftCb));
+  // draggable.getElementsByClassName('boundary-top-right')[0].addEventListener('mousedown',drag(topRightCb));
+  // draggable.getElementsByClassName('boundary-bottom-left')[0].addEventListener('mousedown',drag(bottomLeftCb));
 });
