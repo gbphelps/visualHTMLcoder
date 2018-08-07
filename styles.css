@@ -1,0 +1,61 @@
+.draggable{
+  background:red;
+  height:50px;
+  width:50px;
+  position:absolute;
+  top:0;
+  bottom:0;
+}
+
+
+*[class*="top"]{
+  top: -3px;
+}
+
+*[class*="bottom"]{
+  bottom: -3px;
+}
+
+*[class*="left"]{
+  left: -3px;
+}
+
+*[class*="right"]{
+  right: -3px;
+}
+
+
+*[class*="boundary"]{
+  position:absolute;
+  height:100%;
+  width:100%;
+}
+
+*[class*="bottom"], *[class*="top"]{
+  height:6px;
+  cursor: ns-resize;
+}
+
+*[class*="left"], *[class*="right"]{
+  width:6px;
+  cursor: ew-resize;
+}
+
+*[class*='bottom-left'], *[class*='top-right']{
+  cursor: nesw-resize;
+}
+
+*[class*='top-left'], *[class*='bottom-right']{
+  cursor: nwse-resize;
+}
+
+
+
+.obstacle{
+  position: absolute;
+  background: green;
+  top: 200px;
+  left: 200px;
+  height: 40px;
+  width: 40px;
+}
