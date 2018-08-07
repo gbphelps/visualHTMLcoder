@@ -1,8 +1,11 @@
 let x, y;
+let snap = true;
 
 const wholeDoc = Array.from(document.getElementsByTagName('html'))[0];
 
 const drag = callback => e => {
+
+
   e.stopPropagation();
   e.preventDefault();
   x = e.clientX;
@@ -10,11 +13,22 @@ const drag = callback => e => {
 
   document.addEventListener('mousemove', callback);
 
-  document.addEventListener('mouseup', ()=>{
+  window.mouseup = ()=>{
+    document.removeEventListener('mouseup', mouseup);
     document.removeEventListener('mousemove', callback);
     wholeDoc.style.cursor = 'auto';
-  });
-  
+    if (snap) {
+      const el = document.activeElement;
+      el.style.top = Math.round(v(el.style.top)/20)*20 + 'px';
+      el.style.left = Math.round(v(el.style.left)/20)*20 + 'px';
+      el.style.height = Math.round(v(el.style.height)/20)*20 + 'px';
+      el.style.width = Math.round(v(el.style.width)/20)*20 + 'px';
+    };
+
+  }
+
+  document.addEventListener('mouseup', mouseup);
+
 };
 
 const v = string => {
@@ -111,8 +125,8 @@ export const addDiv = () => {
 
   draggable.style.top = '0px';
   draggable.style.left= '0px';
-  draggable.style.height = '50px';
-  draggable.style.width = '50px';
+  draggable.style.height = '60px';
+  draggable.style.width = '60px';
 
   draggable.addEventListener('mousedown',drag(moveElement(draggable)));
 
