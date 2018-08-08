@@ -26,11 +26,23 @@ document.addEventListener('DOMContentLoaded',()=>{
     if (window.snap){
       if (confirm('Snap existing elements?')){
         Array.from(document.getElementsByClassName('draggable')).forEach(el=>{
-          console.log(el);
-          el.style.top = Math.round(v(el.style.top)/20)*20 + 'px';
-          el.style.left = Math.round(v(el.style.left)/20)*20 + 'px';
-          el.style.height = Math.round(v(el.style.height)/20)*20 + 'px';
-          el.style.width = Math.round(v(el.style.width)/20)*20 + 'px';
+
+          ///////delete
+          el.style.transitionDuration = '.5s';
+          setTimeout(() =>{el.style.transitionDuration = '0s'}, 501)
+          ///////
+
+          //////remove from setTimeout
+          setTimeout(()=>{
+            el.style.top = Math.round(v(el.style.top)/20)*20 + 'px';
+            el.style.left = Math.round(v(el.style.left)/20)*20 + 'px';
+            el.style.height = Math.round(v(el.style.height)/20)*20 + 'px';
+            el.style.width = Math.round(v(el.style.width)/20)*20 + 'px';
+          }, 1); //TODO how can this be done with a promise??
+
+
+
+
         })
       }
     }
