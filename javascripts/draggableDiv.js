@@ -2,23 +2,23 @@ let x, y;
 
 const wholeDoc = Array.from(document.getElementsByTagName('html'))[0];
 
-const drag = callback => e => {
+const drag = (callback, element) => e => {
   e.stopPropagation();
   e.preventDefault();
   x = e.clientX;
   y = e.clientY;
+  const cbInvoke = callback(element);
 
-  document.addEventListener('mousemove', callback);
+  document.addEventListener('mousemove', cbInvoke);
   window.mouseup = ()=>{
     document.removeEventListener('mouseup', mouseup);
-    document.removeEventListener('mousemove', callback);
+    document.removeEventListener('mousemove', cbInvoke);
     wholeDoc.style.cursor = 'auto';
     if (window.snap) {
-      const el = document.activeElement;
-      el.style.top = Math.round(v(el.style.top)/20)*20 + 'px';
-      el.style.left = Math.round(v(el.style.left)/20)*20 + 'px';
-      el.style.height = Math.round(v(el.style.height)/20)*20 + 'px';
-      el.style.width = Math.round(v(el.style.width)/20)*20 + 'px';
+      element.style.top = Math.round(v(element.style.top)/20)*20 + 'px';
+      element.style.left = Math.round(v(element.style.left)/20)*20 + 'px';
+      element.style.height = Math.round(v(element.style.height)/20)*20 + 'px';
+      element.style.width = Math.round(v(element.style.width)/20)*20 + 'px';
     };
   }
 
@@ -119,7 +119,7 @@ const appendBoundaryBox = element => {
   boundaries.forEach((boundary,i) => {
     const box = document.createElement('DIV');
     box.classList.add(boundary);
-    box.addEventListener('mousedown', drag(callbacks[i](element)));
+    box.addEventListener('mousedown', drag(callbacks[i], element));
     container.append(box);
   });
 
@@ -139,14 +139,14 @@ const initializeElement = e => {
   spawn.style.left = e.clientX - offset.left + 'px';
   spawn.tabIndex = 0;
 
-  spawn.addEventListener('mousedown',drag(moveElement(spawn)));
+  spawn.addEventListener('mousedown',drag(moveElement, spawn));
   spawn.addEventListener('mousedown', ()=>spawn.focus());
   spawn.addEventListener('focus',()=> appendBoundaryBox(spawn));
   spawn.addEventListener('blur', ()=> document.getElementById('boundary-box').remove());
 
   document.getElementById('content').append(spawn);
   spawn.focus();
-  drag(bottomRightCb(spawn))(e);
+  drag(bottomRightCb, spawn)(e);
 }
 
 export const addDiv = () => {
