@@ -4,6 +4,7 @@ import { addDiv, v } from './draggableDiv';
 
 
 window.snap = false;
+window.addDiv = false;
 
 
 
@@ -13,15 +14,14 @@ window.snap = false;
 
 document.addEventListener('DOMContentLoaded',()=>{
 
-  document.getElementById('add').addEventListener('mousedown', e => {
-    e.preventDefault();
+  document.getElementById('add').addEventListener('click', e => {
     addDiv();
   })
 
-  document.getElementById('snap').addEventListener('mousedown', e => {
+  document.getElementById('snap').addEventListener('click', e => {
     e.preventDefault();
     window.snap = !window.snap;
-    e.target.style.color = window.snap ? 'red' : 'black';
+    document.getElementById('snap').classList.toggle('active')
 
     if (window.snap){
       if (confirm('Snap existing elements?')){
