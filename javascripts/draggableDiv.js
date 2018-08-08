@@ -128,15 +128,15 @@ const appendBoundaryBox = element => {
 
 
 const initializeElement = e => {
-  const offset = document.getElementById('content').getBoundingClientRect().top;
+  const offset = document.getElementById('content').getBoundingClientRect();
 
+  if (e.clientX < offset.left || e.clientY < offset.top) return;
 
-  console.log('hello');
   const spawn = document.createElement('DIV');
 
   spawn.classList.add('draggable');
-  spawn.style.top = e.clientY - offset + 'px';
-  spawn.style.left = e.clientX + 'px';
+  spawn.style.top = e.clientY - offset.top + 'px';
+  spawn.style.left = e.clientX - offset.left + 'px';
   spawn.tabIndex = 0;
 
   spawn.addEventListener('mousedown',drag(moveElement(spawn)));
