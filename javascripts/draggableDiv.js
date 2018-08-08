@@ -30,7 +30,7 @@ const drag = callback => e => {
 
 };
 
-const v = string => {
+export const v = string => {
   return +string.slice(0, string.length-2);
 };
 
