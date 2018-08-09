@@ -24,10 +24,39 @@ const calcColor = status => {
 
 const format = color => `rgba(${color[0]},${color[1]},${color[2]},${color[3]})`;
 
+
+
+const updateCanvas = (color, ctx) => {
+  let height = document.getElementById('canvas').height;
+  let width = document.getElementById('canvas').width;
+
+  const buffer = ctx.createImageData(width, height);
+
+
+  for (let i=0; i<(height*width); i++) {
+    const top = Math.floor(i / width);
+    const left = Math.floor(i % width);
+
+    const b = top/height;
+    const a = left/width;
+
+    buffer.data[i*4 + 0] = (color[0] + (255-color[0])*b) *a;
+    buffer.data[i*4 + 1] = (color[1] + (255-color[1])*b) *a;
+    buffer.data[i*4 + 2] = (color[2] + (255-color[2])*b) *a;
+    buffer.data[i*4 + 3] = 255;
+  }
+
+  ctx.putImageData(buffer, 0, 0);
+};
+
+
+
+
 document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('canvas').height = 200;
   document.getElementById('canvas').width = 300;
   const ctx = document.getElementById('canvas').getContext('2d');
+  updateCanvas(calcColor(0),ctx);
 
 
   const slider = document.createElement('DIV');
@@ -64,28 +93,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       const colorArr = calcColor(dragger.status);
       dragger.style.background = format(colorArr);
 
-
-
-
-      let height = document.getElementById('canvas').height;
-      let width = document.getElementById('canvas').width;
-      const buffer = ctx.createImageData(width, height);
-
-
-      for (let i=0; i<(height*width); i++) {
-        const top = Math.floor(i / width);
-        const left = Math.floor(i % width);
-
-        const b = top/height;
-        const a = left/width;
-
-        buffer.data[i*4 + 0] = (colorArr[0] + (255-colorArr[0])*b) *a;
-        buffer.data[i*4 + 1] = (colorArr[1] + (255-colorArr[1])*b) *a;
-        buffer.data[i*4 + 2] = (colorArr[2] + (255-colorArr[2])*b) *a;
-        buffer.data[i*4 + 3] = 255;
-      }
-
-      ctx.putImageData(buffer, 0, 0);
+      updateCanvas(colorArr, ctx);
 
     };
 
