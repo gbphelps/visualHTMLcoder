@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded',()=>{
     };
 
     const mouseup = e => {
+      console.log('firing');
       document.removeEventListener('mousemove', mousemove);
-      document.removeEventListener('mouseup', mouseup);
     };
 
     document.addEventListener('mousemove', mousemove);
-    document.addEventListener('mouseup', mouseup);
+    document.addEventListener('mouseup', mouseup, {once: true});
 
   });
 

@@ -10,8 +10,8 @@ const drag = (callback, element) => e => {
   const cbInvoke = callback(element);
 
   document.addEventListener('mousemove', cbInvoke);
-  window.mouseup = ()=>{
-    document.removeEventListener('mouseup', mouseup);
+
+  const mouseup = () => {
     document.removeEventListener('mousemove', cbInvoke);
     wholeDoc.style.cursor = 'auto';
     if (window.snap) {
@@ -22,7 +22,7 @@ const drag = (callback, element) => e => {
     };
   }
 
-  document.addEventListener('mouseup', mouseup);
+  document.addEventListener('mouseup', mouseup, {once: true});
 };
 
 export const v = string => +string.slice(0, string.length-2);
