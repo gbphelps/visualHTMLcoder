@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded',()=>{
       const diff = e.clientX - x;
       const newValue = dragger.state + diff;
       if (newValue > 290){
-        x = slider.getBoundingClientRect().right;
+        x = slider.getBoundingClientRect().right - 10;
         dragger.state = 290;
       } else if (newValue < 0) {
-        x = slider.getBoundingClientRect().left;
+        x = slider.getBoundingClientRect().left +10;
         dragger.state = 0;
       } else {
         x = e.clientX;
