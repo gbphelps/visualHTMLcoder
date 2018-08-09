@@ -16,16 +16,17 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     const mousemove = e => {
       const props = dragger.style;
-      if (e.clientX > slider.getBoundingClientRect().right){
+      const diff = e.clientX - x;
+      const newValue = +props.left.slice(0, props.left.length - 2) + diff;
+      if (newValue > 290){
         x = slider.getBoundingClientRect().right;
         props.left = '290px';
-      } else if (e.clientX < slider.getBoundingClientRect().left) {
+      } else if (newValue < 0) {
         x = slider.getBoundingClientRect().left;
         props.left = '0px';
       } else {
-        const diff = e.clientX - x;
-        props.left = +props.left.slice(0, props.left.length - 2) + diff + 'px';
         x = e.clientX;
+        props.left = newValue + 'px';
       }
     };
 
