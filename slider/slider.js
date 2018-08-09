@@ -29,6 +29,28 @@ document.addEventListener('DOMContentLoaded',()=>{
         dragger.state = newValue;
       }
       dragger.style.left = dragger.state + 'px';
+
+      const progress = dragger.state/290 * 6;
+
+      if (progress < 1){
+        const sat = Math.floor(256 * progress);
+        dragger.style.background = `rgba(255,${sat},0,1)`;
+      } else if (progress < 2) {
+        const sat = Math.floor(256 * (1 - (progress - 1)));
+        dragger.style.background = `rgba(${sat},255,0,1)`;
+      } else if (progress < 3) {
+        const sat = Math.floor(256 * (progress - 2));
+        dragger.style.background = `rgba(0,255,${sat},1)`;
+      } else if (progress < 4) {
+        const sat = Math.floor(256 * (1 - (progress - 3)));
+        dragger.style.background = `rgba(0,${sat},255,1)`;
+      } else if (progress < 5) {
+        const sat = Math.floor(256 * (progress - 4));
+        dragger.style.background = `rgba(${sat},0,255,1)`;
+      } else {
+        const sat = Math.floor(256 * (1 - (progress - 5)));
+        dragger.style.background = `rgba(255,0,${sat},1)`;
+      }
     };
 
     const mouseup = e => {
