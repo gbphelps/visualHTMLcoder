@@ -1,4 +1,52 @@
 
+
+
+class Color{
+  constructor(red,green,blue,opacity){
+    this.red = red;
+    this.green = green;
+    this.blue = blue;
+    this.opacity = opacity;
+  }
+  print(){
+    return `rgba(${this.red},${this.green},${this.blue},${this.opacity})`
+  }
+}
+
+class Gradient{
+
+  constructor(max=255, min=0, hue=0){
+    this.max = max;
+    this.min = min;
+    this.hue = hue;
+  }
+
+  color(){
+    let progress = this.hue / 290 * 6;
+    let inc = (this.max - this.min) * (progress - Math.floor(progress));
+
+    switch (Math.floor(progress)){
+      case 0:
+        return [255, 0+inc, 0, 1]
+      case 1:
+        return [255-inc, 255, 0, 1]
+      case 2:
+        return [0, 255, 0+inc, 1]
+      case 3:
+        return [0, 255-inc, 255, 1]
+      case 4:
+        return [0+inc, 0, 255, 1]
+      case 5:
+        return [255, 0, 255-inc, 1]
+      case 6:
+        return [255, 0, 0, 1]
+    }
+  }
+
+};
+
+const format = color => `rgba(${color[0]},${color[1]},${color[2]},${color[3]})`;
+
 document.addEventListener('DOMContentLoaded',()=>{
   const ctx = document.getElementById('canvas').getContext('2d');
 
@@ -13,52 +61,51 @@ document.addEventListener('DOMContentLoaded',()=>{
   dragger.style.left = '0px';
   dragger.style.position = 'absolute';
   slider.append(dragger);
-  dragger.state = 0;
+
+  dragger.gradient = new Gradient();
 
   dragger.addEventListener('mousedown', e => {
     let x = e.clientX;
 
     const mousemove = e => {
       const diff = e.clientX - x;
-      const newValue = dragger.state + diff;
+      const newValue = dragger.gradient.hue + diff;
       if (newValue > 290){
         x = slider.getBoundingClientRect().right - 10;
-        dragger.state = 290;
+        dragger.gradient.hue = 290;
       } else if (newValue < 0) {
         x = slider.getBoundingClientRect().left +10;
-        dragger.state = 0;
+        dragger.gradient.hue = 0;
       } else {
         x = e.clientX;
-        dragger.state = newValue;
+        dragger.gradient.hue = newValue;
       }
-      dragger.style.left = dragger.state + 'px';
+      dragger.style.left = dragger.gradient.hue + 'px';
 
-      const progress = dragger.state/290 * 6;
-      let color;
+      dragger.style.background = format(dragger.gradient.color());
 
-      if (progress < 1){
-        const sat = Math.floor(256 * progress);
-        color = `rgba(255,${sat},0,1)`;
-      } else if (progress < 2) {
-        const sat = Math.floor(256 * (1 - (progress - 1)));
-        color = `rgba(${sat},255,0,1)`;
-      } else if (progress < 3) {
-        const sat = Math.floor(256 * (progress - 2));
-        color = `rgba(0,255,${sat},1)`;
-      } else if (progress < 4) {
-        const sat = Math.floor(256 * (1 - (progress - 3)));
-        color = `rgba(0,${sat},255,1)`;
-      } else if (progress < 5) {
-        const sat = Math.floor(256 * (progress - 4));
-        color = `rgba(${sat},0,255,1)`;
-      } else {
-        const sat = Math.floor(256 * (1 - (progress - 5)));
-        color = `rgba(255,0,${sat},1)`;
+
+
+      const buffer = ctx.createImageData(100,100);
+      const gradient = new Gradient(dragger.gradient.max, dragger.gradient.min, dragger.gradient.hue);
+
+      for (let i=0; i<(100*100); i++) {
+        const top = Math.floor(i/100);
+        const left = Math.floor(i%100);
+
+        const b = top/100;
+        const a = left/100;
+
+        const rgb = gradient.color();
+        buffer.data[i*4 + 0] = (rgb[0] + (255-rgb[0])*a) *b;
+        buffer.data[i*4 + 1] = (rgb[1] + (255-rgb[1])*a) *b;
+        buffer.data[i*4 + 2] = (rgb[2] + (255-rgb[2])*a) *b;
+        buffer.data[i*4 + 3] = 255;
       }
+      console.log(buffer.data);
 
-      dragger.style.background = color;
-      ctx.fillStyle = color;
-      ctx.fillRect(0,0,100,100);
+      ctx.putImageData(buffer, 0, 0);
+
     };
 
     const mouseup = e => {
