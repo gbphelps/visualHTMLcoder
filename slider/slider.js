@@ -10,24 +10,25 @@ document.addEventListener('DOMContentLoaded',()=>{
   dragger.style.left = '0px';
   dragger.style.position = 'absolute';
   slider.append(dragger);
+  dragger.state = 0;
 
   dragger.addEventListener('mousedown', e => {
     let x = e.clientX;
 
     const mousemove = e => {
-      const props = dragger.style;
       const diff = e.clientX - x;
-      const newValue = +props.left.slice(0, props.left.length - 2) + diff;
+      const newValue = dragger.state + diff;
       if (newValue > 290){
         x = slider.getBoundingClientRect().right;
-        props.left = '290px';
+        dragger.state = 290;
       } else if (newValue < 0) {
         x = slider.getBoundingClientRect().left;
-        props.left = '0px';
+        dragger.state = 0;
       } else {
         x = e.clientX;
-        props.left = newValue + 'px';
+        dragger.state = newValue;
       }
+      dragger.style.left = dragger.state + 'px';
     };
 
     const mouseup = e => {
