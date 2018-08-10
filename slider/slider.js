@@ -50,10 +50,6 @@ const updateCanvas = (color, ctx) => {
     r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2)
 
     if (theta < 0 || theta > 1 || r>1){
-      buffer.data[i*4 + 0] = 255;
-      buffer.data[i*4 + 1] = 255;
-      buffer.data[i*4 + 2] = 255;
-      buffer.data[i*4 + 3] = 255;
     }else{
       buffer.data[i*4 + 0] = (color[0] + (255-color[0])*theta) * r;
       buffer.data[i*4 + 1] = (color[1] + (255-color[1])*theta) * r;
@@ -73,6 +69,16 @@ const updateCanvas = (color, ctx) => {
   }
 
   ctx.putImageData(buffer, 0, 0);
+
+  ctx.strokeStyle='white';
+  ctx.beginPath();
+
+  ctx.moveTo(1, height -.5);
+  ctx.lineTo(100.5,height - 200*Math.sqrt(3)/2 +.5);
+  ctx.lineTo(200, height -.5);
+  ctx.lineTo(.5,height - .5);
+  ctx.stroke();
+
 };
 
 
