@@ -46,7 +46,7 @@ const updateCanvas = (color, ctx) => {
     theta0 = (theta0 < 0 ? Math.PI + theta0 : theta0);
     const theta = (Math.PI/3 - theta0)/(Math.PI/3);
 
-    let r = Math.sqrt(xp*xp + yp*yp)/200;
+    let r = Math.sqrt(xp*xp + yp*yp)/300;
     r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2)
 
     if (theta < 0 || theta > 1 || r>1){
@@ -74,8 +74,8 @@ const updateCanvas = (color, ctx) => {
   ctx.beginPath();
 
   ctx.moveTo(1, height -.5);
-  ctx.lineTo(100.5,height - 200*Math.sqrt(3)/2 +.5);
-  ctx.lineTo(200, height -.5);
+  ctx.lineTo(width/2 + .5, .5);
+  ctx.lineTo(width, height -.5);
   ctx.lineTo(.5,height - .5);
   ctx.stroke();
 
@@ -85,7 +85,7 @@ const updateCanvas = (color, ctx) => {
 
 
 document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('canvas').height = 200;
+  document.getElementById('canvas').height = Math.round(300*Math.sqrt(3)/2);
   document.getElementById('canvas').width = 300;
   const ctx = document.getElementById('canvas').getContext('2d');
   updateCanvas(calcColor(0),ctx);
@@ -130,7 +130,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     };
 
     const mouseup = e => {
-      console.log('firing');
       document.removeEventListener('mousemove', mousemove);
     };
 
