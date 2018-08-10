@@ -29,6 +29,7 @@ const format = color => `rgba(${color[0]},${color[1]},${color[2]},${color[3]})`;
 const updateCanvas = (color, ctx) => {
   let height = document.getElementById('canvas').height;
   let width = document.getElementById('canvas').width;
+  document.getElementById('dragger').style.background = format(color);
 
   const buffer = ctx.createImageData(width, height);
 
@@ -43,21 +44,20 @@ const updateCanvas = (color, ctx) => {
 
     // RADIAL COORDINATES
     let theta0 = Math.atan(yp/xp);
-    theta0 = (theta0 < 0 ? Math.PI + theta0 : theta0);
     const theta = (Math.PI/3 - theta0)/(Math.PI/3);
+    //map radial coordinates [0, pi/3] -> [1, 0]
 
     let r = Math.sqrt(xp*xp + yp*yp)/300;
     r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2)
+    //map pie wedge to equilateral triangle by flattening arc
 
-    if (theta < 0 || theta > 1 || r>1){
+    if (theta < 0 || theta > 1 || r > 1){
     }else{
       buffer.data[i*4 + 0] = (color[0] + (255-color[0])*theta) * r;
       buffer.data[i*4 + 1] = (color[1] + (255-color[1])*theta) * r;
       buffer.data[i*4 + 2] = (color[2] + (255-color[2])*theta) * r;
       buffer.data[i*4 + 3] = 255;
     }
-
-
 
     // //RECTANGULAR COORDINATES
     // const b = top/height;
@@ -70,7 +70,7 @@ const updateCanvas = (color, ctx) => {
 
   ctx.putImageData(buffer, 0, 0);
 
-
+  //for anti-aliasing
   const g1 = ctx.createLinearGradient(0, 0, width/2, 0);
   g1.addColorStop(0, 'black');
   g1.addColorStop(1, format(color));
@@ -78,7 +78,6 @@ const updateCanvas = (color, ctx) => {
   const g2 = ctx.createLinearGradient(width/2, 0, width, 0);
   g2.addColorStop(0, format(color));
   g2.addColorStop(1, 'white');
-
 
   ctx.beginPath();
     ctx.moveTo(1, height -.5);
@@ -103,7 +102,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('canvas').height = Math.round(300*Math.sqrt(3)/2);
   document.getElementById('canvas').width = 300;
   const ctx = document.getElementById('canvas').getContext('2d');
-  updateCanvas(calcColor(0),ctx);
+
 
 
   const slider = document.createElement('DIV');
@@ -118,6 +117,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   slider.append(dragger);
 
   dragger.status = 0;
+  updateCanvas(calcColor(0),ctx);
 
   dragger.addEventListener('mousedown', e => {
     let x = e.clientX;
@@ -138,8 +138,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       dragger.style.left = dragger.status + 'px';
 
       const colorArr = calcColor(dragger.status);
-      dragger.style.background = format(colorArr);
-
       updateCanvas(colorArr, ctx);
 
     };
