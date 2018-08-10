@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   const dragger = document.createElement('DIV');
   dragger.id = 'dragger';
-  dragger.style.left = '-5px';
+  dragger.style.left = '-9px'; //TODO 1/2 dragger height
   dragger.style.position = 'absolute';
   slider.append(dragger);
 
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         x = e.clientX;
         dragger.status = newValue;
       }
-      dragger.style.left = dragger.status - 5 + 'px';
+      dragger.style.left = dragger.status - 9 + 'px'; //TODO 1/2 dragger height
 
       const colorArr = calcColor(dragger.status);
       updateCanvas(colorArr, ctx);
