@@ -70,14 +70,29 @@ const updateCanvas = (color, ctx) => {
 
   ctx.putImageData(buffer, 0, 0);
 
-  ctx.strokeStyle='white';
-  ctx.beginPath();
 
-  ctx.moveTo(1, height -.5);
-  ctx.lineTo(width/2 + .5, .5);
-  ctx.lineTo(width, height -.5);
-  ctx.lineTo(.5,height - .5);
-  ctx.stroke();
+  const g1 = ctx.createLinearGradient(0, 0, width/2, 0);
+  g1.addColorStop(0, 'black');
+  g1.addColorStop(1, format(color));
+
+  const g2 = ctx.createLinearGradient(width/2, 0, width, 0);
+  g2.addColorStop(0, format(color));
+  g2.addColorStop(1, 'white');
+
+
+  ctx.beginPath();
+    ctx.moveTo(1, height -.5);
+    ctx.lineTo(width/2 + .5, .5);
+    ctx.strokeStyle = g1;
+    ctx.stroke();
+  ctx.closePath();
+
+  ctx.beginPath();
+    ctx.moveTo(width/2 + .5, .5);
+    ctx.lineTo(width, height -.5);
+    ctx.strokeStyle = g2;
+    ctx.stroke();
+  ctx.closePath();
 
 };
 
