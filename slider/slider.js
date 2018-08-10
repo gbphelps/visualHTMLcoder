@@ -1,7 +1,7 @@
 
 
 const calcColor = status => {
-    const progress = status / 290 * 6;
+    const progress = status / 300 * 6;
     let inc = 255 * (progress - Math.floor(progress));
 
     switch (Math.floor(progress)){
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   const dragger = document.createElement('DIV');
   dragger.id = 'dragger';
-  dragger.style.left = '0px';
+  dragger.style.left = '-5px';
   dragger.style.position = 'absolute';
   slider.append(dragger);
 
@@ -125,17 +125,17 @@ document.addEventListener('DOMContentLoaded',()=>{
     const mousemove = e => {
       const diff = e.clientX - x;
       const newValue = dragger.status + diff;
-      if (newValue > 290){
-        x = slider.getBoundingClientRect().right - 10;
-        dragger.status = 290;
+      if (newValue > 300){
+        x = slider.getBoundingClientRect().right;
+        dragger.status = 300;
       } else if (newValue < 0) {
-        x = slider.getBoundingClientRect().left +10;
+        x = slider.getBoundingClientRect().left;
         dragger.status = 0;
       } else {
         x = e.clientX;
         dragger.status = newValue;
       }
-      dragger.style.left = dragger.status + 'px';
+      dragger.style.left = dragger.status - 5 + 'px';
 
       const colorArr = calcColor(dragger.status);
       updateCanvas(colorArr, ctx);
