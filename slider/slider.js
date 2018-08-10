@@ -37,21 +37,31 @@ const updateCanvas = (color, ctx) => {
     const top = Math.floor(i / width);
     const left = Math.floor(i % width);
 
+    const xp = left;
+    const yp = height - top;
+
 
     // RADIAL COORDINATES
-    let theta0 = Math.atan(top/(left - width/2));
+    let theta0 = Math.atan(yp/xp);
     theta0 = (theta0 < 0 ? Math.PI + theta0 : theta0);
-    const theta = (theta0 - Math.PI/3)/(Math.PI/3);
+    const theta = (Math.PI/3 - theta0)/(Math.PI/3);
 
-    let r = Math.sqrt((left - width/2)*(left - width/2) + top*top)/200;
-    r = r * Math.cos(Math.PI/2 - theta0) / (Math.sqrt(3)/2)
+    let r = Math.sqrt(xp*xp + yp*yp)/200;
+    r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2)
 
-    if (theta < 0 || theta > 1 || r>1) continue;
+    if (theta < 0 || theta > 1 || r>1){
+      buffer.data[i*4 + 0] = 255;
+      buffer.data[i*4 + 1] = 255;
+      buffer.data[i*4 + 2] = 255;
+      buffer.data[i*4 + 3] = 255;
+    }else{
+      buffer.data[i*4 + 0] = (color[0] + (255-color[0])*theta) * r;
+      buffer.data[i*4 + 1] = (color[1] + (255-color[1])*theta) * r;
+      buffer.data[i*4 + 2] = (color[2] + (255-color[2])*theta) * r;
+      buffer.data[i*4 + 3] = 255;
+    }
 
-    buffer.data[i*4 + 0] = (color[0] + (255-color[0])*theta) * r;
-    buffer.data[i*4 + 1] = (color[1] + (255-color[1])*theta) * r;
-    buffer.data[i*4 + 2] = (color[2] + (255-color[2])*theta) * r;
-    buffer.data[i*4 + 3] = 255;
+
 
     // //RECTANGULAR COORDINATES
     // const b = top/height;
