@@ -96,8 +96,9 @@ const updateCanvas = () => {
 
 };
 
-
-
+const updateDragger = () => {
+  dragger.style.background = format(document.getElementById('dragger2').color);
+}
 
 const updateDragger2 = () => {
   const dragger2 = document.getElementById('dragger2');
@@ -126,7 +127,13 @@ const updateDragger2 = () => {
 const updateSwatch = () => {
   const swatch = document.getElementById('swatch');
   swatch.style.background = format(dragger2.color);
-  swatch.innerHTML = format(dragger2.color);
+  const sat = dragger2.color.reduce((acc,el) => acc += el)-255;
+  swatch.style.color = (sat < 255*3/2 ? 'white' : 'black');
+  swatch.innerHTML = `
+    <p>Red: ${dragger2.color[0]}</p>
+    <p>Green: ${dragger2.color[1]}</p>
+    <p>Blue: ${dragger2.color[2]}</p>
+    `
 };
 
 const create = (tag, parent, props, style) => {
@@ -136,6 +143,53 @@ const create = (tag, parent, props, style) => {
   if (style) Object.assign(element.style, style);
   return element;
 };
+
+const updateSlider = () => {
+
+const dragger2 = document.getElementById('dragger2');
+const canvas = document.getElementById('canvas');
+
+  const xp = dragger2.x;
+  const yp = canvas.height - dragger2.y;
+
+  let theta0 = Math.atan(yp/xp);
+  const theta = (Math.PI/3 - theta0)/(Math.PI/3);
+
+  let r = Math.sqrt(xp*xp + yp*yp)/300;
+  r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2);
+
+  let colors = [
+    [255, 0, 0],
+    [255, 255, 0],
+    [0, 255, 0],
+    [0, 255, 255],
+    [0, 0, 255],
+    [255, 0, 255],
+    [255, 0, 0]
+  ];
+
+  const colorStops = colors.map(color => {
+    const three = color.map(component => {
+      return Math.round((component + (255 - component)*theta) * r) || 0
+    });
+    return three.concat(255);
+  });
+
+  document.getElementById('slider').style.background =
+  `linear-gradient(
+        to right,
+        ${format(colorStops[0])},
+        ${format(colorStops[1])},
+        ${format(colorStops[2])},
+        ${format(colorStops[3])},
+        ${format(colorStops[4])},
+        ${format(colorStops[5])},
+        ${format(colorStops[6])}
+    )`;
+
+  updateDragger();
+
+}
 
 
 document.addEventListener('DOMContentLoaded',()=>{
@@ -232,7 +286,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       }
 
       //edge case clearance
-      
+
       if (dragger2.y > canvas.height){
         dragger2.y = canvas.height;
       }else if (dragger2.y < 0){
@@ -258,10 +312,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       dragger2.style.top = dragger2.y - 9 + 'px';
       updateDragger2();
       updateSwatch();
-
-
-
-
+      updateSlider();
 
     };
 
@@ -298,6 +349,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
       updateCanvas();
       updateDragger2();
+      updateDragger();
       updateSwatch();
 
     };
