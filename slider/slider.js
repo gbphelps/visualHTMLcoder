@@ -99,25 +99,69 @@ const updateCanvas = (color, ctx) => {
 
 
 document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('canvas').height = Math.round(300*Math.sqrt(3)/2);
-  document.getElementById('canvas').width = 300;
-  const ctx = document.getElementById('canvas').getContext('2d');
 
+  const picker = document.getElementById('picker');
 
+  const canvas = document.createElement('CANVAS');
+  canvas.id = 'canvas';
+  canvas.height = Math.round(300*Math.sqrt(3)/2);
+  canvas.width = 300;
+  picker.append(canvas);
+
+  const ctx = canvas.getContext('2d');
 
   const slider = document.createElement('DIV');
   slider.id = 'slider';
   slider.style.position = 'absolute';
-  document.body.append(slider);
+  picker.append(slider);
 
   const dragger = document.createElement('DIV');
   dragger.id = 'dragger';
-  dragger.style.left = '-9px'; //TODO 1/2 dragger height
+  dragger.style.left = -9 + 'px'; //TODO 1/2 dragger height
   dragger.style.position = 'absolute';
+  dragger.status = 0;
   slider.append(dragger);
 
-  dragger.status = 0;
+  const dragger2 = document.createElement('DIV');
+  dragger2.id = 'dragger2';
+  dragger2.style.left = canvas.width / 2 - 9 + 'px'; //TODO 1/2 dragger height;
+  dragger2.style.top = -9 + 'px';
+  dragger2.x = canvas.width / 2;
+  dragger2.y = 0;
+  picker.append(dragger2);
+
+
   updateCanvas(calcColor(0),ctx);
+
+
+  dragger2.addEventListener('mousedown', e => {
+    e.preventDefault();
+    let x = e.clientX;
+    let y = e.clientY;
+
+    const mousemove = e => {
+      const diffx = e.clientX - x;
+      const diffy = e.clientY - y;
+      const newx = dragger2.x + diffx;
+      const newy = dragger2.y + diffy;
+
+      dragger2.x = newx;
+      dragger2.y = newy;
+      dragger2.style.left = dragger2.x + 'px';
+      dragger2.style.top = dragger2.y + 'px';
+
+      x = e.clientX;
+      y = e.clientY;
+    };
+
+    document.addEventListener('mousemove', mousemove);
+
+    document.addEventListener('mouseup',
+      ()=>document.removeEventListener('mousemove', mousemove),
+      {once:true}
+    );
+
+  });
 
   dragger.addEventListener('mousedown', e => {
     let x = e.clientX;

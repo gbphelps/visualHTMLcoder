@@ -1,16 +1,21 @@
 #slider{
+  margin-top:10px;
   background: linear-gradient(to right,#F00,#FF0,#0F0,#0FF,#00F,#F0F,#F00);
   height: 10px;
   width: 300px;
   border-radius: 5px;
 }
 
-#dragger{
+#dragger, #dragger2{
+  position:absolute;
   height: 18px;
   width: 18px;
   border-radius: 9px;
   top: -4px;
   background: white;
-  border: 1px solid black;
   box-sizing: border-box;
+}
+
+#picker{
+  position: absolute;
 }
