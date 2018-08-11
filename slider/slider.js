@@ -194,7 +194,8 @@ const canvas = document.getElementById('canvas');
 
 document.addEventListener('DOMContentLoaded',()=>{
 
-  const picker = document.getElementById('picker');
+  const container = create('DIV',document.body,{id: 'container'},{display: 'flex'});
+  const picker = create('DIV', container, {id:'picker'});
 
   const canvas = create('CANVAS', picker, {
     id: 'canvas',
@@ -224,6 +225,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   const dragger2 =
     create('DIV', picker, {
       id: 'dragger2',
+      color: canvas.color,
       x: canvas.width/2,
       y: 0,
     },{
@@ -232,9 +234,13 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
 
   const swatch =
-    create('DIV', picker,{
+    create('DIV', container, {
       id: 'swatch',
-      innerHTML: format(canvas.color),
+      innerHTML: `
+        <p>Red: ${dragger2.color[0]}</p>
+        <p>Green: ${dragger2.color[1]}</p>
+        <p>Blue: ${dragger2.color[2]}</p>
+        `,
     },{
       background: format(canvas.color),
     });

@@ -3,6 +3,7 @@
   background: linear-gradient(to right,#F00,#FF0,#0F0,#0FF,#00F,#F0F,#F00);
   height: 10px;
   width: 300px;
+  box-sizing: border-box;
 }
 
 #dragger, #dragger2{
@@ -10,23 +11,20 @@
   height: 18px;
   width: 18px;
   border-radius: 9px;
-  top: -4px;
+  top: -5px;
   background: white;
   box-sizing: border-box;
 }
 
 #picker{
-  position: absolute;
+  position: relative;
 }
 
-#dragger2{
-  background:black;
-  border: 1px solid white;
+body{
 }
 
 #swatch{
   font-family: 'Courier New';
   color: white;
-  height: 200px;
   width: 200px;
 }
