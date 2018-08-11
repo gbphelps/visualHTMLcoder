@@ -147,8 +147,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 
       dragger2.x = newx;
       dragger2.y = newy;
-      dragger2.style.left = dragger2.x + 'px';
-      dragger2.style.top = dragger2.y + 'px';
+      dragger2.style.left = dragger2.x - 9 + 'px';
+      dragger2.style.top = dragger2.y - 9 + 'px';
 
       x = e.clientX;
       y = e.clientY;
