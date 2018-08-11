@@ -191,6 +191,11 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
   dragger2.addEventListener('mousedown', e => {
+
+    //TODO make it easier to get the top shade
+    //TODO consider adding a feature where it determines
+    //which cardinal direction is closet to the user's choice
+
     e.preventDefault();
     let x = e.clientX;
     let y = e.clientY;
@@ -203,25 +208,46 @@ document.addEventListener('DOMContentLoaded',()=>{
 
       const box = canvas.getBoundingClientRect();
 
+
+
       if (-canvas.height*(2*newx/canvas.width - 1) > newy){
-        dragger2.x = newx;
-        dragger2.y = -canvas.height*(2*newx/canvas.width - 1);
+        if (Math.abs(diffy/diffx) > Math.sqrt(3)){
+          dragger2.y = newy;
+          dragger2.x =  canvas.width/2 * (1 - newy/canvas.height)
+        }else{
+          dragger2.x = newx;
+          dragger2.y = -canvas.height*(2*newx/canvas.width - 1);
+        }
       }else if(canvas.height*(2*newx/canvas.width - 1) > newy){
-        dragger2.x = newx;
-        dragger2.y = canvas.height*(2*newx/canvas.width - 1);
+        if (Math.abs(diffy/diffx) > Math.sqrt(3)){
+          dragger2.y = newy;
+          dragger2.x = canvas.width/2 * (newy/canvas.height + 1)
+        }else{
+          dragger2.x = newx;
+          dragger2.y = canvas.height*(2*newx/canvas.width - 1);
+        }
       }else{
         dragger2.x = newx;
         dragger2.y = newy;
       }
 
+      //edge case clearance
+      
       if (dragger2.y > canvas.height){
         dragger2.y = canvas.height;
+      }else if (dragger2.y < 0){
+        dragger2.y = 0;
       }
 
       if (dragger2.x > canvas.width){
         dragger2.x = canvas.width;
       } else if (dragger2.x < 0){
         dragger2.x = 0;
+      }
+
+      if (newy < 0){
+        dragger2.y = 0;
+        dragger2.x = canvas.width/2;
       }
 
       x = e.clientX;
