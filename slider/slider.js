@@ -30,8 +30,6 @@ const updateCanvas = () => {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
-  document.getElementById('dragger').style.background = format(canvas.color);
-
   const buffer = ctx.createImageData(canvas.width, canvas.height);
 
 
@@ -97,7 +95,7 @@ const updateCanvas = () => {
 };
 
 const updateDragger = () => {
-  dragger.style.background = format(document.getElementById('dragger2').color);
+  dragger.style.borderBottomColor = format(document.getElementById('dragger2').color);
 }
 
 const updateDragger2 = () => {
@@ -213,15 +211,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       position: 'relative'
     });
 
-  const dragger =
-    create('DIV', slider, {
-      id: 'dragger',
-      status: 0,
-    },{
-      left: -9 + 'px',
-      position: 'absolute',
-    });
-
   const dragger2 =
     create('DIV', picker, {
       id: 'dragger2',
@@ -232,6 +221,16 @@ document.addEventListener('DOMContentLoaded',()=>{
       left: canvas.width/2 - 15 + 'px',
       top: -15 + 'px'
     });
+
+    const dragger =
+      create('DIV', slider, {
+        id: 'dragger',
+        status: 0,
+      },{
+        left: -9 + 'px',
+        position: 'absolute',
+        'border-bottom-color': format(canvas.color),
+      });
 
   const swatch =
     create('DIV', container, {
@@ -350,8 +349,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       }
       dragger.style.left = dragger.status - 9 + 'px'; //TODO 1/2 dragger height
 
-      const colorArr = calcColor(dragger.status);
-      canvas.color = colorArr;
+      canvas.color = calcColor(dragger.status);
 
       updateCanvas();
       updateDragger2();
