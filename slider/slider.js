@@ -130,9 +130,9 @@ const updateSwatch = () => {
   const sat = dragger2.color.reduce((acc,el) => acc += el)-255;
   swatch.style.color = (sat < 255*3/2 ? 'white' : 'black');
   swatch.innerHTML = `
-    <p>Red: ${dragger2.color[0]}</p>
-    <p>Green: ${dragger2.color[1]}</p>
-    <p>Blue: ${dragger2.color[2]}</p>
+    <p>Red:&nbsp;&nbsp;&nbsp;${dragger2.color[0]}</p>
+    <p>Green:&nbsp;${dragger2.color[1]}</p>
+    <p>Blue:&nbsp;&nbsp;${dragger2.color[2]}</p>
     `
 };
 
@@ -229,17 +229,17 @@ document.addEventListener('DOMContentLoaded',()=>{
       x: canvas.width/2,
       y: 0,
     },{
-      left: canvas.width/2 - 9 + 'px',
-      top: -9 + 'px'
+      left: canvas.width/2 - 15 + 'px',
+      top: -15 + 'px'
     });
 
   const swatch =
     create('DIV', container, {
       id: 'swatch',
       innerHTML: `
-        <p>Red: ${dragger2.color[0]}</p>
-        <p>Green: ${dragger2.color[1]}</p>
-        <p>Blue: ${dragger2.color[2]}</p>
+        <p>Red:&nbsp;&nbsp;&nbsp;${dragger2.color[0]}</p>
+        <p>Green:&nbsp;${dragger2.color[1]}</p>
+        <p>Blue:&nbsp;&nbsp;${dragger2.color[2]}</p>
         `,
     },{
       background: format(canvas.color),
@@ -314,8 +314,8 @@ document.addEventListener('DOMContentLoaded',()=>{
       y = e.clientY;
 
 
-      dragger2.style.left = dragger2.x - 9 + 'px';
-      dragger2.style.top = dragger2.y - 9 + 'px';
+      dragger2.style.left = dragger2.x - 15 + 'px';
+      dragger2.style.top = dragger2.y - 15 + 'px';
       updateDragger2();
       updateSwatch();
       updateSlider();
