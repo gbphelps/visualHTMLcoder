@@ -1,7 +1,7 @@
 
 
 const calcColor = status => {
-    const progress = status / 300 * 6;
+    const progress = status / 260 * 6;
     let inc = 255 * (progress - Math.floor(progress));
 
     switch (Math.floor(progress)){
@@ -175,7 +175,7 @@ const canvas = document.getElementById('canvas');
 
   document.getElementById('slider').style.background =
   `linear-gradient(
-        to right,
+        to bottom,
         ${format(colorStops[0])},
         ${format(colorStops[1])},
         ${format(colorStops[2])},
@@ -185,7 +185,7 @@ const canvas = document.getElementById('canvas');
         ${format(colorStops[6])}
     )`;
 
-  updateDragger();
+  //updateDragger();
 
 }
 
@@ -195,6 +195,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   const container = create('DIV',document.body,{id: 'container'},{display: 'flex'});
   const picker = create('DIV', container, {id:'picker'});
 
+
+
+
   const canvas = create('CANVAS', picker, {
     id: 'canvas',
     height: Math.round(300*Math.sqrt(3)/2),
@@ -202,14 +205,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     color: [255, 0, 0, 255],
   });
 
-  const ctx = canvas.getContext('2d');
-
   const slider =
-    create('DIV', picker, {
+    create('DIV', container, {
       id: 'slider'
     },{
       position: 'relative'
     });
+
+
+  const ctx = canvas.getContext('2d');
 
   const dragger2 =
     create('DIV', picker, {
@@ -227,9 +231,8 @@ document.addEventListener('DOMContentLoaded',()=>{
         id: 'dragger',
         status: 0,
       },{
-        left: -9 + 'px',
+        top: -5 + 'px',
         position: 'absolute',
-        'border-bottom-color': format(canvas.color),
       });
 
   const swatch =
@@ -332,28 +335,29 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   dragger.addEventListener('mousedown', e => {
     e.preventDefault();
-    let x = e.clientX;
+    let y = e.clientY;
 
     const mousemove = e => {
-      const diff = e.clientX - x;
+
+      const diff = e.clientY - y;
       const newValue = dragger.status + diff;
-      if (newValue > 300){
-        x = slider.getBoundingClientRect().right;
-        dragger.status = 300;
+
+      if (newValue > 260){
+        dragger.status = 260;
       } else if (newValue < 0) {
-        x = slider.getBoundingClientRect().left;
         dragger.status = 0;
       } else {
-        x = e.clientX;
         dragger.status = newValue;
+        y = e.clientY;
       }
-      dragger.style.left = dragger.status - 9 + 'px'; //TODO 1/2 dragger height
+
+      dragger.style.top = dragger.status - 5 + 'px'; //TODO 1/2 dragger height
 
       canvas.color = calcColor(dragger.status);
 
       updateCanvas();
       updateDragger2();
-      updateDragger();
+      // updateDragger();
       updateSwatch();
 
     };

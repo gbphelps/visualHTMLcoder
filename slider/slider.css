@@ -1,9 +1,10 @@
 #slider{
-  margin-top:10px;
-  background: linear-gradient(to right,#F00,#FF0,#0F0,#0FF,#00F,#F0F,#F00);
-  height: 15px;
-  width: 300px;
+  background: linear-gradient(to bottom,#F00,#FF0,#0F0,#0FF,#00F,#F0F,#F00);
+  height: 260px;
+  width: 20px;
   box-sizing: border-box;
+  flex-shrink: 0;
+  margin:20px;
 }
 
 #dragger, #dragger2{
@@ -12,7 +13,6 @@
   width: 18px;
   box-sizing: border-box;
   /* border: 1px solid white; */
-
 }
 
 #dragger2{
@@ -24,32 +24,35 @@
 
 #dragger{
   bottom: -15px;
-  height:0;
-  width:0;
-  border: 10px solid;
-  border-color: transparent;
+  right: -10px;
+  border: 10px solid transparent;
+  border-width: 5px 10px;
+  height: 10px;
+  width: 20px;
+  border-right-color: white;
 }
 
 #picker{
   position: relative;
-  margin:15px;
+  margin: 20px;
 }
 
 body{
 }
 
+
 #swatch{
   font-family: 'Courier New';
   color: white;
   width: 100%;
-  margin-left:10px;
+  flex-grow:2;
   padding:10px;
   border-left: 1px solid black;
+  box-sizing:border-box;
 }
 
 #container{
   border:1px solid black;
-  width: 500px;
-  overflow: hidden;
+  width: 520px;
   background:black;
 }
