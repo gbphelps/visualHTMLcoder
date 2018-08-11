@@ -1,10 +1,11 @@
 #slider{
   background: linear-gradient(to bottom,#F00,#FF0,#0F0,#0FF,#00F,#F0F,#F00);
   height: 260px;
-  width: 20px;
+  width: 5px;
   box-sizing: border-box;
   flex-shrink: 0;
   margin:20px;
+  border-radius:100px;
 }
 
 #dragger, #dragger2{
@@ -29,7 +30,7 @@
   border-width: 5px 10px;
   height: 10px;
   width: 20px;
-  border-right-color: white;
+  border-right-color: black;
 }
 
 #picker{
@@ -52,7 +53,5 @@ body{
 }
 
 #container{
-  border:1px solid black;
   width: 520px;
-  background:black;
 }
