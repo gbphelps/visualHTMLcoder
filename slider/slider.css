@@ -24,3 +24,12 @@
   background:black;
   border: 1px solid white;
 }
+
+#swatch{
+  font-family: 'Courier New';
+  color: white;
+  line-height: 200px;
+  height: 200px;
+  width: 200px;
+  text-align: center;
+}
