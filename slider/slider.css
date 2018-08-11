@@ -19,3 +19,8 @@
 #picker{
   position: absolute;
 }
+
+#dragger2{
+  background:black;
+  border: 1px solid white;
+}

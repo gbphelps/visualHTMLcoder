@@ -145,13 +145,60 @@ document.addEventListener('DOMContentLoaded',()=>{
       const newx = dragger2.x + diffx;
       const newy = dragger2.y + diffy;
 
-      dragger2.x = newx;
-      dragger2.y = newy;
-      dragger2.style.left = dragger2.x - 9 + 'px';
-      dragger2.style.top = dragger2.y - 9 + 'px';
+      const box = canvas.getBoundingClientRect();
+
+      if (e.clientX > box.right){
+        dragger2.x = canvas.width;
+      }else if (e.clientX < box.left){
+        dragger2.x = 0;
+      }
+
+      if (e.clientY > box.bottom){
+        dragger2.y = canvas.height;
+      }else if (e.clientY < box.right){
+        dragger2.y = 0;
+      }
+
+      if (-canvas.height*(2*newx/canvas.width - 1) > newy){
+        dragger2.x = newx;
+        dragger2.y = -canvas.height*(2*newx/canvas.width - 1);
+      }else if(canvas.height*(2*newx/canvas.width - 1) > newy){
+        dragger2.x = newx;
+        dragger2.y = canvas.height*(2*newx/canvas.width - 1);
+      }else{
+        dragger2.x = newx;
+        dragger2.y = newy;
+      }
+
+      if (dragger2.y > canvas.height){
+        dragger2.y = canvas.height;
+      }
+
+      if (dragger2.x > canvas.width){
+        dragger2.x = canvas.width;
+      } else if (dragger2.x < 0){
+        dragger2.x = 0;
+      }
 
       x = e.clientX;
       y = e.clientY;
+
+
+      //TODO just recalculate color - there are too many broken points
+      const color = ctx.getImageData(dragger2.x, dragger2.y, 1, 1).data;
+      dragger2.style.background = format(color);
+      if (dragger2.y === canvas.height){
+        const sat = (dragger2.x / canvas.width)*255;
+        dragger2.style.background = `rgba(${sat},${sat},${sat},255)`;
+      }
+
+
+
+      dragger2.style.left = dragger2.x - 9 + 'px';
+      dragger2.style.top = dragger2.y - 9 + 'px';
+
+
+
     };
 
     document.addEventListener('mousemove', mousemove);
