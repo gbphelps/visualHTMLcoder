@@ -240,6 +240,20 @@ document.addEventListener('DOMContentLoaded',()=>{
         'border-right-color': format(canvas.color)
       });
 
+    // create('DIV', dragger, {}, {
+    //   position:'absolute',
+    //   'border': '1px solid transparent',
+    //   'border-width': '17px',
+    //   'border-right-color': 'gray',
+    //   height: '0px',
+    //   width: '0px',
+    //   top: '-17px',
+    //   left: '-18px',
+    //   'z-index': -1
+    // })
+
+
+
   const swatch =
     create('DIV', container, {
       id: 'swatch',

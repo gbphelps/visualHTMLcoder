@@ -22,7 +22,7 @@
 }
 
 #dragger{
-  right: -20px;
+  right: -21px;
   border: 10px solid transparent;
   border-width: 16px 16px;
   height: 10px;
@@ -45,11 +45,10 @@ body{
   width: 100%;
   flex-grow:2;
   padding:10px;
-  box-sizing:border-box;
 }
 
 #container{
-  width: 520px;
+  width: 570px;
   border: 1px solid #eee;
   border-radius: 2px;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16)
