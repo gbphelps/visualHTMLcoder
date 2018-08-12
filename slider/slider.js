@@ -1,5 +1,9 @@
 
 
+
+const grab = 'url(https://ssl.gstatic.com/ui/v1/icons/mail/images/2/openhand.cur), default';
+const grabbing = 'url(https://ssl.gstatic.com/ui/v1/icons/mail/images/2/closedhand.cur), default';
+
 const calcColor = status => {
     const progress = status / 260 * 6;
     let inc = 255 * (progress - Math.floor(progress));
@@ -95,7 +99,7 @@ const updateCanvas = () => {
 };
 
 const updateDragger = () => {
-  dragger.style.borderBottomColor = format(document.getElementById('dragger2').color);
+  dragger.style.borderRightColor = format(document.getElementById('dragger2').color);
 }
 
 const updateDragger2 = () => {
@@ -185,13 +189,13 @@ const canvas = document.getElementById('canvas');
         ${format(colorStops[6])}
     )`;
 
-  //updateDragger();
+  updateDragger();
 
 }
 
 
 document.addEventListener('DOMContentLoaded',()=>{
-
+  document.body.style.cursor = 'default';
   const container = create('DIV',document.body,{id: 'container'},{display: 'flex'});
   const picker = create('DIV', container, {id:'picker'});
 
@@ -231,8 +235,9 @@ document.addEventListener('DOMContentLoaded',()=>{
         id: 'dragger',
         status: 0,
       },{
-        top: -5 + 'px',
+        top: -16 + 'px',
         position: 'absolute',
+        'border-right-color': format(canvas.color)
       });
 
   const swatch =
@@ -252,6 +257,14 @@ document.addEventListener('DOMContentLoaded',()=>{
   updateCanvas();
 
 
+  // //GRABBING
+  // dragger2.addEventListener('mouseover', ()=>{
+  //   if (document.body.style.cursor === 'default') document.body.style.cursor = grab;
+  //   dragger2.addEventListener('mouseout',()=>{
+  //     if (document.body.style.cursor === 'grab') document.body.style.cursor = 'default';
+  //   },{once:true})
+  // })
+
   dragger2.addEventListener('mousedown', e => {
 
     //TODO make it easier to get the top shade
@@ -261,6 +274,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     e.preventDefault();
     let x = e.clientX;
     let y = e.clientY;
+    //document.body.style.cursor = grabbing;
 
     const mousemove = e => {
       const diffx = e.clientX - x;
@@ -327,7 +341,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.addEventListener('mousemove', mousemove);
 
     document.addEventListener('mouseup',
-      ()=>document.removeEventListener('mousemove', mousemove),
+      ()=>{
+        document.removeEventListener('mousemove', mousemove);
+      },
       {once:true}
     );
 
@@ -351,13 +367,13 @@ document.addEventListener('DOMContentLoaded',()=>{
         y = e.clientY;
       }
 
-      dragger.style.top = dragger.status - 5 + 'px'; //TODO 1/2 dragger height
+      dragger.style.top = dragger.status - 16 + 'px'; //TODO 1/2 dragger height
 
       canvas.color = calcColor(dragger.status);
 
       updateCanvas();
       updateDragger2();
-      // updateDragger();
+      updateDragger();
       updateSwatch();
 
     };
