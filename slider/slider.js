@@ -10,23 +10,69 @@ const calcColor = status => {
 
     switch (Math.floor(progress)){
       case 0:
-        return [255, 0+inc, 0, 1]
+        return [255, 0+inc, 0]
       case 1:
-        return [255-inc, 255, 0, 1]
+        return [255-inc, 255, 0]
       case 2:
-        return [0, 255, 0+inc, 1]
+        return [0, 255, 0+inc]
       case 3:
-        return [0, 255-inc, 255, 1]
+        return [0, 255-inc, 255]
       case 4:
-        return [0+inc, 0, 255, 1]
+        return [0+inc, 0, 255]
       case 5:
-        return [255, 0, 255-inc, 1]
+        return [255, 0, 255-inc]
       case 6:
-        return [255, 0, 0, 1]
+        return [255, 0, 0]
     }
 }
 
-const format = color => `rgba(${color[0]},${color[1]},${color[2]},${color[3]})`;
+const format = color => `rgb(${color[0]},${color[1]},${color[2]})`;
+
+
+//TODO TODO TODO
+const colorToCoord = color => {
+  const [min,mid,max] = Array.from(color).sort((x,y)=> x-y);
+  const r = max / 255;
+  const theta = min / max;
+  const missingColor = 255 * (mid - min) / (max - min);
+
+  let parentColor = [];
+  color.forEach(hue =>{
+    switch (hue){
+      case max: parentColor.push(255); break;
+      case min: parentColor.push(0); break;
+      default: parentColor.push(missingColor); break;
+    }
+  });
+
+
+  // const xp = dragger2.x;
+  // const yp = canvas.height - dragger2.y;
+  //
+  // let theta0 = Math.atan(yp/xp);
+  // const theta = (Math.PI/3 - theta0)/(Math.PI/3);
+  //
+  // let r = Math.sqrt(xp*xp + yp*yp)/300;
+  // r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2);
+
+
+
+
+  const theta0 = Math.PI/3 - (Math.PI/3 * theta);
+  const x = Math.sqrt(3) * max * 300 /2 /255 /Math.cos(Math.PI/6-theta0) /Math.sqrt(1+ Math.tan(theta0) * Math.tan(theta0));
+  const y = canvas.height - x * Math.tan(theta0);
+
+  const dragger2 = document.getElementById('dragger2');
+  dragger2.style.left = x - 15 + 'px';
+  dragger2.style.top = y - 15 + 'px';
+  dragger2.style.background = format(color);
+  canvas.color = parentColor;
+  updateCanvas();
+  //TODO finish updating everything
+
+
+};
+
 
 
 
@@ -119,10 +165,9 @@ const updateDragger2 = () => {
     let R = Math.round((canvas.color[0] + (255-canvas.color[0])*theta) * r) || 0;
     let G = Math.round((canvas.color[1] + (255-canvas.color[1])*theta) * r) || 0;
     let B = Math.round((canvas.color[2] + (255-canvas.color[2])*theta) * r) || 0;
-    let A = 255;
 
-    dragger2.color = [R,G,B,A]
-    dragger2.style.background = format([R,G,B,A]);
+    dragger2.color = [R,G,B]
+    dragger2.style.background = format([R,G,B]);
 }
 
 
@@ -135,6 +180,7 @@ const updateSwatch = () => {
     <p>Red:&nbsp;&nbsp;&nbsp;${dragger2.color[0]}</p>
     <p>Green:&nbsp;${dragger2.color[1]}</p>
     <p>Blue:&nbsp;&nbsp;${dragger2.color[2]}</p>
+    <div contenteditable=true>${format(dragger2.color)}</div>
     `
 };
 
@@ -248,10 +294,12 @@ document.addEventListener('DOMContentLoaded',()=>{
         <p>Red:&nbsp;&nbsp;&nbsp;${dragger2.color[0]}</p>
         <p>Green:&nbsp;${dragger2.color[1]}</p>
         <p>Blue:&nbsp;&nbsp;${dragger2.color[2]}</p>
+        <div contenteditable='true'>${format(dragger2.color)}</div>
         `,
     },{
       background: format(canvas.color),
     });
+
 
 
   updateDragger2();
