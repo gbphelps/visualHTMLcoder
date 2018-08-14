@@ -10,21 +10,46 @@ const calcColor = status => {
 
     switch (Math.floor(progress)){
       case 0:
-        return [255, 0+inc, 0]
+        return [255, inc, 0]
       case 1:
         return [255-inc, 255, 0]
       case 2:
-        return [0, 255, 0+inc]
+        return [0, 255, inc]
       case 3:
         return [0, 255-inc, 255]
       case 4:
-        return [0+inc, 0, 255]
+        return [inc, 0, 255]
       case 5:
         return [255, 0, 255-inc]
       case 6:
         return [255, 0, 0]
     }
 }
+
+const revCalc = color => {
+  let progress;
+
+  if (color[0] === 255 && color[2] === 0){
+    progress = 0 + color[1]/255;
+  }else if (color[1] === 255 && color[2] === 0){
+    progress = 1 + color[0]/255;
+  }else if (color[1] === 255 && color[0] === 0){
+    progress = 2 + color[2]/255;
+  }else if (color[2] === 255 && color[0] === 0){
+    progress = 3 + color[1]/255;
+  }else if (color[2] === 255 && color[1] === 0){
+    progress = 4 + color[0]/255;
+  }else if (color[0] === 255 && color[1] === 0){
+    progress = 5 + color[2]/255;
+  }
+
+  const status = progress * 260/6;
+  const dragger = document.getElementById('dragger');
+  dragger.status = status;
+  dragger.style.top = status - 16 + 'px';
+}
+
+
 
 const format = color => `rgb(${color[0]},${color[1]},${color[2]})`;
 
@@ -45,30 +70,22 @@ const colorToCoord = color => {
     }
   });
 
-
-  // const xp = dragger2.x;
-  // const yp = canvas.height - dragger2.y;
-  //
-  // let theta0 = Math.atan(yp/xp);
-  // const theta = (Math.PI/3 - theta0)/(Math.PI/3);
-  //
-  // let r = Math.sqrt(xp*xp + yp*yp)/300;
-  // r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2);
-
-
-
+  const dragger = document.getElementById('dragger');
+  const dragger2 = document.getElementById('dragger2');
 
   const theta0 = Math.PI/3 - (Math.PI/3 * theta);
-  const x = Math.sqrt(3) * max * 300 /2 /255 /Math.cos(Math.PI/6-theta0) /Math.sqrt(1+ Math.tan(theta0) * Math.tan(theta0));
-  const y = canvas.height - x * Math.tan(theta0);
+  dragger2.x = Math.sqrt(3) * max * 300 /2 /255 /Math.cos(Math.PI/6-theta0) /Math.sqrt(1+ Math.tan(theta0) * Math.tan(theta0));
+  dragger2.y = canvas.height - dragger2.x * Math.tan(theta0);
 
-  const dragger2 = document.getElementById('dragger2');
-  dragger2.style.left = x - 15 + 'px';
-  dragger2.style.top = y - 15 + 'px';
+  dragger2.style.left = dragger2.x - 15 + 'px';
+  dragger2.style.top = dragger2.y - 15 + 'px';
+  dragger2.color = color;
   dragger2.style.background = format(color);
+  dragger.style.borderRightColor = format(color);
   canvas.color = parentColor;
   updateCanvas();
-  //TODO finish updating everything
+  revCalc(parentColor);
+  updateSwatch();
 
 
 };
@@ -180,7 +197,13 @@ const updateSwatch = () => {
     <p>Red:&nbsp;&nbsp;&nbsp;${dragger2.color[0]}</p>
     <p>Green:&nbsp;${dragger2.color[1]}</p>
     <p>Blue:&nbsp;&nbsp;${dragger2.color[2]}</p>
-    <div contenteditable=true>${format(dragger2.color)}</div>
+    <div class='color'>
+      rgba(
+        <input size=3 value=${dragger2.color[0]}></input>,
+        <input size=3 value=${dragger2.color[1]}></input>,
+        <input size=3 value=${dragger2.color[2]}></input>
+      )
+    </div>
     `
 };
 

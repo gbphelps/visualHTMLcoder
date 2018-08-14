@@ -35,14 +35,30 @@
   margin: 20px;
 }
 
+.color{
+  border-bottom: 1px solid white;
+}
+input{
+  background: none;
+  border: none;
+  font-family: 'Courier New';
+  color:inherit;
+  font-size:inherit;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+}
 
-
+input:focus{
+  outline: none;
+  background: rgba(255,255,255,.2)
+}
 
 #swatch{
   font-family: 'Courier New';
-  color: white;
   width: 100%;
   padding:10px;
+  font-size: 12px;
 }
 
 #container{
