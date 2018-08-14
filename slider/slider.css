@@ -37,7 +37,9 @@
 
 .color{
   border-bottom: 1px solid white;
+  display: inline-block;
 }
+
 input{
   background: none;
   border: none;
@@ -47,6 +49,7 @@ input{
   text-align: right;
   margin: 0;
   padding: 0;
+  display: inline;
 }
 
 input:focus{

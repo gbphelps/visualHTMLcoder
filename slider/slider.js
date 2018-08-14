@@ -32,15 +32,15 @@ const revCalc = color => {
   if (color[0] === 255 && color[2] === 0){
     progress = 0 + color[1]/255;
   }else if (color[1] === 255 && color[2] === 0){
-    progress = 1 + color[0]/255;
+    progress = 1 + 1 - color[0]/255;
   }else if (color[1] === 255 && color[0] === 0){
     progress = 2 + color[2]/255;
   }else if (color[2] === 255 && color[0] === 0){
-    progress = 3 + color[1]/255;
+    progress = 3 + 1 - color[1]/255;
   }else if (color[2] === 255 && color[1] === 0){
     progress = 4 + color[0]/255;
   }else if (color[0] === 255 && color[1] === 0){
-    progress = 5 + color[2]/255;
+    progress = 5 + 1 - color[2]/255;
   }
 
   const status = progress * 260/6;
@@ -183,7 +183,7 @@ const updateDragger2 = () => {
     let G = Math.round((canvas.color[1] + (255-canvas.color[1])*theta) * r) || 0;
     let B = Math.round((canvas.color[2] + (255-canvas.color[2])*theta) * r) || 0;
 
-    dragger2.color = [R,G,B]
+    dragger2.color = [R,G,B];
     dragger2.style.background = format([R,G,B]);
 }
 
@@ -193,18 +193,9 @@ const updateSwatch = () => {
   swatch.style.background = format(dragger2.color);
   const sat = dragger2.color.reduce((acc,el) => acc += el)-255;
   swatch.style.color = (sat < 255*3/2 ? 'white' : 'black');
-  swatch.innerHTML = `
-    <p>Red:&nbsp;&nbsp;&nbsp;${dragger2.color[0]}</p>
-    <p>Green:&nbsp;${dragger2.color[1]}</p>
-    <p>Blue:&nbsp;&nbsp;${dragger2.color[2]}</p>
-    <div class='color'>
-      rgba(
-        <input size=3 value=${dragger2.color[0]}></input>,
-        <input size=3 value=${dragger2.color[1]}></input>,
-        <input size=3 value=${dragger2.color[2]}></input>
-      )
-    </div>
-    `
+  dragger2.color.forEach((hue,i)=>{
+    document.getElementById(`color-${i}`).value = hue;
+  });
 };
 
 const create = (tag, parent, props, style) => {
@@ -312,16 +303,27 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   const swatch =
     create('DIV', container, {
-      id: 'swatch',
-      innerHTML: `
-        <p>Red:&nbsp;&nbsp;&nbsp;${dragger2.color[0]}</p>
-        <p>Green:&nbsp;${dragger2.color[1]}</p>
-        <p>Blue:&nbsp;&nbsp;${dragger2.color[2]}</p>
-        <div contenteditable='true'>${format(dragger2.color)}</div>
-        `,
+      id: 'swatch'
     },{
-      background: format(canvas.color),
+      background: format(canvas.color)
     });
+
+    const red = document.createElement('INPUT');
+    red.id = 'color-0';
+    const green = document.createElement('INPUT');
+    green.id = 'color-1';
+    const blue = document.createElement('INPUT');
+    blue.id = 'color-2';
+    [red,green,blue].forEach(input => input.setAttribute('size', 3))
+
+    create('SPAN', swatch, {innerHTML: 'rgb('});
+    swatch.append(red);
+    create('SPAN', swatch, {innerHTML: ','});
+    swatch.append(green);
+    create('SPAN', swatch, {innerHTML: ','});
+    swatch.append(blue);
+    create('SPAN', swatch, {innerHTML: ')'});
+
 
 
 
