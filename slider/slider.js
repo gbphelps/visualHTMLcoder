@@ -206,9 +206,25 @@ const create = (tag, parent, props, style) => {
   return element;
 };
 
+
+colorInputCallback = e => {
+    color = [];
+    for (let i = 0; i < 3; i++) {
+      const input = document.getElementById(`color-${i}`);
+      let val = +input.value;
+      if (input === e.target && !(val >= 0 && val <= 255)){
+        input.value = input.last;
+        return;
+      };
+      color.push(val);
+      input.last = val;
+    }
+    colorToCoord(color);
+  };
+
 const updateSlider = () => {
 
-const dragger2 = document.getElementById('dragger2');
+//const dragger2 = document.getElementById('dragger2');
 // const canvas = document.getElementById('canvas');
 //
 //   const xp = dragger2.x;
@@ -314,7 +330,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     green.id = 'color-1';
     const blue = document.createElement('INPUT');
     blue.id = 'color-2';
-    [red,green,blue].forEach(input => input.setAttribute('size', 3))
+    [red,green,blue].forEach(input => {
+      input.setAttribute('size', 3);
+      input.addEventListener('input',colorInputCallback);
+      input.addEventListener('focus',e=>e.target.select())
+    })
 
     create('SPAN', swatch, {innerHTML: 'rgb('});
     swatch.append(red);
@@ -329,6 +349,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   updateDragger2();
   updateCanvas();
+  updateSwatch();
 
 
   // //GRABBING
