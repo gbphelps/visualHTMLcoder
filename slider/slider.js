@@ -56,7 +56,7 @@ const format = color => `rgb(${color[0]},${color[1]},${color[2]})`;
 
 //TODO TODO TODO
 const colorToCoord = color => {
-  const [min,mid,max] = Array.from(color).sort((x,y)=> x-y);
+  let [min,mid,max] = Array.from(color).sort((x,y)=> x-y);
   const r = max / 255;
   const theta = min / max;
   const missingColor = 255 * (mid - min) / (max - min);
@@ -70,6 +70,12 @@ const colorToCoord = color => {
     }
   });
 
+  ///
+  if (max === 0) parentColor = document.getElementById('canvas').color;
+  if (min === 255) parentColor = document.getElementById('canvas').color;
+
+
+
   const dragger = document.getElementById('dragger');
   const dragger2 = document.getElementById('dragger2');
 
@@ -77,8 +83,22 @@ const colorToCoord = color => {
   dragger2.x = Math.sqrt(3) * max * 300 /2 /255 /Math.cos(Math.PI/6-theta0) /Math.sqrt(1+ Math.tan(theta0) * Math.tan(theta0));
   dragger2.y = canvas.height - dragger2.x * Math.tan(theta0);
 
+  ///
+  console.log(max);
+  if (max === 0){
+    dragger2.x = 0;
+    dragger2.y = canvas.height;
+  } else if (min === 255){
+    dragger2.x = canvas.width;
+    dragger2.y = canvas.height;
+  }
+
   dragger2.style.left = dragger2.x - 15 + 'px';
   dragger2.style.top = dragger2.y - 15 + 'px';
+
+
+
+
   dragger2.color = color;
   dragger2.style.background = format(color);
   dragger.style.borderRightColor = format(color);
