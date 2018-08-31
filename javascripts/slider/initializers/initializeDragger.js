@@ -1,5 +1,5 @@
-import { create, format } from './utils'
-import { draggerCallback } from './listeners/draggerCallback'
+import { create, format } from '../utils'
+import { draggerCallback } from '../listeners/draggerCallback'
 
 export const initializeDragger = (d1diameter) => {
   const dragger =

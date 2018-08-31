@@ -7,11 +7,11 @@ import { format, calcColor, create } from './utils'
 import { dragger2Callback } from './listeners/dragger2Callback';
 import { draggerCallback } from './listeners/draggerCallback';
 
-import { initializeSwatch } from './initializeSwatch';
-import { initializeDragger } from './initializeDragger';
-import { initializeDragger2 } from './initializeDragger2';
-import { initializeCanvas } from './initializeCanvas';
-import { initializeSlider } from './initializeSlider';
+import { initializeSwatch } from './initializers/initializeSwatch';
+import { initializeDragger } from './initializers/initializeDragger';
+import { initializeDragger2 } from './initializers/initializeDragger2';
+import { initializeCanvas } from './initializers/initializeCanvas';
+import { initializeSlider } from './initializers/initializeSlider';
 
 
 
@@ -25,15 +25,11 @@ export const initialize = () => {
 
   document.body.style.cursor = 'default';
 
-  const container = create('DIV',document.body,{
-    id: 'container'
-  },{
-    display: 'flex'
-  });
+  const container =
+    create('DIV',document.body,{id: 'container'},{display: 'flex'});
 
-  const picker = create('DIV', container, {
-    id:'picker'
-  });
+  const picker =
+    create('DIV', container, {id:'picker'});
 
   initializeCanvas(canvasWidth);
   initializeSlider(sliderWidth,sliderHeight);

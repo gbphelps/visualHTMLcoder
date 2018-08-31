@@ -1,4 +1,4 @@
-import { create } from './utils';
+import { create } from '../utils';
 
 export const initializeSlider = (sliderWidth, sliderHeight) => {
   const slider =

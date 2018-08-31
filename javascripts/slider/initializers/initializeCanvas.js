@@ -1,5 +1,5 @@
-import { create } from './utils';
-import { updateCanvas } from './updaters/updateCanvas';
+import { create } from '../utils';
+import { updateCanvas } from '../updaters/updateCanvas';
 
 export const initializeCanvas = (canvasWidth) => {
   const canvas = create('CANVAS', picker, {

@@ -1,5 +1,5 @@
-import { create } from './utils';
-import { dragger2Callback } from './listeners/dragger2Callback';
+import { create } from '../utils';
+import { dragger2Callback } from '../listeners/dragger2Callback';
 
 
 export const initializeDragger2 = (d2diameter) => {

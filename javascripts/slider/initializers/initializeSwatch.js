@@ -1,5 +1,5 @@
-import { format, create } from './utils';
-import { colorInputCallback } from './listeners/colorInputCallback';
+import { format, create } from '../utils';
+import { colorInputCallback } from '../listeners/colorInputCallback';
 
 
 export const initializeSwatch = () => {
