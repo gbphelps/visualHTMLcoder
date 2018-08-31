@@ -10,6 +10,8 @@ import { draggerCallback } from './listeners/draggerCallback';
 import { initializeSwatch } from './initializeSwatch';
 import { initializeDragger } from './initializeDragger';
 import { initializeDragger2 } from './initializeDragger2';
+import { initializeCanvas } from './initializeCanvas';
+import { initializeSlider } from './initializeSlider';
 
 
 
@@ -33,27 +35,8 @@ export const initialize = () => {
     id:'picker'
   });
 
-  const canvas = create('CANVAS', picker, {
-    id: 'canvas',
-    height: Math.round(canvasWidth*Math.sqrt(3)/2),
-    width: canvasWidth,
-  });
-
-  updateCanvas([255, 0, 0, 255]);
-  const ctx = canvas.getContext('2d');
-
-
-  const slider =
-    create('DIV', container, {
-      id: 'slider',
-      height: sliderHeight,
-      width: sliderWidth
-    },{
-      position: 'relative',
-      width: sliderWidth + 'px',
-      height: sliderHeight + 'px'
-    });
-
+  initializeCanvas(canvasWidth);
+  initializeSlider(sliderWidth,sliderHeight);
   initializeDragger2(d2diameter);
   initializeDragger(d1diameter);
   initializeSwatch();

@@ -1,7 +1,5 @@
 #slider{
   background: linear-gradient(to bottom,#F00,#FF0,#0F0,#0FF,#00F,#F0F,#F00);
-  height: 260px;
-  width: 5px;
   box-sizing: border-box;
   flex-shrink: 0;
   margin:20px;
