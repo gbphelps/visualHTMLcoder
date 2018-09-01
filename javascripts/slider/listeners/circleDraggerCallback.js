@@ -40,7 +40,7 @@ export const circleDraggerCallback = e => {
 
 const setDraggerPosition = ({ x, y }) => {
   const left = (x + spectrumContainer.width/2) - circleDragger.diameter/2;
-  const top = (spectrumContainer.width/2 - y) - circleDragger.diameter/2;
+  const top = (spectrumContainer.width/2 - y);
 
   console.log(left, top);
 
