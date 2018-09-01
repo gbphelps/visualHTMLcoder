@@ -2,31 +2,41 @@ export const circleDraggerCallback = e => {
   let [ xPrev, yPrev ] = [ e.clientX, e.clientY ];
 
   const mousemove = e => {
-    console.log(
-      circleDragger.x,
-      circleDragger.y,
-      circleDragger.style.left,
-      circleDragger.style.top
-    );
+
     const diffx = e.clientX - xPrev;
     const diffy = e.clientY - yPrev;
 
-
-    // const x = circleDragger.x + diffx;
-    // const y = circleDragger.y - diffy;
-    // setDraggerPosition({ x, y });
 
     const m = [diffx, -diffy];
 
     const magnitude2 =
       circleDragger.y*circleDragger.y + circleDragger.x*circleDragger.x;
-
     const tangent = [-circleDragger.y, circleDragger.x];
-
     const scale = (m[0]*tangent[0] + m[1]*tangent[1])/magnitude2;
 
-    const x = circleDragger.x + tangent[0]*scale;
-    const y = circleDragger.y + tangent[1]*scale;
+
+    let x, y;
+    const radius = (spectrumContainer.width - circleDragger.diameter)/2;
+    if (Math.abs(tangent[0]) > Math.abs(tangent[1])){
+      x = circleDragger.x + tangent[0]*scale;
+      if (circleDragger.y > circleDragger.x){
+        y = Math.sqrt(radius*radius - x * x);
+      } else {
+        y = -Math.sqrt(radius*radius - x * x);
+      }
+    }else{
+      y = circleDragger.y + tangent[1]*scale;
+      if (-Math.abs(circleDragger.y) < circleDragger.x){
+        x = Math.sqrt(radius*radius - y * y)
+      } else {
+        x = -Math.sqrt(radius*radius - y * y)
+      }
+    }
+
+
+
+    // const x = circleDragger.x + tangent[0]*scale;
+    // const y = circleDragger.y + tangent[1]*scale;
     setDraggerPosition({x, y});
 
     xPrev = e.clientX;
@@ -45,9 +55,8 @@ export const circleDraggerCallback = e => {
 
 const setDraggerPosition = ({ x, y }) => {
   const left = (x + spectrumContainer.width/2) - circleDragger.diameter/2;
-  const top = (spectrumContainer.width/2 - y);
+  const top = (spectrumContainer.width/2 - y) - circleDragger.diameter/2;
 
-  console.log(left, top);
 
   circleDragger.x = x;
   circleDragger.y = y;
