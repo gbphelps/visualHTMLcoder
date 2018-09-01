@@ -12,21 +12,26 @@ export const circleDraggerCallback = e => {
     const diffy = e.clientY - yPrev;
 
 
-    const x = circleDragger.x + diffx;
-    const y = circleDragger.y - diffy;
-    setDraggerPosition({ x, y });
+    // const x = circleDragger.x + diffx;
+    // const y = circleDragger.y - diffy;
+    // setDraggerPosition({ x, y });
+
+    const m = [diffx, -diffy];
+
+    const magnitude2 =
+      circleDragger.y*circleDragger.y + circleDragger.x*circleDragger.x;
+
+    const tangent = [-circleDragger.y, circleDragger.x];
+
+    const scale = (m[0]*tangent[0] + m[1]*tangent[1])/magnitude2;
+
+    const x = circleDragger.x + tangent[0]*scale;
+    const y = circleDragger.y + tangent[1]*scale;
+    setDraggerPosition({x, y});
 
     xPrev = e.clientX;
     yPrev = e.clientY;
-    // const m = [diffx, diffy];
-    // const tangent = [-circleDragger.y, circleDragger.x];
-    // const magnitude =
-    //   Math.sqrt(circleDragger.y*circleDragger.y + circleDragger.x*circleDragger.x);
-    // const dotProd = [m[0]*tangent[0]/magnitude, m[1]*tangent[1]/magnitude];
-    //
-    // const x = circleDragger.x + dotProd[0];
-    // const y = circleDragger.y + dotProd[1];
-    // setDraggerPosition({x, y});
+
 
     document.addEventListener('mouseup', ()=>{
       document.removeEventListener('mousemove', mousemove)
