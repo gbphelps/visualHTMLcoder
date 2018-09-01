@@ -13,6 +13,9 @@ import { initializeDragger2 } from './initializers/initializeDragger2';
 import { initializeCanvas } from './initializers/initializeCanvas';
 import { initializeSlider } from './initializers/initializeSlider';
 
+import { initializeCircleSlider } from './initializers/initializeCircleSlider';
+
+
 
 
 export const initialize = () => {
@@ -36,6 +39,8 @@ export const initialize = () => {
   initializeDragger2(d2diameter);
   initializeDragger(d1diameter);
   initializeSwatch();
+
+  initializeCircleSlider(300, 20);
 
   updateDragger2();
   updateSwatch();
