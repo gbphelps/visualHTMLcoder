@@ -5,6 +5,7 @@ import { circleDraggerCallback } from '../listeners/circleDraggerCallback'
 export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam=20) => {
   const spectrumContainer = create('DIV', document.body,{
     id: 'spectrumContainer',
+    width: canvasWidth
   },{
     background: 'black',
     height: canvasWidth + 'px',
@@ -20,8 +21,9 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam=20) 
 
   const circleDragger = create('DIV', spectrumContainer, {
     id: 'circleDragger',
-    height: dragDiam,
-    width: dragDiam
+    diameter: dragDiam,
+    x: 0,
+    y: canvasWidth/2
   },{
     height: dragDiam + 'px',
     width: dragDiam + 'px',
