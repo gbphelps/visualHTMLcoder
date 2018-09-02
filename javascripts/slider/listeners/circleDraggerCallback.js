@@ -3,6 +3,8 @@ export const circleDraggerCallback = e => {
 
   const mousemove = e => {
 
+    e.preventDefault();
+    
     const diffx = e.clientX - xPrev;
     const diffy = e.clientY - yPrev;
 

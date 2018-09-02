@@ -38,7 +38,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
   const ctx2 = circleSlider.getContext('2d');
 
   const buffer = ctx2.createImageData(canvasWidth, canvasWidth);
-  populateBuffer(buffer, 1 - spectrumWidth*2/canvasWidth);
+  populateBuffer(buffer, canvasWidth/2 - spectrumWidth);
 }
 
 
@@ -52,21 +52,14 @@ const fillPixel = (buffer, i, color) => {
 
 
 const populateBuffer = (buffer, innerRadius) => {
-  console.log(innerRadius);
-  let deadPixels = [];
-
-  let leftAlias = [];
-  let topAlias = [];
-  let rightAlias = [];
-  let bottomAlias = [];
 
   for (let i = 0; i < circleSlider.width * circleSlider.width; i++){
 
     let left = i % circleSlider.width;
-    const x = (left / circleSlider.height) * 2 - 1;
+    const x = left - circleSlider.width/2;
 
-    let top = circleSlider.height - Math.floor(i / circleSlider.width);
-    const y = (top / circleSlider.height) * 2 - 1;
+    let bottom = circleSlider.width - Math.floor(i / circleSlider.width);
+    const y = bottom - circleSlider.width/2;
 
 
     let progress=0;
@@ -79,16 +72,9 @@ const populateBuffer = (buffer, innerRadius) => {
     const color = calcColor(progress);
 
     const rSquare = x*x + y*y;
-    if ( rSquare < 1 && rSquare > innerRadius* innerRadius){
-      // if (deadPixels[i-1]) leftAlias[i] = {x, y};
-      // if (deadPixels[i-circleSlider.width]) topAlias[i] = {x, y};
+    if ( rSquare < circleSlider.width*circleSlider.width/4 && rSquare > innerRadius* innerRadius){
       fillPixel(buffer,i,color)
     }
-    // else{
-    //   deadPixels[i] = true;
-    //   if (!deadPixels[i-1]) rightAlias[i-1] = { x, y };
-    //   if (!deadPixels[i-circleSlider.width]) bottomAlias[i-circleSlider.width] = { x, y };
-    // }
   }
 
   const ctx = circleSlider.getContext('2d');
