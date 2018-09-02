@@ -2,12 +2,11 @@ import { create } from '../utils';
 import { circleDraggerCallback } from '../listeners/circleDraggerCallback'
 
 
-export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam=20) => {
+export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => {
   const spectrumContainer = create('DIV', document.body,{
     id: 'spectrumContainer',
     width: canvasWidth
   },{
-    background: 'black',
     height: canvasWidth + 'px',
     width: canvasWidth + 'px',
     position: 'relative'
@@ -17,6 +16,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam=20) 
     id: 'circleSlider',
     height: canvasWidth,
     width: canvasWidth,
+    thickness: spectrumWidth
   });
 
   const circleDragger = create('DIV', spectrumContainer, {
@@ -28,7 +28,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam=20) 
     height: dragDiam + 'px',
     width: dragDiam + 'px',
     'border-radius': '50%',
-    background: 'black',
+    background: 'white',
     position: 'absolute',
     top: (spectrumWidth - dragDiam)/2 + 'px',
     left: (canvasWidth - dragDiam)/2 + 'px'
@@ -80,14 +80,15 @@ const populateBuffer = (buffer, innerRadius) => {
 
     const rSquare = x*x + y*y;
     if ( rSquare < 1 && rSquare > innerRadius* innerRadius){
-      if (deadPixels[i-1]) leftAlias[i] = {x, y};
-      if (deadPixels[i-circleSlider.width]) topAlias[i] = {x, y};
+      // if (deadPixels[i-1]) leftAlias[i] = {x, y};
+      // if (deadPixels[i-circleSlider.width]) topAlias[i] = {x, y};
       fillPixel(buffer,i,color)
-    }else{
-      deadPixels[i] = true;
-      if (!deadPixels[i-1]) rightAlias[i-1] = { x, y };
-      if (!deadPixels[i-circleSlider.width]) bottomAlias[i-circleSlider.width] = { x, y };
     }
+    // else{
+    //   deadPixels[i] = true;
+    //   if (!deadPixels[i-1]) rightAlias[i-1] = { x, y };
+    //   if (!deadPixels[i-circleSlider.width]) bottomAlias[i-circleSlider.width] = { x, y };
+    // }
   }
 
   const ctx = circleSlider.getContext('2d');

@@ -16,7 +16,8 @@ export const circleDraggerCallback = e => {
 
 
     let x, y;
-    const radius = (spectrumContainer.width - circleDragger.diameter)/2;
+
+    const radius = (spectrumContainer.width/2 - circleSlider.thickness)/2 + spectrumContainer.width/4;
     if (Math.abs(tangent[0]) > Math.abs(tangent[1])){
       x = circleDragger.x + tangent[0]*scale;
       if (circleDragger.y > circleDragger.x){

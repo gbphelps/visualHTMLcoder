@@ -40,7 +40,7 @@ export const initialize = () => {
   initializeDragger(d1diameter);
   initializeSwatch();
 
-  initializeCircleSlider(300, 20);
+  initializeCircleSlider(300, 20, 15);
 
   updateDragger2();
   updateSwatch();
