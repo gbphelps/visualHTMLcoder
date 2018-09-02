@@ -38,7 +38,8 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
   const ctx2 = circleSlider.getContext('2d');
 
   const buffer = ctx2.createImageData(canvasWidth, canvasWidth);
-  populateBuffer(buffer, canvasWidth/2 - spectrumWidth);
+  const curve = boundaryMap(canvasWidth/2, canvasWidth/2 - spectrumWidth);
+  populateBuffer(buffer, canvasWidth/2 - spectrumWidth, curve);
 }
 
 
@@ -51,8 +52,7 @@ const fillPixel = (buffer, i, color) => {
 };
 
 
-const populateBuffer = (buffer, innerRadius) => {
-
+const populateBuffer = (buffer, innerRadius, curve) => {
   for (let i = 0; i < circleSlider.width * circleSlider.width; i++){
 
     let left = i % circleSlider.width;
@@ -75,6 +75,37 @@ const populateBuffer = (buffer, innerRadius) => {
     if ( rSquare < circleSlider.width*circleSlider.width/4 && rSquare > innerRadius* innerRadius){
       fillPixel(buffer,i,color)
     }
+
+
+    const xabs = Math.abs(x);
+    const yabs = Math.abs(y);
+
+    if (
+      //top collision
+      xabs < curve.outer[yabs] &&
+      curve.outer[yabs] < xabs+1
+    ){
+      fillPixel(buffer,i,[0,0,0])
+    }else if (
+      //bottom collision
+      xabs < curve.outer[yabs+1] &&
+      curve.outer[yabs+1] < xabs+1
+    ){
+      fillPixel(buffer,i,[0,0,0])
+    }else if (
+      //left collision
+      yabs < curve.outer[xabs] &&
+      curve.outer[xabs] < yabs+1
+    ){
+      fillPixel(buffer,i,[0,0,0])
+    }else if (
+      //right collision
+      yabs < curve.outer[xabs+1] &&
+      curve.outer[xabs+1] < yabs+1
+    ){
+      fillPixel(buffer,i,[0,0,0])
+    }
+
   }
 
   const ctx = circleSlider.getContext('2d');
@@ -110,44 +141,14 @@ export const calcColor = progress => {
     }
 }
 
+const boundaryMap = (oR, iR) => {
+  const outer = [];
+  const inner = [];
 
-//
-// for (let i=0; i < circleSlider.width * circleSlider.width; i++){
-//
-//   let x, y, radius, coordShould, err;
-//   if (bottomAlias[i]) {
-//     ({ x, y } = bottomAlias[i]);
-//     radius = (y < 0 ? 1 : Math.sqrt(.7) );
-//     coordShould = Math.sqrt(radius*radius - x*x);
-//     err = 1 - Math.abs(Math.abs(y) - coordShould)*circleSlider.height;
-//
-//
-//   } else
-//   if (topAlias[i]) {
-//     ({ x, y } = topAlias[i]);
-//     radius = (y > 0 ? 1 : Math.sqrt(.7) );
-//     coordShould = Math.sqrt(radius*radius - x*x);
-//     err = Math.abs(Math.abs(y) - coordShould)*circleSlider.height;
-//
-//   } else
-//   if (leftAlias[i]) {
-//     ({ x, y } = leftAlias[i]);
-//     radius = (x < 0 ? 1 : Math.sqrt(.7) );
-//     coordShould = Math.sqrt(radius*radius - y*y);
-//     err = Math.abs(Math.abs(x) - coordShould)*circleSlider.height;
-//
-//   } else
-//   if (rightAlias[i]) {
-//     ({ x, y } = rightAlias[i]);
-//     radius = (x > 0 ? 1 : Math.sqrt(.7) );
-//     coordShould = Math.sqrt(radius*radius - y*y);
-//     err = 1 - Math.abs(Math.abs(x) - coordShould)*circleSlider.height;
-//   } else {
-//     continue;
-//   }
-//
-//   let a = 255 * err;
-//   if (a < 0) a = 0;
-//
-//   buffer.data[i*4 + 3] = a;
-// }
+  for (let i=0; i<=circleSlider.width/2; i++){
+    const coord = i - circleSlider.width/2;
+    outer[i] = Math.sqrt(oR*oR - i*i);
+    inner[i] = Math.sqrt(iR*iR - i*i);
+  }
+  return { outer, inner };
+}
