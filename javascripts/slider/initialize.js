@@ -26,6 +26,11 @@ export const initialize = () => {
   const canvasWidth = 200;
   const sliderHeight = Math.round(canvasWidth*Math.sqrt(3)/2);
 
+  const circleSliderWidth = 340;
+  const circleSliderThickness = 20;
+  const circleSliderDragger = 20;
+
+
   document.body.style.cursor = 'default';
 
   const container =
@@ -34,13 +39,17 @@ export const initialize = () => {
   const picker =
     create('DIV', container, {id:'picker'});
 
+  initializeCircleSlider(
+    circleSliderWidth,
+    circleSliderThickness,
+    circleSliderDragger); //TODO fails on odd numbered widths
   initializeCanvas(canvasWidth);
   initializeSlider(sliderWidth,sliderHeight);
   initializeDragger2(d2diameter);
   initializeDragger(d1diameter);
   initializeSwatch();
 
-  initializeCircleSlider(300, 20, 15);
+
 
   updateDragger2();
   updateSwatch();

@@ -2,7 +2,18 @@ import { create } from '../utils';
 import { updateCanvas } from '../updaters/updateCanvas';
 
 export const initializeCanvas = (canvasWidth) => {
-  const canvas = create('CANVAS', picker, {
+
+  const triangleContainer = create('DIV',spectrumContainer, {
+    id: 'triangleContainer'
+  },{
+    height: Math.round(canvasWidth*Math.sqrt(3)/2),
+    width: canvasWidth,
+    position: 'absolute',
+    top: (circleSlider.height - canvasWidth)/2 + 'px',
+    left: (circleSlider.width - canvasWidth)/2 + 'px',
+  });
+
+  const canvas = create('CANVAS', triangleContainer, {
     id: 'canvas',
     height: Math.round(canvasWidth*Math.sqrt(3)/2),
     width: canvasWidth,

@@ -4,7 +4,7 @@ import { dragger2Callback } from '../listeners/dragger2Callback';
 
 export const initializeDragger2 = (d2diameter) => {
   const dragger2 =
-    create('DIV', picker, {
+    create('DIV', triangleContainer, {
       id: 'dragger2',
       color: canvas.color,
       diameter: d2diameter,
