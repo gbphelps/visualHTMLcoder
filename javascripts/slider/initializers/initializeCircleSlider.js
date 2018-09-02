@@ -147,7 +147,7 @@ const collisionMap = (x, y, curve) => {
   if (
     //top collision
     xabs <= curve[yabs] &&
-    curve[yabs] < xabs+1
+    curve[yabs] <= xabs+1
   ){
     t = curve[yabs] - xabs;
   }
@@ -155,7 +155,7 @@ const collisionMap = (x, y, curve) => {
   if (
     //bottom collision
     xabs <= curve[yabs+1] &&
-    curve[yabs+1] < xabs+1
+    curve[yabs+1] <= xabs+1
   ){
     b = curve[yabs + 1] - xabs;
   }
@@ -163,7 +163,7 @@ const collisionMap = (x, y, curve) => {
   if (
     //left collision
     yabs <= curve[xabs] &&
-    curve[xabs] < yabs+1
+    curve[xabs] <= yabs+1
   ){
     l = curve[xabs] - yabs;
   }
@@ -171,7 +171,7 @@ const collisionMap = (x, y, curve) => {
   if (
     //right collision
     yabs <= curve[xabs+1] &&
-    curve[xabs+1] < yabs+1
+    curve[xabs+1] <= yabs+1
   ){
     r = curve[xabs + 1] - yabs;
   }
@@ -202,7 +202,7 @@ const orient = (x, y, cb, radius) => {
 }
 
 
-const setOpacity = (orientation,buffer,i,l,r,t,b,lt) => {
+const setOpacity = (orientation,buffer,i,l,r,t,b,lt,x,y, radius) => {
   let opacity;
 
   if (typeof(b) === 'number' && typeof(t) === 'number'){
@@ -226,10 +226,12 @@ const setOpacity = (orientation,buffer,i,l,r,t,b,lt) => {
       opacity = lt ? 0 : 1;
       buffer.data[i*4 + 3] = opacity*255
   }
-  // if (l||r||t||b) buffer.data[i*4 + 3] = opacity*255;
-  if (!!l + !!r + !!t + !!b === 1){
-    fillPixel(buffer,i,[0,0,0]);
-    buffer.data[i*4 + 3] = 255;
+
+  if (l === 0 || r === 0 || t === 0 || b === 0){
+    //TODO: address boundary cases!!!
+    // fillPixel(buffer,i,[0,0,0]);
+    // buffer.data[i*4 + 3] = 255;
+    // console.log({l,r,t,b},{x,y},{radius});
   }
 }
 
@@ -248,12 +250,12 @@ const calcCollisions = (x, y, curve, buffer, i) => {
   ({l,r,t,b} = collisionMap(x, y, curve.outer));
   orientation = orient(x, y, lt, oR);
 
-  setOpacity(orientation,buffer,i,l,r,t,b,true);
+  setOpacity(orientation,buffer,i,l,r,t,b,true, x,y,oR);
 
   ({l,r,t,b} = collisionMap(x, y, curve.inner));
   orientation = orient(x, y, gt, iR);
 
-  setOpacity(orientation,buffer,i,l,r,t,b, false);
+  setOpacity(orientation,buffer,i,l,r,t,b, false, x,y,iR);
 
 
 
