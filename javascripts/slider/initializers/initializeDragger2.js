@@ -18,4 +18,21 @@ export const initializeDragger2 = (d2diameter) => {
       top: -d2diameter/2 + 'px'
     });
     dragger2.addEventListener('mousedown', dragger2Callback);
+
+  const pip =
+  create('DIV', dragger2, {
+      id: 'pip'
+    },{
+      background: 'black',
+      height: '10px',
+      width: '10px',
+      'border-radius': '50%',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      margin: 'auto',
+      transition: 'height .3s , width .3s'
+    });
 };

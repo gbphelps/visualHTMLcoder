@@ -6,6 +6,8 @@ export const dragger2Callback = e => {
   let xPrev = e.clientX;
   let yPrev = e.clientY;
   //document.body.style.cursor = grabbing;
+  pip.style.width = '30px';
+  pip.style.height = '30px';
 
   const mousemove = e => {
     const diffx = e.clientX - xPrev;
@@ -70,6 +72,8 @@ export const dragger2Callback = e => {
 
   document.addEventListener('mouseup',()=>{
       document.removeEventListener('mousemove', mousemove);
+      pip.style.width = '10px';
+      pip.style.height = '10px';
     },{
       once:true
     }

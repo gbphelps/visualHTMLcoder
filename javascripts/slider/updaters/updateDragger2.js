@@ -16,5 +16,5 @@ export const updateDragger2 = () => {
     let B = Math.round((canvas.color[2] + (255-canvas.color[2])*theta) * r) || 0;
 
     dragger2.color = [R,G,B];
-    dragger2.style.background = format([R,G,B]);
+    pip.style.background = format([R,G,B]);
 }
