@@ -17,7 +17,7 @@ export const initializeDragger2 = (d2diameter) => {
       left: (canvas.width - d2diameter)/2 + 'px',
       top: -d2diameter/2 + 'px'
     });
-    dragger2.addEventListener('mousedown', dragger2Callback);
+
 
   const pip =
   create('DIV', dragger2, {
@@ -35,4 +35,6 @@ export const initializeDragger2 = (d2diameter) => {
       margin: 'auto',
       transition: 'height .3s , width .3s'
     });
+  pip.addEventListener('mousedown', dragger2Callback);
+  
 };

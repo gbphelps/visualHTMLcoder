@@ -5,6 +5,8 @@ import { updateDragger2 } from '../updaters/updateDragger2'
 
 export const circleDraggerCallback = e => {
   let [ xPrev, yPrev ] = [ e.clientX, e.clientY ];
+  circlePip.style.height = '30px';
+  circlePip.style.width = '30px';
 
   const mousemove = e => {
 
@@ -12,7 +14,6 @@ export const circleDraggerCallback = e => {
 
     const diffx = e.clientX - xPrev;
     const diffy = e.clientY - yPrev;
-
 
     const m = [diffx, -diffy];
 
@@ -63,7 +64,9 @@ export const circleDraggerCallback = e => {
 
 
     document.addEventListener('mouseup', ()=>{
-      document.removeEventListener('mousemove', mousemove)
+      document.removeEventListener('mousemove', mousemove);
+      circlePip.style.height = '10px';
+      circlePip.style.width = '10px'; //TODO use global variables attached to HTML elements
     },{once: true})
 
 
@@ -88,6 +91,7 @@ export const setDraggerPosition = ({ x, y }) => {
   circleDragger.y = y;
   circleDragger.style.left = left + 'px';
   circleDragger.style.top = top + 'px';
+  circlePip.style.background = format(calcColor(progress))
 
   updateCanvas(calcColor(progress));
   updateDragger2();

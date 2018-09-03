@@ -31,12 +31,28 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     height: dragDiam + 'px',
     width: dragDiam + 'px',
     'border-radius': '50%',
-    background: 'white',
     position: 'absolute',
     top: (spectrumWidth - dragDiam)/2 + 'px',
     left: (canvasWidth - dragDiam)/2 + 'px'
   })
+
+  const circlePip = create('DIV', circleDragger, {
+    id: 'circlePip'
+  },{
+    height: '10px',
+    width: '10px',
+    'border-radius': '50%',
+    background: 'black',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    margin: 'auto',
+    transition: 'width .3s, height .3s'
+  })
   circleDragger.addEventListener('mousedown', circleDraggerCallback);
+
 
   const ctx2 = circleSlider.getContext('2d');
 

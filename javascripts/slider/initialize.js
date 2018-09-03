@@ -18,14 +18,14 @@ import { initializeCircleSlider } from './initializers/initializeCircleSlider';
 
 export const initialize = () => {
 
-  const d2diameter = 30;
+  const d2diameter = 50; //NOTE can be arbitrarily large, until it blocks other elements
   const sliderWidth = 10;
   const canvasWidth = 200;
   const sliderHeight = Math.round(canvasWidth*Math.sqrt(3)/2);
 
   const circleSliderWidth = 340;
   const circleSliderThickness = 20;
-  const circleSliderDragger = 20;
+  const circleSliderDragger = 50; //NOTE can be arbitrarily large
 
 
   document.body.style.cursor = 'default';
