@@ -1,5 +1,6 @@
-import { create } from '../utils';
-import { circleDraggerCallback } from '../listeners/circleDraggerCallback'
+import { create, calcColor } from '../utils';
+import { circleDraggerCallback } from '../listeners/circleDraggerCallback';
+
 
 
 export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => {
@@ -98,27 +99,6 @@ const populateBuffer = (buffer, innerRadius, curve) => {
 //TODO find boundary. if x < 0 find error. if x > 0 find error next time.
 //TODO find negative boundary. figure out where to place.
 
-
-export const calcColor = progress => {
-    let inc = 255 * (progress - Math.floor(progress));
-
-    switch (Math.floor(progress)){
-      case 0:
-        return [255, inc, 0]
-      case 1:
-        return [255-inc, 255, 0]
-      case 2:
-        return [0, 255, inc]
-      case 3:
-        return [0, 255-inc, 255]
-      case 4:
-        return [inc, 0, 255]
-      case 5:
-        return [255, 0, 255-inc]
-      case 6:
-        return [255, 0, 0]
-    }
-}
 
 const boundaryMap = (oR, iR) => {
   const outer = [];

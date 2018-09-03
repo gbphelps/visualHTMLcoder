@@ -1,25 +1,26 @@
-import { format, calcColor } from './utils';
+import { format, calcColor,revCalc } from './utils';
 import { updateCanvas } from './updaters/updateCanvas';
 import { updateDragger2 } from './updaters/updateDragger2';
 import { updateSwatch } from './updaters/updateSwatch';
+import { setDraggerPosition } from './listeners/circleDraggerCallback'
 
 
-export const applyUpdates = ({x, y, status}) => {
+export const applyUpdates = ({triangleDragger, progress}) => {
 
-  if (typeof(status) !== 'undefined') {
-    dragger.status = +status;
-    dragger.style.background = format(calcColor(status));
-    updateCanvas(calcColor(status));
-    dragger.style.top = dragger.status - dragger.diameter/2 + 'px';
+  if (typeof(progress) !== 'undefined') {
+    const radius = (spectrumContainer.width/2 - circleSlider.thickness)/2 + spectrumContainer.width/4;
+    const x = Math.cos(progress + Math.PI/2) * radius;
+    const y = Math.sin(progress + Math.PI/2) * radius;
+    setDraggerPosition({x, y});
+
+
+
   }
 
-  if (typeof(x) !== 'undefined') {
-    dragger2.x = x;
+  if (typeof(triangleDragger) !== 'undefined') {
+    dragger2.x = triangleDragger.x;
     dragger2.style.left = dragger2.x - dragger2.diameter/2 + 'px';
-  }
-
-  if (typeof(y) !== 'undefined') {
-    dragger2.y = y;
+    dragger2.y = triangleDragger.y;
     dragger2.style.top = dragger2.y - dragger2.diameter/2 + 'px';
   }
 

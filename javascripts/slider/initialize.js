@@ -5,13 +5,11 @@ import { updateSwatch } from './updaters/updateSwatch';
 import { format, calcColor, create } from './utils'
 
 import { dragger2Callback } from './listeners/dragger2Callback';
-import { draggerCallback } from './listeners/draggerCallback';
 
 import { initializeSwatch } from './initializers/initializeSwatch';
-import { initializeDragger } from './initializers/initializeDragger';
 import { initializeDragger2 } from './initializers/initializeDragger2';
 import { initializeCanvas } from './initializers/initializeCanvas';
-import { initializeSlider } from './initializers/initializeSlider';
+
 
 import { initializeCircleSlider } from './initializers/initializeCircleSlider';
 
@@ -20,7 +18,6 @@ import { initializeCircleSlider } from './initializers/initializeCircleSlider';
 
 export const initialize = () => {
 
-  const d1diameter = 20;
   const d2diameter = 30;
   const sliderWidth = 10;
   const canvasWidth = 200;
@@ -44,9 +41,7 @@ export const initialize = () => {
     circleSliderThickness,
     circleSliderDragger); //TODO fails on odd numbered widths
   initializeCanvas(canvasWidth);
-  initializeSlider(sliderWidth,sliderHeight);
   initializeDragger2(d2diameter);
-  initializeDragger(d1diameter);
   initializeSwatch();
 
 

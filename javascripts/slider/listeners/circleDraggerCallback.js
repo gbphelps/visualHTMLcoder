@@ -1,10 +1,15 @@
+import { updateCanvas } from '../updaters/updateCanvas';
+import { format, calcColor } from '../utils';
+import { updateSwatch } from '../updaters/updateSwatch';
+import { updateDragger2 } from '../updaters/updateDragger2'
+
 export const circleDraggerCallback = e => {
   let [ xPrev, yPrev ] = [ e.clientX, e.clientY ];
 
   const mousemove = e => {
 
     e.preventDefault();
-    
+
     const diffx = e.clientX - xPrev;
     const diffy = e.clientY - yPrev;
 
@@ -42,6 +47,8 @@ export const circleDraggerCallback = e => {
     // const y = circleDragger.y + tangent[1]*scale;
     setDraggerPosition({x, y});
 
+
+
     xPrev = e.clientX;
     yPrev = e.clientY;
 
@@ -56,13 +63,24 @@ export const circleDraggerCallback = e => {
   document.addEventListener('mousemove', mousemove)
 }
 
-const setDraggerPosition = ({ x, y }) => {
+export const setDraggerPosition = ({ x, y }) => {
   const left = (x + spectrumContainer.width/2) - circleDragger.diameter/2;
   const top = (spectrumContainer.width/2 - y) - circleDragger.diameter/2;
+
+  let progress;
+  if (x < 0){
+    progress = (Math.atan(y/x) / Math.PI * 2 + 1)/2 * 3;
+  } else {
+    progress = (Math.atan(y/x) / Math.PI * 2 + 1)/2 * 3 + 3;
+  }
 
 
   circleDragger.x = x;
   circleDragger.y = y;
   circleDragger.style.left = left + 'px';
   circleDragger.style.top = top + 'px';
+
+  updateCanvas(calcColor(progress));
+  updateDragger2();
+  updateSwatch();
 }

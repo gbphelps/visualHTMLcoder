@@ -8,8 +8,7 @@ export const create = (tag, parent, props, style) => {
   return element;
 };
 
-export const calcColor = status => {
-    const progress = status / slider.height * 6;
+export const calcColor = progress => {
     let inc = 255 * (progress - Math.floor(progress));
 
     switch (Math.floor(progress)){
@@ -83,8 +82,9 @@ export const generateColor = color => {
     y = canvas.height;
   }
 
-  const status = revCalc(parentColor)*canvas.height/6;
+  const progress = revCalc(parentColor)*Math.PI/3;
 
-  return {x, y, status};
+  const triangleDragger = {x,y};
+  return {triangleDragger, progress};
 
 };

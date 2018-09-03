@@ -62,7 +62,8 @@ export const dragger2Callback = e => {
     xPrev = e.clientX;
     yPrev = e.clientY;
 
-    applyUpdates({x,y})
+    const triangleDragger = {x,y};
+    applyUpdates({triangleDragger})
   };
 
   document.addEventListener('mousemove', mousemove);
