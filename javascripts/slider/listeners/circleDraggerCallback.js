@@ -42,9 +42,18 @@ export const circleDraggerCallback = e => {
     }
 
 
-
+    //fix fast-drag errors
+    if (Math.abs(x) > radius){
+      x = radius;
+      y = 0;
+    }
+    if (Math.abs(y) > radius){
+      y = radius;
+      x = 0;
+    }
     // const x = circleDragger.x + tangent[0]*scale;
     // const y = circleDragger.y + tangent[1]*scale;
+
     setDraggerPosition({x, y});
 
 
