@@ -4,7 +4,7 @@ import { circleDraggerCallback } from '../listeners/circleDraggerCallback';
 
 
 export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => {
-  const spectrumContainer = create('DIV', document.body,{
+  const spectrumContainer = create('DIV', container,{
     id: 'spectrumContainer',
     width: canvasWidth
   },{
@@ -79,13 +79,7 @@ const populateBuffer = (buffer, innerRadius, curve) => {
       buffer.data[i*4 + 3] = 255;
     }
 
-
-
-
-    calcCollisions(x,y,curve, buffer, i);
-
-
-
+    antiAlias(x,y,curve, buffer, i);
   }
 
   const ctx = circleSlider.getContext('2d');
@@ -217,7 +211,7 @@ const setOpacity = (orientation,buffer,i,l,r,t,b,lt,x,y, radius) => {
 
 
 
-const calcCollisions = (x, y, curve, buffer, i) => {
+const antiAlias = (x, y, curve, buffer, i) => {
 
   const oR = circleSlider.width/2;
   const iR = circleSlider.width/2 - circleSlider.thickness;

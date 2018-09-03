@@ -33,9 +33,6 @@ export const initialize = () => {
   const container =
     create('DIV',document.body,{id: 'container'},{display: 'flex'});
 
-  const picker =
-    create('DIV', container, {id:'picker'});
-
   initializeCircleSlider(
     circleSliderWidth,
     circleSliderThickness,
