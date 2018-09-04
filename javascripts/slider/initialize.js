@@ -20,10 +20,10 @@ export const initialize = () => {
 
   const d2diameter = 50; //NOTE can be arbitrarily large, until it blocks other elements
   const sliderWidth = 10;
-  const canvasWidth = 200;
+  const canvasWidth = 150;
   const sliderHeight = Math.round(canvasWidth*Math.sqrt(3)/2);
 
-  const circleSliderWidth = 300;
+  const circleSliderWidth = 250;
   const circleSliderThickness = 5;
   const circleSliderDragger = 50; //NOTE can be arbitrarily large
 

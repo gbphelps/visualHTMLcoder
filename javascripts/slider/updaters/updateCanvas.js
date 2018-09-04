@@ -56,12 +56,13 @@ const calculateCoords = i => {
 
 
 
-//TODO TODO: merely iterating thru buffer is causing lag.
+//TODO TODO: just iterating thru buffer is causing lag.
 //possible to stop iterating through dead points?
 //possible also to set opacity on black and white but have a bg color set
 //to canvas.color? native algorithms may be faster.
 
 const populateBuffer = (buffer) => {
+  const [red, green, blue] = canvas.color;
 
   for (let i=0; i<(canvas.height * canvas.width); i++) {
 
@@ -73,11 +74,11 @@ const populateBuffer = (buffer) => {
     }
 
     buffer.data[i*4 + 0] =
-      (canvas.color[0] + (255-canvas.color[0])*theta) * r;
+      (red + (255 - red) * theta) * r;
     buffer.data[i*4 + 1] =
-      (canvas.color[1] + (255-canvas.color[1])*theta) * r;
+      (green + (255 - green) * theta) * r;
     buffer.data[i*4 + 2] =
-      (canvas.color[2] + (255-canvas.color[2])*theta) * r;
+      (blue  + (255 - blue) * theta) * r;
     if (!(theta < 0 || theta > 1 || r > 1)){
       buffer.data[i*4 + 3] = 255;
     }else{

@@ -26,8 +26,9 @@ export const initializeDragger2 = (d2diameter) => {
     },{
       display: 'flex',
       background: 'black',
-      height: '20px', //TODO variables
-      width: '20px',
+      height: '10px', //TODO variables
+      width: '10px',
+      'z-index': 2,
       'border-radius': '50%',
       position: 'absolute',
       top: 0,
