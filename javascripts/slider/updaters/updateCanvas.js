@@ -28,6 +28,8 @@ const YtoX = y => {
 const alii = {};
 let antiAliased = false;
 
+
+//TODO: cache theta & r for i to improve speed
 const populateBuffer = (buffer) => {
   const {width, height, color} = document.getElementById('canvas');
 
