@@ -9,6 +9,7 @@ export const circleDraggerCallback = e => {
   let [ xPrev, yPrev ] = [ e.clientX, e.clientY ];
   circlePip.style.height = '30px';
   circlePip.style.width = '30px';
+  document.body.classList.add('grabbing');
 
   const mousemove = e => {
 
@@ -64,6 +65,7 @@ export const circleDraggerCallback = e => {
   document.addEventListener('mousemove', mousemove);
   document.addEventListener('mouseup', ()=>{
     document.removeEventListener('mousemove', mousemove);
+    document.body.classList.remove('grabbing')
     circlePip.style.height = '10px';
     circlePip.style.width = '10px'; //TODO use global variables attached to HTML elements
   },{once: true})

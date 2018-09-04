@@ -14,14 +14,16 @@
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.2);
   border: 1px solid rgba(255,255,255,.7);
   box-sizing: border-box;
-  cursor: pointer;
 }
 
 #circlePip{
   /* box-shadow: 0 2px 2px 0 rgba(0,0,0,.2);
   border: 1px solid rgba(255,255,255,.7); */
-  box-sizing: border-box;
-  cursor: pointer;
+  /* box-sizing: border-box; */
+}
+
+#pip, #circlePip{
+  cursor: url(https://ssl.gstatic.com/ui/v1/icons/mail/images/2/openhand.cur), default;
 }
 
 #picker{
@@ -72,4 +74,16 @@ input:focus{
   border-radius: 5px; */
   /* box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16);
   background: white; */
+}
+
+
+.grabbing, .grabbing * {
+  cursor: url(https://ssl.gstatic.com/ui/v1/icons/mail/images/2/closedhand.cur), default !important;
+  /* background: black !important; */
+}
+
+
+html,body{
+  height: 100%;
+  width: 100%
 }

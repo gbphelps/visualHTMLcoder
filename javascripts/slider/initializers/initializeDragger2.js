@@ -39,4 +39,50 @@ export const initializeDragger2 = (d2diameter) => {
     });
   pip.addEventListener('mousedown', dragger2Callback);
 
+
+  const border = '1px solid rgba(255,255,255,.7)'
+  create('DIV', pip,{
+    id: 'crosshair1'
+  },{
+    position: 'absolute',
+    'border-left': border,
+    height: '10px',
+    width: '1px',
+    left: '50%',
+    bottom: '-5px'
+  })
+
+  create('DIV', pip,{
+    id: 'crosshair2'
+  },{
+    position: 'absolute',
+    'border-left': border,
+    height: '10px',
+    width: '1px',
+    left: '50%',
+    top: '-5px'
+  })
+
+  create('DIV', pip,{
+    id: 'crosshair3'
+  },{
+    position: 'absolute',
+    'border-top': border,
+    height: '1px',
+    width: '10px',
+    top: '50%',
+    left: '-6px'
+  })
+
+  create('DIV', pip,{
+    id: 'crosshair4'
+  },{
+    position: 'absolute',
+    'border-top': border,
+    height: '1px',
+    width: '10px',
+    top: '50%',
+    right: '-6px'
+  })
+
 };
