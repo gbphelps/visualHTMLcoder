@@ -57,8 +57,9 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
   const ctx2 = circleSlider.getContext('2d');
 
   const buffer = ctx2.createImageData(canvasWidth, canvasWidth);
-  const curve = calcXsects(circleSlider.width/2);
-  populateBuffer(buffer, canvasWidth/2 - spectrumWidth, curve);
+  const outer = calcXsects(circleSlider.width/2);
+  const inner = calcXsects(circleSlider.width/2 - spectrumWidth);
+  populateBuffer(buffer, {outer, inner});
 }
 
 
@@ -70,7 +71,9 @@ const fillPixel = (buffer, i, color) => {
 };
 
 
-const populateBuffer = (buffer, innerRadius, curve) => {
+const populateBuffer = (buffer, curve) => {
+  const innerRadius = circleSlider.width/2 - circleSlider.thickness;
+
   for (let i = 0; i < circleSlider.width * circleSlider.width; i++){
 
     let left = i % circleSlider.width;
@@ -98,7 +101,9 @@ const populateBuffer = (buffer, innerRadius, curve) => {
       buffer.data[i*4 + 3] = 255;
     }
 
-    antiAlias(x, y, curve, buffer, i);
+    antiAlias(x, y, curve.outer, buffer, i, true);
+    antiAlias(x, y, curve.inner, buffer, i, false);
+
   }
 
   const ctx = circleSlider.getContext('2d');
@@ -129,7 +134,7 @@ const orient = (x, y) => {
   return orientation;
 }
 
-const antiAlias = (x, y, curve, buffer, i) => {
+const antiAlias = (x, y, curve, buffer, i, convex) => {
 
   const left = x;
   const right = x + 1;
@@ -170,15 +175,16 @@ const antiAlias = (x, y, curve, buffer, i) => {
   }
 
  const orientation = orient(x,y);
- setOpacity(collision, orientation, buffer, i,x,y);
+ setOpacity(collision, orientation, buffer, i, convex, x, y);
 
 }
 
 
 const n = (number) => typeof(number) === 'number' ? true : false;
 
-const setOpacity = ({left,right,top,bottom}, orientation, buffer, i,x,y) => {
+const setOpacity = ({left,right,top,bottom}, orientation, buffer, i, convex , x ,y) => {
   let opacity;
+
   if (n(left) && n(right)){
     opacity =
       orientation.y === 0 ?
@@ -196,6 +202,7 @@ const setOpacity = ({left,right,top,bottom}, orientation, buffer, i,x,y) => {
        orientation.x === 0 && orientation.y === 0 ?
           bottom * left / 2:
           1 - bottom * left / 2
+          //TODO top discont @ x = 0
 
   } else if (n(bottom) && n(right)) {
     opacity =
@@ -208,6 +215,7 @@ const setOpacity = ({left,right,top,bottom}, orientation, buffer, i,x,y) => {
       orientation.x === 0 && orientation.y === 1 ?
         top * (1-left) / 2 :
         1 - top * (1-left) / 2
+        //TODO bottom discont @ x = 0
 
   } else if (n(top) && n(right)) {
     opacity =
@@ -218,7 +226,9 @@ const setOpacity = ({left,right,top,bottom}, orientation, buffer, i,x,y) => {
   }
 
   if ([left,right,top,bottom].some(el=>n(el))){
-    buffer.data[i*4 + 3] = opacity * 255;
+    buffer.data[i*4 + 3] = convex ?
+      opacity * 255 :
+      (1-opacity) * 255
   }
 
 }
