@@ -5,13 +5,12 @@ import { updateDragger2 } from '../updaters/updateDragger2'
 
 
 export const circleDraggerCallback = e => {
+  e.preventDefault();
   let [ xPrev, yPrev ] = [ e.clientX, e.clientY ];
   circlePip.style.height = '30px';
   circlePip.style.width = '30px';
 
   const mousemove = e => {
-
-    e.preventDefault();
 
     const diffx = e.clientX - xPrev;
     const diffy = e.clientY - yPrev;
@@ -60,18 +59,15 @@ export const circleDraggerCallback = e => {
 
     xPrev = e.clientX;
     yPrev = e.clientY;
-
-
-    document.addEventListener('mouseup', ()=>{
-      document.removeEventListener('mousemove', mousemove);
-      circlePip.style.height = '10px';
-      circlePip.style.width = '10px'; //TODO use global variables attached to HTML elements
-    },{once: true})
-
-
   }
 
-  document.addEventListener('mousemove', mousemove)
+  document.addEventListener('mousemove', mousemove);
+  document.addEventListener('mouseup', ()=>{
+    document.removeEventListener('mousemove', mousemove);
+    circlePip.style.height = '10px';
+    circlePip.style.width = '10px'; //TODO use global variables attached to HTML elements
+  },{once: true})
+
 }
 
 export const setDraggerPosition = ({ x, y }) => {
