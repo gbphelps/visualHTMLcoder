@@ -10,7 +10,7 @@ export const updateCanvas = color => {
 
   populateBuffer(buffer);
   ctx.putImageData(buffer, 0, 0);
-  //antiAlias(canvas);
+
 };
 
 
@@ -26,40 +26,62 @@ const YtoX = y => {
 
 
 const alii = {};
+const triangleCoords = {};
+
 let antiAliased = false;
+let coordsCalculated = false;
 
 
 //TODO: cache theta & r for i to improve speed
+const calculateCoords = i => {
+  const top = Math.floor(i / canvas.width);
+  const left = Math.floor(i % canvas.width);
+
+  const x = left; //TODO antialias this manually with .5 and antialias function from initializeCircleSlider
+  const y = canvas.height - top;
+
+  const xAvg = x + .5;
+  const yAvg = y - .5
+
+  let theta0 = Math.atan(yAvg/xAvg);
+  const theta = (Math.PI/3 - theta0)/(Math.PI/3);
+  //map radial coordinates [0, pi/3] -> [1, 0]
+
+  let r = Math.sqrt(xAvg*xAvg + yAvg*yAvg)/canvas.width;
+  r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2)
+  //map pie wedge to equilateral triangle by flattening arc
+  triangleCoords[i] = {x,y,theta,r};
+  return {x,y,theta,r};
+}
+
+
+
+//TODO TODO: merely iterating thru buffer is causing lag.
+//possible to stop iterating through dead points?
+//possible also to set opacity on black and white but have a bg color set
+//to canvas.color? native algorithms may be faster.
+
 const populateBuffer = (buffer) => {
-  const {width, height, color} = document.getElementById('canvas');
 
-  for (let i=0; i<(height * width); i++) {
-    const top = Math.floor(i / width);
-    const left = Math.floor(i % width);
+  for (let i=0; i<(canvas.height * canvas.width); i++) {
 
-    const x = left; //TODO antialias this manually with .5 and antialias function from initializeCircleSlider
-    const y = height - top;
-
-    const xAvg = x + .5;
-    const yAvg = y - .5
-
-    let theta0 = Math.atan(yAvg/xAvg);
-    const theta = (Math.PI/3 - theta0)/(Math.PI/3);
-    //map radial coordinates [0, pi/3] -> [1, 0]
-
-    let r = Math.sqrt(xAvg*xAvg + yAvg*yAvg)/canvas.width;
-    r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2)
-    //map pie wedge to equilateral triangle by flattening arc
-
-    if (theta < 0 || theta > 1 || r > 1){
+    let x,y,theta,r;
+    if (coordsCalculated){
+      ({x,y,theta,r} = triangleCoords[i])
     }else{
-      buffer.data[i*4 + 0] =
-        (color[0] + (255-color[0])*theta) * r;
-      buffer.data[i*4 + 1] =
-        (color[1] + (255-color[1])*theta) * r;
-      buffer.data[i*4 + 2] =
-        (color[2] + (255-color[2])*theta) * r;
+      ({x,y,theta,r} = calculateCoords(i))
+    }
+
+    buffer.data[i*4 + 0] =
+      (canvas.color[0] + (255-canvas.color[0])*theta) * r;
+    buffer.data[i*4 + 1] =
+      (canvas.color[1] + (255-canvas.color[1])*theta) * r;
+    buffer.data[i*4 + 2] =
+      (canvas.color[2] + (255-canvas.color[2])*theta) * r;
+    if (!(theta < 0 || theta > 1 || r > 1)){
       buffer.data[i*4 + 3] = 255;
+    }else{
+      buffer.data[i*4 + 3] = 0;
     }
 
     if (antiAliased){
@@ -69,6 +91,7 @@ const populateBuffer = (buffer) => {
     }
   }
   antiAliased = true;
+  coordsCalculated = true;
 };
 
 
@@ -116,7 +139,7 @@ const antiAlias = (x, y, buffer, i) => {
   }
 
   if (Object.keys(collision).length){
-    const orientation = x > 0 ?
+    const orientation = x >= 0 ?
       {x: 0, y: 0} : {x: 1, y: 0}
     setOpacity(collision, orientation, buffer, i, true);
   }

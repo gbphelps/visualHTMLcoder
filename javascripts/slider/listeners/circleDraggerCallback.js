@@ -3,6 +3,7 @@ import { format, calcColor } from '../utils';
 import { updateSwatch } from '../updaters/updateSwatch';
 import { updateDragger2 } from '../updaters/updateDragger2'
 
+
 export const circleDraggerCallback = e => {
   let [ xPrev, yPrev ] = [ e.clientX, e.clientY ];
   circlePip.style.height = '30px';
@@ -52,8 +53,6 @@ export const circleDraggerCallback = e => {
       y = radius;
       x = 0;
     }
-    // const x = circleDragger.x + tangent[0]*scale;
-    // const y = circleDragger.y + tangent[1]*scale;
 
     setDraggerPosition({x, y});
 

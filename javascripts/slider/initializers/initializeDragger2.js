@@ -21,11 +21,13 @@ export const initializeDragger2 = (d2diameter) => {
 
   const pip =
   create('DIV', dragger2, {
-      id: 'pip'
+      id: 'pip',
+      width : 10 //TODO variables
     },{
+      display: 'flex',
       background: 'black',
-      height: '10px',
-      width: '10px',
+      height: '20px', //TODO variables
+      width: '20px',
       'border-radius': '50%',
       position: 'absolute',
       top: 0,
@@ -36,5 +38,5 @@ export const initializeDragger2 = (d2diameter) => {
       transition: 'height .3s , width .3s'
     });
   pip.addEventListener('mousedown', dragger2Callback);
-  
+
 };

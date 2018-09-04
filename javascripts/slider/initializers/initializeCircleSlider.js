@@ -40,7 +40,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
   const circlePip = create('DIV', circleDragger, {
     id: 'circlePip'
   },{
-    height: '10px',
+    height: '10px', //TODO variables!
     width: '10px',
     'border-radius': '50%',
     background: 'rgb(255,0,0)',
