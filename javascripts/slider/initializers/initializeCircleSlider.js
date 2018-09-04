@@ -129,7 +129,7 @@ const calcXsects = (radius) => {
 
 const orient = (x, y) => {
   let orientation = {};
-  orientation.x = x > 0 ? 0 : 1;
+  orientation.x = x >= 0 ? 0 : 1;
   orientation.y = y > 0 ? 0 : 1;
   return orientation;
 }
@@ -200,9 +200,9 @@ const setOpacity = ({left,right,top,bottom}, orientation, buffer, i, convex , x 
   } else if (n(bottom) && n(left)) {
     opacity =
        orientation.x === 0 && orientation.y === 0 ?
-          bottom * left / 2:
+          bottom * left / 2 :
           1 - bottom * left / 2
-          //TODO top discont @ x = 0
+        //TODO top discont @ x = 0
 
   } else if (n(bottom) && n(right)) {
     opacity =
@@ -215,7 +215,7 @@ const setOpacity = ({left,right,top,bottom}, orientation, buffer, i, convex , x 
       orientation.x === 0 && orientation.y === 1 ?
         top * (1-left) / 2 :
         1 - top * (1-left) / 2
-        //TODO bottom discont @ x = 0
+      //TODO bottom discont @ x = 0
 
   } else if (n(top) && n(right)) {
     opacity =
