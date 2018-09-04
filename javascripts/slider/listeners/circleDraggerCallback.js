@@ -79,13 +79,15 @@ export const setDraggerPosition = ({ x, y }) => {
   const left = (x + spectrumContainer.width/2) - circleDragger.diameter/2;
   const top = (spectrumContainer.width/2 - y) - circleDragger.diameter/2;
 
-  let progress;
+
+  let theta;
   if (x < 0){
-    progress = (Math.atan(y/x) / Math.PI * 2 + 1)/2 * 3;
+    theta = Math.atan(y/x) + Math.PI/2;
   } else {
-    progress = (Math.atan(y/x) / Math.PI * 2 + 1)/2 * 3 + 3;
+    theta = Math.atan(y/x) + 3/2 * Math.PI;
   }
 
+  const progress = 3 * theta / Math.PI;
 
   circleDragger.x = x;
   circleDragger.y = y;
