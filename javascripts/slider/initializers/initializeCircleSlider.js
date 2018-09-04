@@ -8,7 +8,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     id: 'spectrumContainer',
     width: canvasWidth
   },{
-    background: 'black',
+    // background: 'black',
     'border-radius': '5px',
     height: canvasWidth + 'px',
     width: canvasWidth + 'px',

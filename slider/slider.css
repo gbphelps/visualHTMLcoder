@@ -53,17 +53,23 @@ input:focus{
 
 #swatch{
   font-family: 'Roboto Mono', monospace;
-  width: 100%;
-  padding:10px;
+  width: 200px;
+  height: 200px;
   font-size: 12px;
   border-radius: 5px;
   margin: 0 0 0 5px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#inputContainer{
 }
 
 #container{
   width: 570px;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16);
-  background: white;
+  /* border: 1px solid #eee;
+  border-radius: 5px; */
+  /* box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16);
+  background: white; */
 }

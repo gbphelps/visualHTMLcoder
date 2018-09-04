@@ -6,7 +6,6 @@ export const initializeDragger2 = (d2diameter) => {
   const dragger2 =
     create('DIV', triangleContainer, {
       id: 'dragger2',
-      color: canvas.color,
       diameter: d2diameter,
       x: canvas.width/2,
       y: 0,
