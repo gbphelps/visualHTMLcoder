@@ -20,7 +20,7 @@ const populateBuffer = (buffer) => {
     const top = Math.floor(i / width);
     const left = Math.floor(i % width);
 
-    const xp = left;
+    const xp = left; //TODO antialias this manually with .5 and antialias function from initializeCircleSlider
     const yp = height - top;
 
     let theta0 = Math.atan(yp/xp);
