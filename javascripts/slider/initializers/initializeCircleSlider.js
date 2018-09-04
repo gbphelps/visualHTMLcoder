@@ -12,7 +12,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     'border-radius': '5px',
     height: canvasWidth + 'px',
     width: canvasWidth + 'px',
-    position: 'relative'
+    position: 'relative',
   })
 
   const circleSlider = create('CANVAS', spectrumContainer, {
@@ -33,7 +33,8 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     'border-radius': '50%',
     position: 'absolute',
     top: (spectrumWidth - dragDiam)/2 + 'px',
-    left: (canvasWidth - dragDiam)/2 + 'px'
+    left: (canvasWidth - dragDiam)/2 + 'px',
+    'z-index': 2
   })
 
   const circlePip = create('DIV', circleDragger, {

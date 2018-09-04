@@ -23,8 +23,8 @@ export const initialize = () => {
   const canvasWidth = 200;
   const sliderHeight = Math.round(canvasWidth*Math.sqrt(3)/2);
 
-  const circleSliderWidth = 340;
-  const circleSliderThickness = 3;
+  const circleSliderWidth = 300;
+  const circleSliderThickness = 20;
   const circleSliderDragger = 50; //NOTE can be arbitrarily large
 
 

@@ -1,16 +1,23 @@
-#slider{
+/* #slider{
   background: linear-gradient(to bottom,#F00,#FF0,#0F0,#0FF,#00F,#F0F,#F00);
   box-sizing: border-box;
   flex-shrink: 0;
   margin:20px;
   border-radius:100px;
-}
+} */
 
 #dragger, #dragger2{
   position:absolute;
 }
 
-#pip, #circlePip{
+#pip{
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.2);
+  border: 1px solid rgba(255,255,255,.7);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+#circlePip{
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.2);
   border: 1px solid rgba(255,255,255,.7);
   box-sizing: border-box;
