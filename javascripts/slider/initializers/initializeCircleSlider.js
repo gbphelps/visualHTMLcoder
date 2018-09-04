@@ -175,15 +175,15 @@ const antiAlias = (x, y, curve, buffer, i, convex) => {
     collision.right = y > 0 ? curve[right]-bottom : -curve[right]-bottom;
   }
 
- const orientation = orient(x,y);
- setOpacity(collision, orientation, buffer, i, convex, x, y);
-
+ if (Object.keys(collision).length) {
+   const orientation = orient(x,y);
+   setOpacity(collision, orientation, buffer, i, convex);
+ }
 }
 
 
 const n = (number) => typeof(number) === 'number' ? true : false;
-
-const setOpacity = ({left,right,top,bottom}, orientation, buffer, i, convex , x ,y) => {
+const setOpacity = ({left,right,top,bottom}, orientation, buffer, i, convex) => {
   let opacity;
 
   if (n(left) && n(right)){
