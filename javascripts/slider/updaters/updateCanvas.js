@@ -4,24 +4,27 @@ export const updateCanvas = color => {
 
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
   canvas.color = color;
 
-  const buffer = ctx.createImageData(canvas.width, canvas.height);
+  const buffer = ctx.createImageData(canvas.innerWidth, canvas.innerHeight);
 
   populateBuffer(buffer);
-  ctx.putImageData(buffer, 0, 0);
+  ctx.putImageData(buffer, canvas.padding, canvas.padding);
+  outline(buffer);
 
 };
 
 
 const XtoY = x => {
   return x < 0 ?
-    Math.sqrt(3) * (canvas.width/2 + x) :
-    Math.sqrt(3) * (canvas.width/2 - x)
+    Math.sqrt(3) * (canvas.innerWidth/2 + x) :
+    Math.sqrt(3) * (canvas.innerWidth/2 - x)
 }
 
 const YtoX = y => {
-    return - y / Math.sqrt(3) + canvas.width/2
+    return - y / Math.sqrt(3) + canvas.innerWidth/2
 }
 
 
@@ -34,11 +37,11 @@ let coordsCalculated = false;
 
 //TODO: cache theta & r for i to improve speed
 const calculateCoords = i => {
-  const top = Math.floor(i / canvas.width);
-  const left = Math.floor(i % canvas.width);
+  const top = Math.floor(i / canvas.innerWidth);
+  const left = Math.floor(i % canvas.innerWidth);
 
   const x = left; //TODO antialias this manually with .5 and antialias function from initializeCircleSlider
-  const y = canvas.height - top;
+  const y = canvas.innerHeight - top;
 
   const xAvg = x + .5;
   const yAvg = y - .5
@@ -47,7 +50,7 @@ const calculateCoords = i => {
   const theta = (Math.PI/3 - theta0)/(Math.PI/3);
   //map radial coordinates [0, pi/3] -> [1, 0]
 
-  let r = Math.sqrt(xAvg*xAvg + yAvg*yAvg)/canvas.width;
+  let r = Math.sqrt(xAvg*xAvg + yAvg*yAvg)/canvas.innerWidth;
   r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2)
   //map pie wedge to equilateral triangle by flattening arc
   triangleCoords[i] = {x,y,theta,r};
@@ -64,7 +67,7 @@ const calculateCoords = i => {
 const populateBuffer = (buffer) => {
   const [red, green, blue] = canvas.color;
 
-  for (let i=0; i<(canvas.height * canvas.width); i++) {
+  for (let i=0; i<(canvas.innerHeight * canvas.innerWidth); i++) {
 
     let x,y,theta,r;
     if (coordsCalculated){
@@ -88,7 +91,7 @@ const populateBuffer = (buffer) => {
     if (antiAliased){
       if (n(alii[i])) buffer.data[i*4 + 3] = alii[i];
     } else {
-      antiAlias(x-canvas.width/2, y, buffer, i);
+      antiAlias(x-canvas.innerWidth/2, y, buffer, i);
     }
   }
   antiAliased = true;
@@ -198,4 +201,78 @@ const setOpacity = ({left,right,top,bottom}, orientation, buffer, i, convex) => 
   }
 
 
+}
+
+
+
+
+
+
+
+
+
+
+const outline = () => {
+  const ctx = canvas.getContext('2d');
+
+  ctx.beginPath();
+  ctx.fillStyle = format(canvas.color);
+  ctx.arc(canvas.width/2, canvas.padding, 10, Math.PI, Math.PI*2);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.fillStyle = 'black';
+  ctx.arc(canvas.padding, canvas.height - canvas.padding, 10, Math.PI/3, Math.PI+Math.PI/3);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.fillStyle = 'white';
+  ctx.arc(canvas.width - canvas.padding, canvas.height - canvas.padding, 10, -Math.PI/3, Math.PI-Math.PI/3);
+  ctx.fill();
+
+
+  ctx.beginPath();
+  const b2w = ctx.createLinearGradient(
+    canvas.padding, 0,
+    canvas.padding + canvas.innerWidth, 0,
+  );
+  b2w.addColorStop(0,'black');
+  b2w.addColorStop(1,'white');
+  ctx.fillStyle = b2w;
+  ctx.rect(canvas.padding, canvas.height-canvas.padding, canvas.innerWidth, 10)
+  ctx.fill();
+
+
+
+  ctx.beginPath();
+  const r2w = ctx.createLinearGradient(
+    canvas.width/2, canvas.padding,
+    canvas.width - canvas.padding, canvas.height - canvas.padding,
+  );
+  r2w.addColorStop(1,'white');
+  r2w.addColorStop(0, format(canvas.color));
+  ctx.fillStyle = r2w;
+  ctx.moveTo(canvas.width/2, canvas.padding + 2);
+  ctx.lineTo(canvas.width-canvas.padding-1, canvas.height-canvas.padding);
+  ctx.lineTo(canvas.width-canvas.padding + 10*Math.cos(Math.PI/6), canvas.height-canvas.padding - 10*Math.sin(Math.PI/6))
+  ctx.lineTo(canvas.width/2 + 10*Math.cos(Math.PI/6), canvas.padding - 10*Math.sin(Math.PI/6)-.8);
+  ctx.lineTo(canvas.width/2, canvas.padding);
+  ctx.fill();
+
+
+
+  ctx.beginPath();
+  const r2b = ctx.createLinearGradient(
+    canvas.width/2, canvas.padding,
+    canvas.padding, canvas.height - canvas.padding,
+  );
+  r2b.addColorStop(1,'black');
+  r2b.addColorStop(0, format(canvas.color));
+  ctx.fillStyle = r2b;
+  ctx.moveTo(canvas.width/2, canvas.padding + 2);
+  ctx.lineTo(canvas.padding + 1, canvas.height-canvas.padding);
+  ctx.lineTo(canvas.padding - 10*Math.cos(Math.PI/6), canvas.height-canvas.padding - 10*Math.sin(Math.PI/6))
+  ctx.lineTo(canvas.width/2 - 10*Math.cos(Math.PI/6), canvas.padding - 10*Math.sin(Math.PI/6)-.8);
+  ctx.lineTo(canvas.width/2, canvas.padding);
+  ctx.fill();
 }

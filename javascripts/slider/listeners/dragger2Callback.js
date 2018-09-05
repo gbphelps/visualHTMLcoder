@@ -8,7 +8,6 @@ export const dragger2Callback = e => {
 
   pip.style.width = '35px';
   pip.style.height = '35px';
-  pip.style.transform = 'rotate(90deg)';
 
   document.body.classList.add('grabbing');
   // pip.classList.remove('animate');  //TODO animate
@@ -19,27 +18,25 @@ export const dragger2Callback = e => {
     const newx = dragger2.x + diffx;
     const newy = dragger2.y + diffy;
 
-    const box = canvas.getBoundingClientRect();
-
 
 
     let x, y;
 
-    if (-canvas.height*(2*newx/canvas.width - 1) > newy){
+    if (-canvas.innerHeight*(2*newx/canvas.innerWidth - 1) > newy){
       if (Math.abs(diffy/diffx) > Math.sqrt(3)){
         y = newy;
-        x = canvas.width/2 * (1 - newy/canvas.height)
+        x = canvas.innerWidth/2 * (1 - newy/canvas.innerHeight)
       }else{
         x = newx;
-        y = -canvas.height*(2*newx/canvas.width - 1);
+        y = -canvas.innerHeight*(2*newx/canvas.innerWidth - 1);
       }
-    }else if(canvas.height*(2*newx/canvas.width - 1) > newy){
+    }else if(canvas.innerHeight*(2*newx/canvas.innerWidth - 1) > newy){
       if (Math.abs(diffy/diffx) > Math.sqrt(3)){
         y = newy;
-        x = canvas.width/2 * (newy/canvas.height + 1)
+        x = canvas.innerWidth/2 * (newy/canvas.innerHeight + 1)
       }else{
         x = newx;
-        y = canvas.height*(2*newx/canvas.width - 1);
+        y = canvas.innerHeight*(2*newx/canvas.innerWidth - 1);
       }
     }else{
       x = newx;
@@ -48,21 +45,21 @@ export const dragger2Callback = e => {
 
     //edge case clearance
 
-    if (y > canvas.height){
-      y = canvas.height;
+    if (y > canvas.innerHeight){
+      y = canvas.innerHeight;
     }else if (y < 0){
       y = 0;
     }
 
-    if (x > canvas.width){
-      x = canvas.width;
+    if (x > canvas.innerWidth){
+      x = canvas.innerWidth;
     } else if (x < 0){
       x = 0;
     }
 
     if (newy < 0){
       y = 0;
-      x = canvas.width/2;
+      x = canvas.innerWidth/2;
     }
 
     xPrev = e.clientX;
@@ -79,7 +76,6 @@ export const dragger2Callback = e => {
       document.body.classList.remove('grabbing');
       pip.style.width = pip.diameter + 'px';
       pip.style.height = pip.diameter + 'px';
-      pip.style.transform = 'rotate(0deg)';
     },{
       once:true
     }

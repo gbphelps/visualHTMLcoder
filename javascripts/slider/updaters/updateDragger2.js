@@ -3,12 +3,12 @@ import { format } from '../utils'
 export const updateDragger2 = () => {
 
     const xp = dragger2.x;
-    const yp = canvas.height - dragger2.y;
+    const yp = canvas.innerHeight - dragger2.y;
 
     let theta0 = Math.atan(yp/xp);
     const theta = (Math.PI/3 - theta0)/(Math.PI/3);
 
-    let r = Math.sqrt(xp*xp + yp*yp)/canvas.width;
+    let r = Math.sqrt(xp*xp + yp*yp)/canvas.innerWidth;
     r = r * Math.cos(Math.PI/6 - theta0) / (Math.sqrt(3)/2);
 
     let R = Math.round((canvas.color[0] + (255-canvas.color[0])*theta) * r) || 0;

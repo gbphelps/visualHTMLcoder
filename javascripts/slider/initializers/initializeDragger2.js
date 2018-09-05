@@ -7,13 +7,13 @@ export const initializeDragger2 = (d2diameter) => {
     create('DIV', triangleContainer, {
       id: 'dragger2',
       diameter: d2diameter,
-      x: canvas.width/2,
+      x: canvas.innerWidth/2,
       y: 0,
     },{
       height: d2diameter + 'px',
       width: d2diameter + 'px',
       borderRadius: '50%',
-      left: (canvas.width - d2diameter)/2 + 'px',
+      left: (canvas.innerWidth - d2diameter)/2 + 'px',
       top: -d2diameter/2 + 'px'
     });
 

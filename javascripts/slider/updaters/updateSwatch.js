@@ -8,7 +8,6 @@ export const updateSwatch = () => {
     .2126 * R +
     .7152 * G +
     .0722 * B ;
-    console.log(sat);
   swatch.style.color = (sat < 255/2 ? 'white' : 'black');
    dragger2.color.forEach((hue,i)=>{
      const input = document.getElementById(`color-${i}`);
