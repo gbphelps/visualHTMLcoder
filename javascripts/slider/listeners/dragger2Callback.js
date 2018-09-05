@@ -8,6 +8,7 @@ export const dragger2Callback = e => {
 
   pip.style.width = '35px';
   pip.style.height = '35px';
+  pip.style['box-shadow'] = '0 8px 8px 0 rgba(0,0,0,.4)';
 
   document.body.classList.add('grabbing');
   // pip.classList.remove('animate');  //TODO animate
@@ -76,6 +77,7 @@ export const dragger2Callback = e => {
       document.body.classList.remove('grabbing');
       pip.style.width = pip.diameter + 'px';
       pip.style.height = pip.diameter + 'px';
+      pip.style['box-shadow'] = '0 2px 2px 0 rgba(0,0,0,.4)';
     },{
       once:true
     }

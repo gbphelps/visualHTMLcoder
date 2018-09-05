@@ -37,7 +37,7 @@ export const initializeDragger2 = (d2diameter) => {
       bottom: 0,
       right: 0,
       margin: 'auto',
-      transition: 'height .3s , width .3s, transform .3s'
+      transition: 'height .3s , width .3s, transform .3s, box-shadow .3s'
     });
   pip.addEventListener('mousedown', dragger2Callback);
 

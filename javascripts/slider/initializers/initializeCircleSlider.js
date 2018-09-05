@@ -65,7 +65,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     top: 0,
     bottom: 0,
     margin: 'auto',
-    transition: 'width .3s, height .3s'
+    transition: 'width .3s, height .3s, box-shadow .3s'
   })
   circleDragger.addEventListener('mousedown', circleDraggerCallback);
 

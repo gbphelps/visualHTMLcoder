@@ -9,6 +9,7 @@ export const circleDraggerCallback = e => {
   let [ xPrev, yPrev ] = [ e.clientX, e.clientY ];
   circlePip.style.height = '35px';
   circlePip.style.width = '35px';
+  circlePip.style['box-shadow'] = '0 8px 8px 0 rgba(0,0,0,.4)';
   document.body.classList.add('grabbing');
 
   const mousemove = e => {
@@ -68,6 +69,7 @@ export const circleDraggerCallback = e => {
     document.body.classList.remove('grabbing')
     circlePip.style.height = circlePip.diameter + 'px';
     circlePip.style.width = circlePip.diameter + 'px';
+    circlePip.style['box-shadow'] = '0 2px 2px 0 rgba(0,0,0,.4)';
   },{once: true})
 
 }
