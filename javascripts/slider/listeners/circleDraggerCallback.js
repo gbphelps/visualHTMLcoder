@@ -7,8 +7,8 @@ import { updateDragger2 } from '../updaters/updateDragger2'
 export const circleDraggerCallback = e => {
   e.preventDefault();
   let [ xPrev, yPrev ] = [ e.clientX, e.clientY ];
-  circlePip.style.height = '30px';
-  circlePip.style.width = '30px';
+  circlePip.style.height = '35px';
+  circlePip.style.width = '35px';
   document.body.classList.add('grabbing');
 
   const mousemove = e => {
@@ -66,8 +66,8 @@ export const circleDraggerCallback = e => {
   document.addEventListener('mouseup', ()=>{
     document.removeEventListener('mousemove', mousemove);
     document.body.classList.remove('grabbing')
-    circlePip.style.height = '10px';
-    circlePip.style.width = '10px'; //TODO use global variables attached to HTML elements
+    circlePip.style.height = circlePip.diameter + 'px';
+    circlePip.style.width = circlePip.diameter + 'px';
   },{once: true})
 
 }

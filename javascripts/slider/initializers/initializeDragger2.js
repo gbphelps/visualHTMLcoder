@@ -18,15 +18,17 @@ export const initializeDragger2 = (d2diameter) => {
     });
 
 
+
+  const diameter = 17;
   const pip =
   create('DIV', dragger2, {
       id: 'pip',
-      width : 10 //TODO variables
+      diameter
     },{
       display: 'flex',
       background: 'black',
-      height: '10px', //TODO variables
-      width: '10px',
+      height: diameter + 'px',
+      width: diameter + 'px',
       'z-index': 2,
       'border-radius': '50%',
       position: 'absolute',
@@ -35,54 +37,74 @@ export const initializeDragger2 = (d2diameter) => {
       bottom: 0,
       right: 0,
       margin: 'auto',
-      transition: 'height .3s , width .3s'
+      transition: 'height .3s , width .3s, transform .3s'
     });
   pip.addEventListener('mousedown', dragger2Callback);
 
 
-  const border = '1px solid rgba(255,255,255,.7)'
-  create('DIV', pip,{
-    id: 'crosshair1'
-  },{
-    position: 'absolute',
-    'border-left': border,
-    height: '10px',
-    width: '1px',
-    left: '50%',
-    bottom: '-5px'
-  })
+  // const border = '1px solid black'
+  // create('DIV', pip,{
+  //   id: 'crosshair1'
+  // },{
+  //   position: 'absolute',
+  //   'border-left': border,
+  //   height: '6px',
+  //   width: '1px',
+  //   left: '50%',
+  //   bottom: '-6px',
+  // })
+  //
+  // create('DIV', pip,{
+  //   id: 'crosshair2'
+  // },{
+  //   position: 'absolute',
+  //   'border-left': border,
+  //   height: '6px',
+  //   width: '1px',
+  //   left: '50%',
+  //   top: '-6px'
+  // })
+  //
+  // create('DIV', pip,{
+  //   id: 'crosshair3'
+  // },{
+  //   position: 'absolute',
+  //   'border-top': border,
+  //   height: '1px',
+  //   width: '6px',
+  //   top: '50%',
+  //   left: '-6px'
+  // })
+  //
+  // create('DIV', pip,{
+  //   id: 'crosshair4'
+  // },{
+  //   position: 'absolute',
+  //   'border-top': border,
+  //   height: '1px',
+  //   width: '6px',
+  //   top: '50%',
+  //   right: '-6px',
+  // })
 
-  create('DIV', pip,{
-    id: 'crosshair2'
-  },{
-    position: 'absolute',
-    'border-left': border,
-    height: '10px',
-    width: '1px',
-    left: '50%',
-    top: '-5px'
-  })
 
-  create('DIV', pip,{
-    id: 'crosshair3'
-  },{
-    position: 'absolute',
-    'border-top': border,
-    height: '1px',
-    width: '10px',
-    top: '50%',
-    left: '-6px'
-  })
-
-  create('DIV', pip,{
-    id: 'crosshair4'
-  },{
-    position: 'absolute',
-    'border-top': border,
-    height: '1px',
-    width: '10px',
-    top: '50%',
-    right: '-6px'
-  })
+  ///////TODO animate
+  // const check = () => {
+  //     if (!pip.active){
+  //     pip.classList.remove('animate');
+  //     clearInterval(pip.run);
+  //   }
+  // }
+  //
+  // triangleContainer.addEventListener('mouseenter',()=>{
+  //   pip.active = true;
+  //   pip.classList.add('animate');
+  //   pip.run = setInterval(check,1000);
+  // })
+  //
+  // triangleContainer.addEventListener('mouseleave',()=>{
+  //   pip.active = false;
+  // })
+  ////////////
 
 };

@@ -4,12 +4,24 @@ import { circleDraggerCallback } from '../listeners/circleDraggerCallback';
 
 
 export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => {
-  const spectrumContainer = create('DIV', container,{
+
+  const spectrumContainerOuter = create('DIV', container,{
+    id: 'spectrumContainerOuter',
+    width: canvasWidth
+  },{
+    background: 'linear-gradient(140deg,#333,black)',
+    padding: '20px',
+    'border-radius': '50%',
+    height: canvasWidth + 'px',
+    width: canvasWidth + 'px',
+    position: 'relative',
+  })
+
+
+  const spectrumContainer = create('DIV', spectrumContainerOuter,{
     id: 'spectrumContainer',
     width: canvasWidth
   },{
-    // background: 'black',
-    'border-radius': '5px',
     height: canvasWidth + 'px',
     width: canvasWidth + 'px',
     position: 'relative',
@@ -37,11 +49,13 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     'z-index': 2
   })
 
+  const diameter = 17;
   const circlePip = create('DIV', circleDragger, {
-    id: 'circlePip'
+    id: 'circlePip',
+    diameter
   },{
-    height: '10px', //TODO variables!
-    width: '10px',
+    height: diameter + 'px', //TODO variables!
+    width: diameter + 'px',
     'border-radius': '50%',
     background: 'rgb(255,0,0)',
     position: 'absolute',

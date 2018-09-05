@@ -6,10 +6,12 @@ export const dragger2Callback = e => {
   let xPrev = e.clientX;
   let yPrev = e.clientY;
 
-  pip.style.width = '30px';
-  pip.style.height = '30px';
+  pip.style.width = '35px';
+  pip.style.height = '35px';
+  pip.style.transform = 'rotate(90deg)';
 
   document.body.classList.add('grabbing');
+  // pip.classList.remove('animate');  //TODO animate
 
   const mousemove = e => {
     const diffx = e.clientX - xPrev;
@@ -75,8 +77,9 @@ export const dragger2Callback = e => {
   document.addEventListener('mouseup',()=>{
       document.removeEventListener('mousemove', mousemove);
       document.body.classList.remove('grabbing');
-      pip.style.width = '10px';
-      pip.style.height = '10px';
+      pip.style.width = pip.diameter + 'px';
+      pip.style.height = pip.diameter + 'px';
+      pip.style.transform = 'rotate(0deg)';
     },{
       once:true
     }
