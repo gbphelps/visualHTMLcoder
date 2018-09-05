@@ -71,15 +71,15 @@ export const generateColor = color => {
   }
 
   const theta0 = Math.PI/3 - (Math.PI/3 * theta);
-  let x = Math.sqrt(3) * max * canvas.width /2 /255 /Math.cos(Math.PI/6-theta0) /Math.sqrt(1+ Math.tan(theta0) * Math.tan(theta0));
-  let y = canvas.height - x * Math.tan(theta0);
+  let x = Math.sqrt(3) * max * canvas.innerWidth /2 /255 /Math.cos(Math.PI/6-theta0) /Math.sqrt(1+ Math.tan(theta0) * Math.tan(theta0));
+  let y = canvas.innerHeight - x * Math.tan(theta0);
 
   if (max === 0){
     x = 0;
-    y = canvas.height;
+    y = canvas.innerHeight;
   } else if (min === 255){
-    x = canvas.width;
-    y = canvas.height;
+    x = canvas.innerWidth;
+    y = canvas.innerHeight;
   }
 
   const progress = revCalc(parentColor)*Math.PI/3;
