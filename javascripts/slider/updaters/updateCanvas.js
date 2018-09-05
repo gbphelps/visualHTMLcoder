@@ -215,21 +215,23 @@ const setOpacity = ({left,right,top,bottom}, orientation, buffer, i, convex) => 
 
 
 const outline = () => {
+
+  const borderRadius = 10;
   const ctx = canvas.getContext('2d');
 
   ctx.beginPath();
   ctx.fillStyle = format(canvas.color);
-  ctx.arc(canvas.width/2, canvas.padding, 10, Math.PI, Math.PI*2);
+  ctx.arc(canvas.width/2, canvas.padding, borderRadius, Math.PI, Math.PI*2);
   ctx.fill();
 
   ctx.beginPath();
   ctx.fillStyle = 'black';
-  ctx.arc(canvas.padding, canvas.height - canvas.padding, 10, Math.PI/3, Math.PI+Math.PI/3);
+  ctx.arc(canvas.padding, canvas.height - canvas.padding, borderRadius, Math.PI/3, Math.PI+Math.PI/3);
   ctx.fill();
 
   ctx.beginPath();
   ctx.fillStyle = 'white';
-  ctx.arc(canvas.width - canvas.padding, canvas.height - canvas.padding, 10, -Math.PI/3, Math.PI-Math.PI/3);
+  ctx.arc(canvas.width - canvas.padding, canvas.height - canvas.padding, borderRadius, -Math.PI/3, Math.PI-Math.PI/3);
   ctx.fill();
 
 
@@ -241,7 +243,7 @@ const outline = () => {
   b2w.addColorStop(0,'black');
   b2w.addColorStop(1,'white');
   ctx.fillStyle = b2w;
-  ctx.rect(canvas.padding, canvas.height-canvas.padding-1, canvas.innerWidth, 10 + 1)
+  ctx.rect(canvas.padding, canvas.height-canvas.padding-1, canvas.innerWidth, borderRadius + 1)
   ctx.fill();
 
 
@@ -256,8 +258,8 @@ const outline = () => {
   ctx.fillStyle = r2w;
   ctx.moveTo(canvas.width/2, canvas.padding);
   ctx.lineTo(canvas.width-canvas.padding, canvas.height-canvas.padding);
-  ctx.lineTo(canvas.width-canvas.padding + 10*Math.cos(Math.PI/6), canvas.height-canvas.padding - 10*Math.sin(Math.PI/6))
-  ctx.lineTo(canvas.width/2 + 10*Math.cos(Math.PI/6), canvas.padding - 10*Math.sin(Math.PI/6));
+  ctx.lineTo(canvas.width-canvas.padding + borderRadius*Math.cos(Math.PI/6), canvas.height-canvas.padding - borderRadius*Math.sin(Math.PI/6))
+  ctx.lineTo(canvas.width/2 + borderRadius*Math.cos(Math.PI/6), canvas.padding - borderRadius*Math.sin(Math.PI/6));
   ctx.lineTo(canvas.width/2, canvas.padding);
   ctx.fill();
 
@@ -273,8 +275,8 @@ const outline = () => {
   ctx.fillStyle = r2b;
   ctx.moveTo(canvas.width/2, canvas.padding);
   ctx.lineTo(canvas.padding, canvas.height-canvas.padding);
-  ctx.lineTo(canvas.padding - 10*Math.cos(Math.PI/6), canvas.height-canvas.padding - 10*Math.sin(Math.PI/6))
-  ctx.lineTo(canvas.width/2 - 10*Math.cos(Math.PI/6), canvas.padding - 10*Math.sin(Math.PI/6));
+  ctx.lineTo(canvas.padding - borderRadius*Math.cos(Math.PI/6), canvas.height-canvas.padding - borderRadius*Math.sin(Math.PI/6))
+  ctx.lineTo(canvas.width/2 - borderRadius*Math.cos(Math.PI/6), canvas.padding - borderRadius*Math.sin(Math.PI/6));
   ctx.lineTo(canvas.width/2, canvas.padding);
   ctx.fill();
 }

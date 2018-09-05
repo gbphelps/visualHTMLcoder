@@ -19,7 +19,7 @@ export const initializeDragger2 = (d2diameter) => {
 
 
 
-  const diameter = 17;
+  const diameter = 20;
   const pip =
   create('DIV', dragger2, {
       id: 'pip',

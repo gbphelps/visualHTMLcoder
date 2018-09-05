@@ -50,7 +50,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     'z-index': 3
   })
 
-  const diameter = 17;
+  const diameter = 20;
   const circlePip = create('DIV', circleDragger, {
     id: 'circlePip',
     diameter
