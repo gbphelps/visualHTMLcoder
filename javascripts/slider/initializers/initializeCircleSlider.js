@@ -15,7 +15,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     height: canvasWidth + 'px',
     width: canvasWidth + 'px',
     position: 'relative',
-    border: '3px solid black',
+    //border: '3px solid black',
   })
 
 

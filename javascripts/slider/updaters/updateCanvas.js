@@ -40,8 +40,9 @@ const calculateCoords = i => {
   const top = Math.floor(i / canvas.innerWidth);
   const left = Math.floor(i % canvas.innerWidth);
 
-  const x = left; //TODO antialias this manually with .5 and antialias function from initializeCircleSlider
-  const y = canvas.innerHeight - top;
+  const x = left;
+  const y = canvas.innerHeight - top -1;
+  //TODO -1 FOR pixel misalignment with rounded border
 
   const xAvg = x + .5;
   const yAvg = y - .5
@@ -88,11 +89,12 @@ const populateBuffer = (buffer) => {
       buffer.data[i*4 + 3] = 0;
     }
 
-    if (antiAliased){
-      if (n(alii[i])) buffer.data[i*4 + 3] = alii[i];
-    } else {
-      antiAlias(x-canvas.innerWidth/2, y, buffer, i);
-    }
+    //TODO anti-aliasing turned off
+    // if (antiAliased){
+    //   if (n(alii[i])) buffer.data[i*4 + 3] = alii[i];
+    // } else {
+    //   antiAlias(x-canvas.innerWidth/2, y, buffer, i);
+    // }
   }
   antiAliased = true;
   coordsCalculated = true;
@@ -239,7 +241,7 @@ const outline = () => {
   b2w.addColorStop(0,'black');
   b2w.addColorStop(1,'white');
   ctx.fillStyle = b2w;
-  ctx.rect(canvas.padding, canvas.height-canvas.padding, canvas.innerWidth, 10)
+  ctx.rect(canvas.padding, canvas.height-canvas.padding-1, canvas.innerWidth, 10 + 1)
   ctx.fill();
 
 
@@ -252,10 +254,10 @@ const outline = () => {
   r2w.addColorStop(1,'white');
   r2w.addColorStop(0, format(canvas.color));
   ctx.fillStyle = r2w;
-  ctx.moveTo(canvas.width/2, canvas.padding + 2);
-  ctx.lineTo(canvas.width-canvas.padding-1, canvas.height-canvas.padding);
+  ctx.moveTo(canvas.width/2, canvas.padding);
+  ctx.lineTo(canvas.width-canvas.padding, canvas.height-canvas.padding);
   ctx.lineTo(canvas.width-canvas.padding + 10*Math.cos(Math.PI/6), canvas.height-canvas.padding - 10*Math.sin(Math.PI/6))
-  ctx.lineTo(canvas.width/2 + 10*Math.cos(Math.PI/6), canvas.padding - 10*Math.sin(Math.PI/6)-.8);
+  ctx.lineTo(canvas.width/2 + 10*Math.cos(Math.PI/6), canvas.padding - 10*Math.sin(Math.PI/6));
   ctx.lineTo(canvas.width/2, canvas.padding);
   ctx.fill();
 
@@ -269,10 +271,10 @@ const outline = () => {
   r2b.addColorStop(1,'black');
   r2b.addColorStop(0, format(canvas.color));
   ctx.fillStyle = r2b;
-  ctx.moveTo(canvas.width/2, canvas.padding + 2);
-  ctx.lineTo(canvas.padding + 1, canvas.height-canvas.padding);
+  ctx.moveTo(canvas.width/2, canvas.padding);
+  ctx.lineTo(canvas.padding, canvas.height-canvas.padding);
   ctx.lineTo(canvas.padding - 10*Math.cos(Math.PI/6), canvas.height-canvas.padding - 10*Math.sin(Math.PI/6))
-  ctx.lineTo(canvas.width/2 - 10*Math.cos(Math.PI/6), canvas.padding - 10*Math.sin(Math.PI/6)-.8);
+  ctx.lineTo(canvas.width/2 - 10*Math.cos(Math.PI/6), canvas.padding - 10*Math.sin(Math.PI/6));
   ctx.lineTo(canvas.width/2, canvas.padding);
   ctx.fill();
 }
