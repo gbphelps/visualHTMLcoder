@@ -39,7 +39,7 @@ export const initialize = () => {
     circleSliderDragger); //TODO fails on odd numbered widths
   initializeCanvas(canvasWidth);
   initializeDragger2(d2diameter);
-  initializeSwatch();
+  initializeSwatch(circleSliderWidth + 40); //TODO variable
 
 
 

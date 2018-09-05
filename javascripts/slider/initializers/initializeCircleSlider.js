@@ -10,7 +10,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     width: canvasWidth
   },{
     background: 'linear-gradient(140deg,#333,black)',
-    padding: '20px',
+    padding: '20px', //TODO variable
     'border-radius': '50%',
     height: canvasWidth + 'px',
     width: canvasWidth + 'px',
