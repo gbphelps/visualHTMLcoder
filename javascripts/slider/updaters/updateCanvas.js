@@ -216,7 +216,7 @@ const setOpacity = ({left,right,top,bottom}, orientation, buffer, i, convex) => 
 
 const outline = () => {
 
-  const borderRadius = 10;
+  const borderRadius = 5;
   const ctx = canvas.getContext('2d');
 
   ctx.beginPath();
