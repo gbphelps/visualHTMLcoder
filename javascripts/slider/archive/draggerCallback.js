@@ -62,8 +62,8 @@ export const draggerCallback = color => e => {
     const diff = e.clientX - x;
     const newValue = data[color].dragger.status + diff;
 
-    if (newValue > data[color].slider.width){ //TODO these will all be the same, factor out
-      colorTrio[data[color].key] = data[color].slider.width;
+    if (newValue > 200){ //TODO these will all be the same, factor out
+      colorTrio[data[color].key] = 200;
     } else if (newValue < 0) {
       colorTrio[data[color].key] = 0;
     } else {

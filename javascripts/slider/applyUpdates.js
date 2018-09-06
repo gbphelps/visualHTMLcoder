@@ -29,12 +29,15 @@ export const applyUpdates = ({triangleDragger, progress, colorTrio}) => {
     if (color === 'red'){
       redDragger.status = colorTrio.red;
       redDragger.style.left = redDragger.status - redDragger.diameter/2 + 'px';
+      redProgress.style.width = redDragger.status + 'px';
     } else if (color === 'green') {
       greenDragger.status = colorTrio.green;
       greenDragger.style.left = greenDragger.status - greenDragger.diameter/2 + 'px';
+      greenProgress.style.width = greenDragger.status + 'px';
     } else if (color === 'blue') {
       blueDragger.status = colorTrio.blue;
       blueDragger.style.left = blueDragger.status - blueDragger.diameter/2 + 'px';
+      blueProgress.style.width = blueDragger.status + 'px';
     }
 
 

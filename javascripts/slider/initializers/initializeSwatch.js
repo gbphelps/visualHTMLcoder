@@ -42,34 +42,82 @@ export const initializeSwatch = (containerWidth) => {
     inputContainer.append(blue);
     create('SPAN', inputContainer, {innerHTML: ')'});
 
+
+
+    const sliderStyle = {
+        height: '10px',
+        width: '200px',
+        margin: '10px 0',
+        position: 'relative',
+    };
+
+    const draggerStyle = {
+      height: '50px',
+      width: '50px',
+      'border-radius': '50%',
+      left: -25 + 'px',
+      top: (10-50)/2 + 'px',
+      position: 'absolute'
+    };
+
+    const pipStyle = color => {
+      return {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        'border-radius': '50%',
+        margin: 'auto',
+        height: '20px',
+        width: '20px',
+        background: color
+      }
+    };
+
+
     const redSlider =
       create('DIV', swatch,{
         id: 'redSlider',
         width: 200,
-      },{
-        height: '10px',
-        width: '200px',
-        background: 'black',
-        'border-radius': '5px',
-        margin: '10px 0',
-        position: 'relative'
-      })
+      }, sliderStyle)
+
+    create('DIV', redSlider,{},{
+      background: 'black',
+      height: '100%',
+      width: '195px',
+      position: 'absolute',
+      top: 0,
+      left: '5px',
+      'border-radius': '5px'
+    })
 
     const redDragger =
       create('DIV', redSlider,{
         id: 'redDragger',
         diameter: 50,
         status: 0
+      },draggerStyle)
+
+
+    const redPip =
+      create('DIV', redDragger,{
+        id: 'redPip'
+      },pipStyle('red'))
+    redPip.addEventListener('mousedown', draggerCallback('red'));
+
+    const redProgress =
+      create ('DIV', redSlider,{
+        id: 'redProgress'
       },{
-        height: '50px',
-        width: '50px',
-        background: 'black',
-        'border-radius': '50%',
-        left: -25 + 'px',
-        top: -25 + 'px',
-        position: 'absolute'
+        height: '10px',
+        width: 0,
+        background: 'red',
+        position:'absolute',
+        top: 0,
+        left: 0,
+        'border-radius': '5px'
       })
-    redDragger.addEventListener('mousedown', draggerCallback('red'));
 
 
 
@@ -77,13 +125,16 @@ export const initializeSwatch = (containerWidth) => {
       create('DIV', swatch,{
         id: 'greenSlider',
         width: 200,
-      },{
-        height: '10px',
-        width: '200px',
+      },sliderStyle)
+
+      create('DIV', greenSlider,{},{
         background: 'black',
-        'border-radius': '5px',
-        margin: '10px 0',
-        position: 'relative'
+        height: '100%',
+        width: '195px',
+        position: 'absolute',
+        top: 0,
+        left: '5px',
+        'border-radius': '5px'
       })
 
     const greenDragger =
@@ -91,17 +142,27 @@ export const initializeSwatch = (containerWidth) => {
         id: 'greenDragger',
         diameter: 50,
         status: 0
-      },{
-        height: '50px',
-        width: '50px',
-        background: 'black',
-        'border-radius': '50%',
-        left: -25 + 'px',
-        top: -25 + 'px',
-        position: 'absolute'
-      })
-    greenDragger.addEventListener('mousedown', draggerCallback('green'));
+      },draggerStyle)
 
+
+    const greenPip =
+      create('DIV', greenDragger,{
+        id: 'greenPip'
+      },pipStyle('lime'));
+    greenPip.addEventListener('mousedown', draggerCallback('green'));
+
+    const greenProgress =
+      create ('DIV', greenSlider,{
+        id: 'greenProgress'
+      },{
+        height: '10px',
+        width: 0,
+        background: 'lime',
+        position:'absolute',
+        top: 0,
+        left: 0,
+        'border-radius': '5px'
+      })
 
 
 
@@ -110,13 +171,16 @@ export const initializeSwatch = (containerWidth) => {
       create('DIV', swatch,{
         id: 'blueSlider',
         width: 200,
-      },{
-        height: '10px',
-        width: '200px',
+      },sliderStyle)
+
+      create('DIV', blueSlider,{},{
         background: 'black',
-        'border-radius': '5px',
-        margin: '10px 0',
-        position: 'relative'
+        height: '100%',
+        width: '195px',
+        position: 'absolute',
+        top: 0,
+        left: '5px',
+        'border-radius': '5px'
       })
 
     const blueDragger =
@@ -124,16 +188,27 @@ export const initializeSwatch = (containerWidth) => {
         id: 'blueDragger',
         diameter: 50,
         status: 0
+      },draggerStyle)
+
+
+    const bluePip =
+      create('DIV', blueDragger,{
+        id: 'bluePip'
+      },pipStyle('blue'));
+    bluePip.addEventListener('mousedown', draggerCallback('blue'));
+
+    const blueProgress =
+      create ('DIV', blueSlider,{
+        id: 'blueProgress'
       },{
-        height: '50px',
-        width: '50px',
-        background: 'black',
-        'border-radius': '50%',
-        left: -25 + 'px',
-        top: -25 + 'px',
-        position: 'absolute'
+        height: '10px',
+        width: 0,
+        background: 'blue',
+        position:'absolute',
+        top: 0,
+        left: 0,
+        'border-radius': '5px'
       })
-    blueDragger.addEventListener('mousedown', draggerCallback('blue'));
 
 
 
