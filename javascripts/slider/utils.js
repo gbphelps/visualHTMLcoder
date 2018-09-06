@@ -45,7 +45,6 @@ export const revCalc = color => {
   }else if (color[0] === 255 && color[1] === 0){
     progress = 5 + 1 - color[2]/255;
   }
-
   return progress;
 }
 

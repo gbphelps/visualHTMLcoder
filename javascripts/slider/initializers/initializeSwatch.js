@@ -102,8 +102,9 @@ export const initializeSwatch = (containerWidth) => {
       create('DIV', redSlider,{
         id: 'redDragger',
         diameter: 50,
-        status: 0
+        status: 200
       },draggerStyle)
+    redDragger.style.left = 200 - 25 + 'px'
 
 
     const redPip =
@@ -117,7 +118,7 @@ export const initializeSwatch = (containerWidth) => {
         id: 'redProgress'
       },{
         height: '10px',
-        width: 0,
+        width: '200px',
         background: 'linear-gradient(to left, #f00, #f55 200px)',
         position:'absolute',
         top: 0,
