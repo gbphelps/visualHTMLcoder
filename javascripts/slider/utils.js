@@ -83,8 +83,8 @@ export const generateColor = color => {
   }
 
   const progress = revCalc(parentColor)*Math.PI/3;
-
   const triangleDragger = {x,y};
-  return {triangleDragger, progress};
+  const colorTrio = {red: color[0]/255*200, green: color[1]/255*200, blue: color[2]/255*200};
+  return {triangleDragger, progress, colorTrio};
 
 };

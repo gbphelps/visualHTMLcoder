@@ -71,10 +71,24 @@ export const initializeSwatch = (containerWidth) => {
         margin: 'auto',
         height: '20px',
         width: '20px',
-        background: color
+        background: color,
+        'z-index': 2,
+        transition: 'height .3s, width .3s, box-shadow .3s',
+        'box-shadow': '0 2px 2px 0 rgba(0,0,0,.4)'
       }
     };
 
+
+
+    const trackStyle = {
+      background: '#000',
+      height: '100%',
+      width: '195px',
+      position: 'absolute',
+      top: 0,
+      left: '5px',
+      'border-radius': '5px'
+    }
 
     const redSlider =
       create('DIV', swatch,{
@@ -82,15 +96,7 @@ export const initializeSwatch = (containerWidth) => {
         width: 200,
       }, sliderStyle)
 
-    create('DIV', redSlider,{},{
-      background: 'black',
-      height: '100%',
-      width: '195px',
-      position: 'absolute',
-      top: 0,
-      left: '5px',
-      'border-radius': '5px'
-    })
+    create('DIV', redSlider,{},trackStyle)
 
     const redDragger =
       create('DIV', redSlider,{
@@ -112,7 +118,7 @@ export const initializeSwatch = (containerWidth) => {
       },{
         height: '10px',
         width: 0,
-        background: 'red',
+        background: 'linear-gradient(to left, #f00, #f55 200px)',
         position:'absolute',
         top: 0,
         left: 0,
@@ -127,15 +133,7 @@ export const initializeSwatch = (containerWidth) => {
         width: 200,
       },sliderStyle)
 
-      create('DIV', greenSlider,{},{
-        background: 'black',
-        height: '100%',
-        width: '195px',
-        position: 'absolute',
-        top: 0,
-        left: '5px',
-        'border-radius': '5px'
-      })
+      create('DIV', greenSlider,{},trackStyle)
 
     const greenDragger =
       create('DIV', greenSlider,{
@@ -157,7 +155,7 @@ export const initializeSwatch = (containerWidth) => {
       },{
         height: '10px',
         width: 0,
-        background: 'lime',
+        background: 'linear-gradient(to left,#0f0, #7f7 200px)',
         position:'absolute',
         top: 0,
         left: 0,
@@ -173,15 +171,7 @@ export const initializeSwatch = (containerWidth) => {
         width: 200,
       },sliderStyle)
 
-      create('DIV', blueSlider,{},{
-        background: 'black',
-        height: '100%',
-        width: '195px',
-        position: 'absolute',
-        top: 0,
-        left: '5px',
-        'border-radius': '5px'
-      })
+      create('DIV', blueSlider,{},trackStyle)
 
     const blueDragger =
       create('DIV', blueSlider,{
@@ -203,7 +193,7 @@ export const initializeSwatch = (containerWidth) => {
       },{
         height: '10px',
         width: 0,
-        background: 'blue',
+        background: 'linear-gradient(to left,#00f, #44f 200px)',
         position:'absolute',
         top: 0,
         left: 0,

@@ -1,4 +1,5 @@
-import { format } from '../utils'
+import { format } from '../utils';
+import { applyUpdates } from '../applyUpdates';
 
 export const updateDragger2 = () => {
 

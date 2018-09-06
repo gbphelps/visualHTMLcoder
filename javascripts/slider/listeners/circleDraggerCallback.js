@@ -1,7 +1,8 @@
 import { updateCanvas } from '../updaters/updateCanvas';
 import { format, calcColor } from '../utils';
 import { updateSwatch } from '../updaters/updateSwatch';
-import { updateDragger2 } from '../updaters/updateDragger2'
+import { updateDragger2 } from '../updaters/updateDragger2';
+import { updateTrioDraggers } from '../updaters/updateTrioDraggers'
 
 
 export const circleDraggerCallback = e => {
@@ -87,14 +88,19 @@ export const setDraggerPosition = ({ x, y }) => {
   }
 
   const progress = 3 * theta / Math.PI;
-
+  const color = calcColor(progress);
   circleDragger.x = x;
   circleDragger.y = y;
   circleDragger.style.left = left + 'px';
   circleDragger.style.top = top + 'px';
-  circlePip.style.background = format(calcColor(progress))
+  circlePip.style.background = format(color);
 
   updateCanvas(calcColor(progress));
   updateDragger2();
+  updateTrioDraggers({
+    red: dragger2.color[0]/255*200,
+    green: dragger2.color[1]/255*200,
+    blue: dragger2.color[2]/255*200
+  });
   updateSwatch();
 }

@@ -2,7 +2,8 @@ import { format, calcColor,revCalc } from './utils';
 import { updateCanvas } from './updaters/updateCanvas';
 import { updateDragger2 } from './updaters/updateDragger2';
 import { updateSwatch } from './updaters/updateSwatch';
-import { setDraggerPosition } from './listeners/circleDraggerCallback'
+import { setDraggerPosition } from './listeners/circleDraggerCallback';
+import { updateTrioDraggers } from './updaters/updateTrioDraggers'
 
 
 export const applyUpdates = ({triangleDragger, progress, colorTrio}) => {
@@ -21,31 +22,17 @@ export const applyUpdates = ({triangleDragger, progress, colorTrio}) => {
     dragger2.style.top = dragger2.y - dragger2.diameter/2 + 'px';
   }
 
-
   if (typeof(colorTrio) !== 'undefined') {
-
-    let color = Object.keys(colorTrio)[0];
-
-    if (color === 'red'){
-      redDragger.status = colorTrio.red;
-      redDragger.style.left = redDragger.status - redDragger.diameter/2 + 'px';
-      redProgress.style.width = redDragger.status + 'px';
-    } else if (color === 'green') {
-      greenDragger.status = colorTrio.green;
-      greenDragger.style.left = greenDragger.status - greenDragger.diameter/2 + 'px';
-      greenProgress.style.width = greenDragger.status + 'px';
-    } else if (color === 'blue') {
-      blueDragger.status = colorTrio.blue;
-      blueDragger.style.left = blueDragger.status - blueDragger.diameter/2 + 'px';
-      blueProgress.style.width = blueDragger.status + 'px';
-    }
-
-
-
-
+    console.log(colorTrio);
+    updateTrioDraggers(colorTrio);
   }
 
-  updateDragger2();
-  updateSwatch();
+updateDragger2();
+updateSwatch();
+updateTrioDraggers({
+  red: dragger2.color[0]/255*200,
+  green: dragger2.color[1]/255*200,
+  blue: dragger2.color[2]/255*200
+});
 
 }

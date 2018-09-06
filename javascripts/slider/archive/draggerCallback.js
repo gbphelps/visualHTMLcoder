@@ -41,19 +41,26 @@ export const draggerCallback = color => e => {
     red: {
       slider: redSlider,
       dragger: redDragger,
+      pip: redPip,
       key: 'red'
     },
     green: {
       slider: greenSlider,
       dragger: greenDragger,
+      pip: greenPip,
       key: 'green'
     },
     blue: {
       slider: blueSlider,
       dragger: blueDragger,
-      key: 'blue'
+      pip: bluePip,
+      key: 'blue',
     }
   }
+
+  data[color].pip.style.height = '35px';
+  data[color].pip.style.width = '35px';
+  data[color].pip.style['box-shadow'] = '0 8px 8px 0 rgba(0,0,0,.4)';
 
   const mousemove = e => {
 
@@ -71,11 +78,15 @@ export const draggerCallback = color => e => {
       x = e.clientX;
     }
 
-    applyUpdates({colorTrio});
+    applyUpdates({colorTrio})
+
   };
 
   const mouseup = e => {
     document.removeEventListener('mousemove', mousemove);
+    data[color].pip.style.height = '20px';
+    data[color].pip.style.width = '20px';
+    data[color].pip.style['box-shadow'] = '0 2px 2px 0 rgba(0,0,0,.4)';
   };
 
   document.addEventListener('mousemove', mousemove);
