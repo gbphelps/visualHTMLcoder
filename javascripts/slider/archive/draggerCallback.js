@@ -61,6 +61,7 @@ export const draggerCallback = color => e => {
   data[color].pip.style.height = '35px';
   data[color].pip.style.width = '35px';
   data[color].pip.style['box-shadow'] = '0 8px 8px 0 rgba(0,0,0,.4)';
+  document.body.classList.add('grabbing')
 
   const mousemove = e => {
 
@@ -87,6 +88,8 @@ export const draggerCallback = color => e => {
     data[color].pip.style.height = '20px';
     data[color].pip.style.width = '20px';
     data[color].pip.style['box-shadow'] = '0 2px 2px 0 rgba(0,0,0,.4)';
+    document.body.classList.remove('grabbing')
+
   };
 
   document.addEventListener('mousemove', mousemove);

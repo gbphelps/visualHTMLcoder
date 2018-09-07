@@ -12,6 +12,7 @@ import { initializeCanvas } from './initializers/initializeCanvas';
 
 
 import { initializeCircleSlider } from './initializers/initializeCircleSlider';
+import { initializeTrioSliders } from './initializers/initializeTrioSliders'
 
 
 
@@ -39,7 +40,9 @@ export const initialize = () => {
     circleSliderDragger); //TODO fails on odd numbered widths
   initializeCanvas(canvasWidth);
   initializeDragger2(d2diameter);
+  initializeTrioSliders();
   initializeSwatch(circleSliderWidth + 40); //TODO variable
+
 
 
 
