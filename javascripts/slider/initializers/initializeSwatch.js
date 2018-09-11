@@ -5,14 +5,17 @@ import { draggerCallback } from '../archive/draggerCallback'
 
 export const initializeSwatch = (containerWidth) => {
   const swatch =
-    create('DIV', container, {
+    create('DIV', rightContainer, {
       id: 'swatch'
     },{
       position: 'relative',
       background: format(canvas.color),
       height: containerWidth + 'px',
       width: containerWidth + 'px',
-      'border-radius': '50%'
+      left: '30px',
+      top: '20px',
+      'border-radius': '50%',
+      'box-shadow': '0 8px 8px 0 rgba(0,0,0,.2)'
     });
 
     const red = document.createElement('INPUT');

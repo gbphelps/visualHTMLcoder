@@ -32,7 +32,7 @@ export const initialize = () => {
   document.body.style.cursor = 'default';
 
   const container =
-    create('DIV',document.body,{id: 'container'},{display: 'flex'});
+    create('DIV',document.body,{id: 'container'},{display: 'flex',height: '290px'});
 
   initializeCircleSlider(
     circleSliderWidth,
@@ -40,8 +40,16 @@ export const initialize = () => {
     circleSliderDragger); //TODO fails on odd numbered widths
   initializeCanvas(canvasWidth);
   initializeDragger2(d2diameter);
+
+  const rightContainer =
+    create('DIV',container,{id: 'rightContainer'},{
+      height: '100%',
+      display: 'flex',
+      'flex-direction': 'column',
+      'justify-content': 'space-between'});
+  initializeSwatch(150); //TODO variable
   initializeTrioSliders();
-  initializeSwatch(circleSliderWidth + 40); //TODO variable
+
 
 
 

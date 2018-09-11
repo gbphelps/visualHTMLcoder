@@ -66,10 +66,9 @@ export const initializeTrioSliders = () => {
 
 
 
-  const triadContainer = create('DIV',container,{
+  const triadContainer = create('DIV',rightContainer,{
     id: 'triadContainer'
   },{
-    'align-self': 'flex-end',
     //background: 'linear-gradient(140deg,#333,black)',
     padding: ' 0 20px',
     //'border-bottom': '1px solid black'
