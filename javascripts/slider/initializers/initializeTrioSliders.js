@@ -46,7 +46,7 @@ export const initializeTrioSliders = () => {
     top: 0,
     left: '1px',
     'border-radius': '5px',
-    'box-shadow': '0 8px 8px 0 rgba(0,0,0,.2)'
+    'box-shadow': '0 2px 2px 0 rgba(0,0,0,.4)'
   }
 
 

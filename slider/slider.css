@@ -58,6 +58,10 @@ input:focus{
   /* background: rgba(255,255,255,.2) */
 }
 
+span{
+  display: inline;
+  transition: color .3s;
+}
 /* ::selection{
   background: none;
   color: black;
@@ -112,4 +116,10 @@ html,body{
 
 *{
   flex-shrink: 0
+}
+
+
+.vertical-center{
+  display:flex;
+  align-items: center;
 }

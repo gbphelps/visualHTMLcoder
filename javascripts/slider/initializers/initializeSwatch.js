@@ -15,7 +15,7 @@ export const initializeSwatch = (containerWidth) => {
       left: '30px',
       top: '20px',
       'border-radius': '50%',
-      'box-shadow': '0 8px 8px 0 rgba(0,0,0,.2)'
+      'box-shadow': '0 2px 2px 0 rgba(0,0,0,.4)'
     });
 
     const red = document.createElement('INPUT');
@@ -39,14 +39,17 @@ export const initializeSwatch = (containerWidth) => {
       });
 
     const redHolder = create('DIV', inputContainer);
-    create('SPAN', redHolder, {innerHTML: 'R'});
+    redHolder.classList.add('vertical-center');
+    create('SPAN', redHolder,{innerHTML:'R'});
     redHolder.append(red);
 
     const greenHolder = create('DIV', inputContainer);
-    create('SPAN', greenHolder, {innerHTML: 'G'});
+    greenHolder.classList.add('vertical-center');
+    create('SPAN', greenHolder,{innerHTML:'G'});
     greenHolder.append(green);
 
     const blueHolder = create('DIV', inputContainer);
-    create('SPAN', blueHolder, {innerHTML: 'B'});
+    blueHolder.classList.add('vertical-center');
+    create('SPAN', blueHolder,{innerHTML:'B'});
     blueHolder.append(blue);
 }
