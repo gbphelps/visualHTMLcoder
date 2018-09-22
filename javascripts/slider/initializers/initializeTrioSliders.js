@@ -69,6 +69,8 @@ export const initializeTrioSliders = () => {
 
   const triadContainer = create('DIV',rightContainer,{
     id: 'triadContainer'
+  },{
+    width: '210px'
   });
 
   const redSlider =
