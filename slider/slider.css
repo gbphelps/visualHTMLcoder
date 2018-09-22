@@ -123,3 +123,21 @@ html,body{
   display:flex;
   align-items: center;
 }
+
+#copyButton{
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  cursor: pointer;
+  text-align: center;
+  line-height: 35px;
+  color: white;
+  background: linear-gradient(140deg,#333,black);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.4);
+}

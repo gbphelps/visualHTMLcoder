@@ -11,14 +11,14 @@ export const updateTrioDraggers = (colorTrio) => {
   Object.assign(status, colorTrio);
 
     redDragger.status = status.red;
-    redDragger.style.left = redDragger.status - redDragger.diameter/2 + 'px';
+    redDragger.style.left = redDragger.status - redDragger.diameter/2 + 5 + 'px';
     redProgress.style.width = redDragger.status + 'px';
 
     greenDragger.status = status.green;
-    greenDragger.style.left = greenDragger.status - greenDragger.diameter/2 + 'px';
+    greenDragger.style.left = greenDragger.status - greenDragger.diameter/2 + 5 + 'px';
     greenProgress.style.width = greenDragger.status + 'px';
 
     blueDragger.status = status.blue;
-    blueDragger.style.left = blueDragger.status - blueDragger.diameter/2 + 'px';
+    blueDragger.style.left = blueDragger.status - blueDragger.diameter/2 + 5 + 'px';
     blueProgress.style.width = blueDragger.status + 'px';
 }

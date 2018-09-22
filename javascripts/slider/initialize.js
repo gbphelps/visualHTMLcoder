@@ -46,7 +46,8 @@ export const initialize = () => {
       height: '100%',
       display: 'flex',
       'flex-direction': 'column',
-      'justify-content': 'space-between'});
+      'justify-content': 'space-between',
+      'align-items': 'center'});
   initializeSwatch(150); //TODO variable
   initializeTrioSliders();
 

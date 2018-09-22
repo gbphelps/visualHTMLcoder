@@ -14,7 +14,7 @@ export const initializeTrioSliders = () => {
     height: '50px',
     width: '50px',
     'border-radius': '50%',
-    left: -25 + 'px',
+    left: -25 + 5 + 'px', // 5 is radius of trackStyle
     top: (10-50)/2 + 'px',
     position: 'absolute',
     cursor: 'url(https://ssl.gstatic.com/ui/v1/icons/mail/images/2/openhand.cur), default'
@@ -41,7 +41,7 @@ export const initializeTrioSliders = () => {
   const trackStyle = {
     background: '#000',
     height: '100%',
-    width: '199px',
+    width: '209px',
     position: 'absolute',
     top: 0,
     left: '1px',
@@ -60,7 +60,7 @@ export const initializeTrioSliders = () => {
     offset + 85
   ]
   let xCoords = heights.map(y => Math.sqrt(radius*radius - (radius-y)*(radius-y)));
-  xCoords = xCoords.map(el => el - xCoords[1]-40);
+  xCoords = xCoords.map(el => 0) //el - xCoords[1]-40);
   console.log(xCoords);
 
 
@@ -69,10 +69,6 @@ export const initializeTrioSliders = () => {
 
   const triadContainer = create('DIV',rightContainer,{
     id: 'triadContainer'
-  },{
-    //background: 'linear-gradient(140deg,#333,black)',
-    padding: ' 0 20px',
-    //'border-bottom': '1px solid black'
   });
 
   const redSlider =
@@ -90,7 +86,7 @@ export const initializeTrioSliders = () => {
       diameter: 50,
       status: 200
     },draggerStyle)
-  redDragger.style.left = 200 - 25 + 'px'
+  redDragger.style.left = 200 - 25 + 5 + 'px' //5 is trackStyle radius
 
 
   const redPip =
@@ -188,4 +184,9 @@ export const initializeTrioSliders = () => {
       left: 0,
       'border-radius': '5px'
     })
+
+    //TODO TODO TODO trioSliders look asymmetrical because when at 0/255, they need
+    //to be centered on the border radius of the track. track is 10px, so radius
+    //is 5px. Need to shift draggers over 5px and add 10 px to the trackStyle width.
+    //make sure this propagates to setters and initializers.
 }
