@@ -11,7 +11,7 @@ export const updateTrioDraggers = (colorTrio) => {
   Object.assign(status, colorTrio);
 
     redDragger.status = status.red;
-    redDragger.style.left = redDragger.status - redDragger.diameter/2 + 5 + 'px';
+    redDragger.style.left = redDragger.status - redDragger.diameter/2 + 5 + 'px'; //5 is trackStyle radius
     redProgress.style.width = redDragger.status + 'px';
 
     greenDragger.status = status.green;
