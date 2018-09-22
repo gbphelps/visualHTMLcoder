@@ -21,6 +21,7 @@ export const initializeSwatch = (containerWidth) => {
     const red = document.createElement('INPUT');
     red.id = 'color-0';
     red.last = 255;
+    //these are the saved previous inputs in case of invalid user input
     const green = document.createElement('INPUT');
     green.last = 0;
     green.id = 'color-1';
@@ -30,18 +31,22 @@ export const initializeSwatch = (containerWidth) => {
 
     [red,green,blue].forEach(input => {
       input.addEventListener('input',colorInputCallback);
-      input.addEventListener('focus',e=>e.target.select());
+      //input.addEventListener('focus',e=>e.target.select());
     })
 
     const inputContainer = create('DIV', swatch, {
         id: 'inputContainer'
       });
 
-    create('SPAN', inputContainer, {innerHTML: 'rgb('});
-    inputContainer.append(red);
-    create('SPAN', inputContainer, {innerHTML: ','});
-    inputContainer.append(green);
-    create('SPAN', inputContainer, {innerHTML: ','});
-    inputContainer.append(blue);
-    create('SPAN', inputContainer, {innerHTML: ')'});
+    const redHolder = create('DIV', inputContainer);
+    create('SPAN', redHolder, {innerHTML: 'R'});
+    redHolder.append(red);
+
+    const greenHolder = create('DIV', inputContainer);
+    create('SPAN', greenHolder, {innerHTML: 'G'});
+    greenHolder.append(green);
+
+    const blueHolder = create('DIV', inputContainer);
+    create('SPAN', blueHolder, {innerHTML: 'B'});
+    blueHolder.append(blue);
 }

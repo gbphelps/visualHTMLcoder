@@ -37,26 +37,35 @@
 }
 
 input{
-  background: none;
   border: none;
   font-family: 'Roboto Mono', monospace;
   color:inherit;
   font-size:inherit;
-  text-align: right;
-  margin: 0;
+  text-align: center;
+  margin: 5px;
   padding: 0;
   display: inline;
-  width: 23px
+  width: 60px;
+  background: rgba(255,255,255,.3);
+  border-radius: 100px;
+  transition: background .3s, color .3s;
 }
 
 input:focus{
   outline: none;
+  background: white;
+  color: black;
   /* background: rgba(255,255,255,.2) */
 }
 
+/* ::selection{
+  background: none;
+  color: black;
+} */
+
 #swatch{
   font-family: 'Roboto Mono', monospace;
-  font-size: 12px;
+  font-size: 16px;
   margin: 0 0 0 5px;
   display:flex;
   flex-direction: column;

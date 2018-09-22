@@ -15,6 +15,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     height: canvasWidth + 'px',
     width: canvasWidth + 'px',
     position: 'relative',
+    'box-shadow': '0 8px 8px 0 rgba(0,0,0,.2)'
     //border: '3px solid black',
   })
 
@@ -32,7 +33,7 @@ export const initializeCircleSlider = (canvasWidth, spectrumWidth, dragDiam) => 
     id: 'circleSlider',
     height: canvasWidth,
     width: canvasWidth,
-    thickness: spectrumWidth
+    thickness: spectrumWidth,
   });
 
   const circleDragger = create('DIV', spectrumContainer, {

@@ -41,11 +41,12 @@ export const initializeTrioSliders = () => {
   const trackStyle = {
     background: '#000',
     height: '100%',
-    width: '195px',
+    width: '199px',
     position: 'absolute',
     top: 0,
-    left: '5px',
-    'border-radius': '5px'
+    left: '1px',
+    'border-radius': '5px',
+    'box-shadow': '0 8px 8px 0 rgba(0,0,0,.2)'
   }
 
 
